@@ -1,0 +1,23 @@
+{% extends 'admin.html.twig' %}
+
+{% block content %}
+	<div class="container">
+		<div class="row">
+			<div class="col-md-8 offset-md-2">
+				<div class="card">
+					<div class="card-header">
+						<h1 class="card-title">Créer une nouvelle Catégorie</h1>
+					</div>
+					<div class="card-body">
+						{{ include('categorie/_form.html.twig') }}
+					</div>
+					<div class="card-footer text-muted">
+						<a href="{{ path('app_categorie_index') }}" class="btn btn-primary">Voir la liste des catégories</a>
+						<a href="{{ path('app_list_formations') }}" class="btn btn-primary">Retour a la liste des formations
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

@@ -1,0 +1,187 @@
+{% extends 'admin.html.twig' %}
+
+
+{% block title %}New Formation{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('path/to/font-awesome/css/all.min.css') }}" />
+{% endblock %}
+
+
+{% block content %}
+ <div class="page-content">
+     <div class="title-container">
+        <h2 class="form-title"> <i class="fas fa-lightbulb"  style="margin-right: 10px;"></i>Creation d'un espace sur Formini.TN</h2>
+    </div>
+	<br/>
+
+    {% for message in app.flashes('error') %}
+        <div class="alert alert-danger">{{ message }}</div>
+    {% endfor %}
+
+    <form method="post" action="{{ path('app_formation_new') }}">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card custom-card">
+				 <div class="card-header" style=" background-color:  #213e60">
+                       <h5 class="card-title" style="color: #ffffff;">  <i   style="margin-right: 10px;" class="fas fa-info-circle"></i>Informations Générales</h5>
+                  </div>
+               
+                    <div class="card-body card-container">
+                        <div class="form-group">
+                            <label class="form-label" for="nomForm"> <i style="margin-right: 10px;" class="fas fa-chalkboard-teacher"></i>Nom de la formation:</label>
+                            <input type="text" id="nomForm" name="nomForm" class="form-control form-input" placeholder="Taper le nom de la formation">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="description"> <i style="margin-right: 10px;" class="fas fa-align-left"></i> Description:</label>
+                            <input type="text" id="description" name="description" class="form-control form-input" placeholder="Description Formation...">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="formation_cat"> <i style="margin-right: 10px;" class="fas fa-tags"></i>Catégorie:</label>
+                            <select id="formation_cat" name="categoryId" class="form-control form-input" required>
+                                <option value="">Choisir la catégorie</option>
+                                {% for category in categories %}
+                                    <option value="{{ category.getIdCat() }}">{{ category.getNomCat() }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <br/> <br/> <br/> <br/>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+			 <div class="card custom-card">
+
+			     <div class="card-header" style="background-color:  #213e60">
+                       <h5 class="card-title" style="color: #ffffff;"> <i style="margin-right: 10px;"   class="fas fa-bars"></i> Autres Options </h5>
+                  </div>
+               
+                    <div class="card-body card-container"  style=" " >
+                        <div class="form-group">
+                            <label class="form-label" for="nomRoom"><i style="margin-right: 10px;" class="fas fa-envelope"></i> Nom de la messagerie:</label>
+                            <input type="text" id="nomRoom" name="nomRoom" required class="form-control form-input" placeholder="Nom de la messagerie">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="roomDescription"><i style="margin-right: 10px;"  class="fas fa-comment"></i>Description:</label>
+                            <input type="text" id="roomDescription" name="roomDescription" class="form-control form-input" placeholder="Description">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="comboboxu" class="form-label">
+                                <i style="margin-right: 10px;"  class="fas fa-user"></i>Utilisateur:</label>
+                            <select id="comboboxu" name="comboboxu" class="form-control form-input">
+							 <option value="">Choisir un admin </option>
+                                {% for user in users %}
+                                    <option value="{{ user.getIdUser() }}">{{ user.getUsername() }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+						<div class="form-group">
+                            <label  class="form-label" for="certificat"><i style="margin-right: 10px;"  class="fas fa-certificate"></i>Certificat :</label>
+                            <select id="certificat" name="certificatId" class="form-control form-input" required>
+                                <option value="">Choisir un certificat</option>
+                                {% for certificat in certificats %}
+                                    <option value="{{ certificat.getIdCertif() }}">{{ certificat.getNomCertif() }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button type="submit" class="custom-button btn-block mt-4">Confirmer</button>
+    </form>
+
+	</div>
+	 <style>
+	.page-content {
+        font-family: Georgia, serif; /* Apply font-family to page content */
+    }
+ body {
+
+        background-color: #f8f9fa; /* Light gray background */
+        color: #212529; /* Dark text color */
+        
+    }
+	title-container {
+            text-align: center; /* Center the title */
+            margin-bottom: 40px; /* Add some space below the title */
+        }
+
+        .form-title {
+            font-size: 32px; /* Increase font size */
+            color: #213e60; /* Your custom color */
+            font-weight: bold; /* Make the title bold */
+            text-transform: uppercase; /* Uppercase text */
+            letter-spacing: 2px; /* Add letter spacing for emphasis */
+        }
+
+   
+
+	.form-label {
+        font-size: 15px; /* Adjust font size as needed */
+        font-weight: bold; /* Bold font weight */
+    }
+
+    /* Style for form input fields */
+    .form-input {
+		border-color:#d8d1bd; 
+		 border: 2px solid #ccc; /* Custom border style */
+    border-radius: 10px;
+        font-size: 16px; /* Adjust font size as needed */
+        /* Adjust border radius as needed */
+    }
+	.form-group {
+    margin-bottom: 20px; /* Add spacing between form groups */
+}
+
+
+ .card-container {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+ .custom-card {
+        border-radius: 15px; /* Adjust border radius as needed */
+		 box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+    }
+    .custom-button {
+       background-color: #213E60; /* Change to your desired color */
+    color: white; /* Text color */
+    display: block;
+    margin: 0 auto;
+    width: 300px; /* Adjust width as needed */
+    text-align: center;
+    padding: 10px 20px; /* Adjust padding as needed */
+    border-radius: 20px; /* Rounded corners */
+    border: none; /* Remove border */
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    font-weight: bold; /* Make text bold */
+    }
+
+    .custom-button:hover {
+		
+       text-decoration: underline;
+		transform: scale(1.05);
+         background-color: #2C5282; /* Change to your desired color on hover */
+}
+
+.card-body {
+  flex-grow: 1; /* Ensure card body takes up remaining space */
+}
+</style>
+              <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+{% endblock %}

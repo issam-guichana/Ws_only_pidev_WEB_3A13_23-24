@@ -1,0 +1,29 @@
+{% extends 'admin.html.twig' %}
+
+{% block content %}
+	<div class="container">
+		<h2 class="text-center">Détails de la Formation</h2>
+		<div class="row justify-content-center">
+			<div class="col-md-8">
+				<div class="card">
+					<div class="card-body">
+						<h1>{{ formation.nomForm }}</h1>
+						<p>{{ formation.description }}</p>
+
+						<h2>Formateur (Créateur)</h2>
+						<p>{{ formation.getFormateurs().first().getUser().getNom() }}</p>
+
+						<h2>Participants</h2>
+						<ul>
+							{% for userFormation in formation.getParticipants() %}
+								<li>{{ userFormation.getUser().getNom() }}
+
+								</li>
+							{% endfor %}
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

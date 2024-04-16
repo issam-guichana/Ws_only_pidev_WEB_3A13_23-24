@@ -1,0 +1,48 @@
+{% extends 'admin.html.twig' %}
+
+{% block content %}
+	<h1>Détails des Formations</h1>
+
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Formation</th>
+
+				<th>Formateur</th>
+				<th>Clients</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for user_form_room in user_form_rooms %}
+				<tr>
+					<td>{{ user_form_room.getForm().getNomForm() }}</td>
+
+					<td>
+						{% set formateurs = user_form_room.getForm().getFormateurs() %}
+						{% if formateurs|length > 0 %}
+							{% set formateur = formateurs.first() %}
+							{% if formateur is not null %}
+								{{ formateur.getUser().getUsername() }}
+							{% else %}
+								Aucun formateur
+							{% endif %}
+						{% else %}
+							Aucun formateur
+						{% endif %}
+					</td>
+					<td>
+						<ul>
+							{% for client in user_form_room.getForm().getParticipants() %}
+								<li>
+									{{ client.getUser().getUsername() }}
+									<a href="{{ path('app_user_form_room_delete', {'idFR': user_form_room.getIdFR()}) }}">Supprimer</a>
+								</li>
+							{% endfor %}
+						</ul>
+					</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+	<a href="{{ path('app_list_formations') }}">Retour à la liste des formations</a>
+{% endblock %}

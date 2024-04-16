@@ -1,0 +1,14 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Edit UserFormRoom
+{% endblock %}
+
+{% block body %}
+	<h1>Edit UserFormRoom</h1>
+
+	{{ include('user_form_room/_form.html.twig', {'button_label': 'Update'}) }}
+
+	<a href="{{ path('app_user_form_room_index') }}">back to list</a>
+
+	{{ include('user_form_room/_delete_form.html.twig') }}
+{% endblock %}
