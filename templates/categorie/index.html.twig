@@ -1,36 +1,107 @@
 {% extends 'admin.html.twig' %}
 
 {% block content %}
-	<h1>Liste des catégories</h1>
+    <div class="title-container">
+        <h1>Liste des catégories</h1>
 
-	<table class="table">
-		<thead>
-			<tr>
-				<th>IdCat</th>
-				<th>NomCat</th>
-				<th>Actions</th>
-			</tr>
-		</thead>
-		<tbody>
-			{% for categorie in categories %}
-				<tr>
-					<td>{{ categorie.idCat }}</td>
-					<td>{{ categorie.nomCat }}</td>
-					<td>
-						<a href="{{ path('app_categorie_show', {'idCat': categorie.idCat}) }}">Voir</a>
-						<a href="{{ path('app_categorie_edit', {'idCat': categorie.idCat}) }}">Modifier</a>
-						{{ include('categorie/_delete_form.html.twig', {'idCat': categorie.idCat}) }}
-					</td>
-				</tr>
-			{% else %}
-				<tr>
-					<td colspan="3">Aucun enregistrement trouvé</td>
-				</tr>
-			{% endfor %}
-		</tbody>
-	</table>
+        <table class="table custom-table">
+            <thead>
+                <tr>
+                 
+                    <th>NomCat</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for categorie in categories %}
+                    <tr>
+                       
+                        <td>{{ categorie.nomCat }}</td>
+                        <td>
+                            <a href="{{ path('app_categorie_show', {'idCat': categorie.idCat}) }}" class="btn btn-info">Voir</a>
+                            <a href="{{ path('app_categorie_edit', {'idCat': categorie.idCat}) }}" class="btn btn-warning">Modifier</a>
+                            {{ include('categorie/_delete_form.html.twig', {'idCat': categorie.idCat}) }}
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="3">Aucun enregistrement trouvé</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
 
-	<a href="{{ path('app_list_formations') }}">Voir la liste des formations</a>
+        <a href="{{ path('app_list_formations') }}" class="btn btn-primary">Voir la liste des formations</a>
 
-	<a href="{{ path('app_categorie_new') }}">Créer une nouvelle catégorie</a>
+        <a href="{{ path('app_categorie_new') }}" class="btn btn-success">Créer une nouvelle catégorie</a>
+    </div>
 {% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('path/to/font-awesome/css/all.min.css') }}" />
+    <style>
+        .container {
+        font-family: Georgia, serif; /* Apply font-family to page content */
+    }
+
+.title-container {
+            text-align: center; /* Center the title */
+            margin-bottom: 40px;
+			font-family: Georgia, serif;
+			 /* Add some space below the title */
+        }
+        .custom-table {
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .table th,
+        .table td {
+            border: 1px solid #dee2e6; /* Match the border color to the first template */
+        }
+        .card-header {
+            background-color: #213e60; /* Change background color */
+        }
+        .card-title {
+            color: #ffffff; /* Change title color */
+        }
+        .btn-info,
+        .btn-warning,
+        .btn-primary,
+        .btn-success {
+            border-radius: 20px; /* Adjust border radius */
+        }
+        .btn-info {
+            background-color: #E68C3A; /* Change info button background color */
+            border-color: #E68C3A; /* Change info button border color */
+        }
+        .btn-info:hover {
+            background-color: #0056b3; /* Change info button hover background color */
+            border-color: #0056b3; /* Change info button hover border color */
+        }
+        .btn-warning {
+            background-color: #D8D1BD; /* Change warning button background color */
+            border-color: #ffc107; /* Change warning button border color */
+        }
+        .btn-warning:hover {
+            background-color: #213E60; /* Change warning button hover background color */
+            border-color: #d39e00; /* Change warning button hover border color */
+        }
+        .btn-primary {
+            background-color: #213E60; /* Change primary button background color */
+            border-color: #213E60; /* Change primary button border color */
+        }
+        .btn-primary:hover {
+            background-color: #213E60; /* Change primary button hover background color */
+            border-color: #218838; /* Change primary button hover border color */
+        }
+        .btn-success {
+            background-color: #213E60; /* Change success button background color */
+            border-color: #213E60; /* Change success button border color */
+        }
+        .btn-success:hover {
+            background-color: #213E60; /* Change success button hover background color */
+            border-color: #c82333; /* Change success button hover border color */
+        }
+    </style>
+{% endblock %}
+

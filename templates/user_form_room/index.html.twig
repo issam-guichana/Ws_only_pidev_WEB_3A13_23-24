@@ -112,12 +112,12 @@
                         </td>
                         <td>
                             <ul>
-                                {% for client in user_form_room.getForm().getParticipants() %}
-                                    <li>
-                                        {{ client.getUser().getUsername() }}
-                                        <a href="{{ path('app_user_form_room_delete', {'idFR': user_form_room.getIdFR()}) }}">Supprimer</a>
-                                    </li>
-                                {% endfor %}
+                                 {% for client in user_form_room.getForm().getParticipants() %}
+    <li>
+        {{ client.getUser().getUsername() }}
+          <a href="{{ path('app_user_form_room_delete_client', {'idFR': user_form_room.getIdFR(), 'userId': client.getUser().getIdUser()}) }}">Supprimer</a>
+    </li>
+{% endfor %}
                             </ul>
                         </td>
                     </tr>

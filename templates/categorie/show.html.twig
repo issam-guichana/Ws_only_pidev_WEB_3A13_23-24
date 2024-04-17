@@ -1,26 +1,102 @@
 {% extends 'admin.html.twig' %}
 
 {% block content %}
-	<h1>Détails de la catégorie</h1>
+    <div class="title-container">
+        <h1>Liste des catégories</h1>
 
-	<table class="table">
-		<tbody>
-			<tr>
-				<th>Identifiant</th>
-				<td>{{ categorie.idCat }}</td>
-			</tr>
-			<tr>
-				<th>Nom</th>
-				<td>{{ categorie.nomCat }}</td>
-			</tr>
-		</tbody>
-	</table>
+        <table class="table custom-table">
+            <thead>
+                <tr>
+                    <th>NomCat</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                    <tr>
+                        <td>{{ categorie.nomCat }}</td>
+                        <td>
+                          
+                            <a href="{{ path('app_categorie_edit', {'idCat': categorie.idCat}) }}" class="btn btn-warning">Modifier</a>
+                            {{ include('categorie/_delete_form.html.twig', {'idCat': categorie.idCat}) }}
+                        </td>
+                    </tr>
+                
+                
+            </tbody>
+        </table>
 
-	<a href="{{ path('app_categorie_index') }}" class="btn btn-secondary">Retour à la liste des catégories</a>
+        <a href="{{ path('app_list_formations') }}" class="btn btn-primary">Voir la liste des formations</a>
 
-	<a href="{{ path('app_list_formations') }}" class="btn btn-primary">Voir la liste des formations</a>
+        <a href="{{ path('app_categorie_new') }}" class="btn btn-success">Créer une nouvelle catégorie</a>
+    </div>
+{% endblock %}
 
-	<a href="{{ path('app_categorie_edit', {'idCat': categorie.idCat}) }}" class="btn btn-warning">Éditer</a>
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        /* Your custom styles here */
+        .title-container {
+            text-align: center;
+            margin-bottom: 40px;
+            font-family: Georgia, serif;
+        }
 
-	{{ include('categorie/_delete_form.html.twig') }}
+        .custom-table {
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .table th,
+        .table td {
+            border: 1px solid #dee2e6;
+        }
+
+        .btn-info,
+        .btn-warning,
+        .btn-primary,
+        .btn-success {
+            border-radius: 20px;
+        }
+
+        .btn-info {
+            background-color: #E68C3A;
+            border-color: #E68C3A;
+        }
+
+        .btn-info:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+        .btn-warning {
+            background-color: #D8D1BD;
+            border-color: #ffc107;
+        }
+
+        .btn-warning:hover {
+            background-color: #213E60;
+            border-color: #d39e00;
+        }
+
+        .btn-primary {
+            background-color: #213E60;
+            border-color: #213E60;
+        }
+
+        .btn-primary:hover {
+            background-color: #213E60;
+            border-color: #218838;
+        }
+
+        .btn-success {
+            background-color: #213E60;
+            border-color: #213E60;
+        }
+
+        .btn-success:hover {
+            background-color: #213E60;
+            border-color: #c82333;
+        }
+    </style>
 {% endblock %}

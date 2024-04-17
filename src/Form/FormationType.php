@@ -13,13 +13,13 @@ class FormationType extends AbstractType
     {
         $builder
             ->add('nomForm', null, [
-                'label' => 'Nom de la formation',
+                'label' => 'Nom de la formation:',
             ])
             ->add('description', null, [
-                'label' => 'Description de la formation',
+                'label' => 'Description de la formation:',
             ])
             ->add('cat', null, [
-                'label' => 'Catégorie de la formation',
+                'label' => 'Catégorie de la formation:',
             ]);
     }
 

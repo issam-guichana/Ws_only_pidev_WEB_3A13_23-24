@@ -137,17 +137,6 @@ class FormationController extends AbstractController
             'form' => $form,
         ]);
     }
-
-    #[Route('/{idForm}', name: 'app_formation_delete', methods: ['POST'])]
-    public function delete(Request $request, Formation $formation, EntityManagerInterface $entityManager): Response
-    {
-        if ($this->isCsrfTokenValid('delete' . $formation->getIdForm(), $request->request->get('_token'))) {
-            $entityManager->remove($formation);
-            $entityManager->flush();
-        }
-
-        return $this->redirectToRoute('formation/ListFormations.html.twig', [], Response::HTTP_SEE_OTHER);
-    }
     #[Route('/formations', name: 'app_list_formations', methods: ['GET'])]
     public function listFormations(FormationRepository $formationRepository, UserFormRoomRepository $userFormRoomRepository): Response
     {
@@ -164,6 +153,17 @@ class FormationController extends AbstractController
             'userFormRooms' => $userFormRooms,
         ]);
     }
+    #[Route('/{idForm}', name: 'app_formation_delete', methods: ['POST'])]
+    public function delete(Request $request, Formation $formation, EntityManagerInterface $entityManager): Response
+    {
+        if ($this->isCsrfTokenValid('delete' . $formation->getIdForm(), $request->request->get('_token'))) {
+            $entityManager->remove($formation);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('app_list_formations', [], Response::HTTP_SEE_OTHER);
+    }
+    
     #[Route('/courses', name: 'courses')]
     public function courses(FormationRepository $formationRepository): Response
     {
@@ -175,4 +175,5 @@ class FormationController extends AbstractController
             'formations' => $formations,
         ]);
     }
+    
 }

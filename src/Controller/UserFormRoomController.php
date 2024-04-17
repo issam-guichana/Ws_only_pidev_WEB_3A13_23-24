@@ -143,4 +143,33 @@ class UserFormRoomController extends AbstractController
         // Redirigez l'utilisateur vers une page appropriée
         return $this->redirectToRoute('app_user_form_room_index');
     }
+    
+
+    #[Route('/{idFR}/delete/client/{userId}', name: 'app_user_form_room_delete_client', methods: ['POST'])]
+public function deleteClient(Request $request, int $idFR, int $userId, EntityManagerInterface $entityManager): Response
+{
+    $userFormRoom = $entityManager->getRepository(UserFormRoom::class)->find($idFR);
+    $user = $entityManager->getRepository(User::class)->find($userId);
+
+    if (!$userFormRoom || !$user) {
+        throw $this->createNotFoundException('La relation utilisateur-formation demandée n\'existe pas.');
+    }
+
+    // Assurez-vous que l'utilisateur supprimé est effectivement un client de la formation
+    $userFormation = $entityManager->getRepository(UserFormation::class)->findOneBy([
+        'formation' => $userFormRoom->getForm(),
+        'user' => $user
+    ]);
+
+    if (!$userFormation || $userFormation->getRole() !== 'CLIENT') {
+        throw $this->createNotFoundException('L\'utilisateur n\'est pas un client de cette formation.');
+    }
+
+    $entityManager->remove($userFormRoom);
+    $entityManager->flush();
+
+    // Redirection vers la page précédente ou une autre page appropriée
+    return $this->redirectToRoute('app_user_form_room_index');
+}
+
 }

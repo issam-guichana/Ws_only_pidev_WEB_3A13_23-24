@@ -23,3 +23,8 @@ app_front:
 courses:
   path: "/courses"
   controller: App\Controller\FormationController::courses
+  
+app_user_form_room_delete_client:
+    path: '/user/form/room/{idFR}/delete/client/{userId}'
+    controller: 'App\Controller\UserFormRoomController::deleteClient'
+    methods: ['POST']

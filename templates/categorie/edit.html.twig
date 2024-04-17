@@ -1,22 +1,61 @@
 {% extends 'admin.html.twig' %}
 
 {% block content %}
-	<div class="container">
-		<div class="row">
-			<div class="col-md-8 offset-md-2">
-				<div class="card">
-					<div class="card-header">
-						<h1 class="card-title">Modifier la catégorie</h1>
-					</div>
-					<div class="card-body">
-						{{ include('categorie/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
-					</div>
-					<div class="card-footer">
-						<a href="{{ path('app_categorie_index') }}" class="btn btn-secondary">Retour à la liste</a>
-					</div>
-				</div>
-				{{ include('categorie/_delete_form.html.twig') }}
-			</div>
-		</div>
-	</div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <div class="card custom-card">
+                    <div class="card-header" style="background-color: #213e60;">
+                        <h1 class="card-title" style="color: #ffffff;">Modifier la catégorie</h1>
+                    </div>
+                    <div class="card-body">
+                       {{ include('categorie/_form.html.twig', {'button_label': 'Mettre à jour', 'button_class': 'btn btn-success'}) }}
+
+                    </div>
+                    <div class="card-footer">
+                        <a href="{{ path('app_categorie_index') }}" class="btn btn-secondary">Retour à la liste</a>
+                       
+                    </div>
+                
+        </div>
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        /* Your custom styles here */
+        .custom-card {
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header {
+            background-color: #213e60;
+        }
+
+        .card-title {
+            color: #ffffff;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            border-color: #6c757d;
+        }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+            border-color: #545b62;
+        }
+
+        .btn-success {
+            background-color: #28a745; /* Updated button color */
+            border-color: #28a745; /* Updated border color */
+        }
+
+        .btn-success:hover {
+            background-color: #218838;
+            border-color: #1e7e34;
+        }
+    </style>
 {% endblock %}
