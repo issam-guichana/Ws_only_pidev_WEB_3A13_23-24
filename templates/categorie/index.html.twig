@@ -1,0 +1,36 @@
+{% extends 'admin.html.twig' %}
+
+{% block content %}
+	<h1>Liste des catégories</h1>
+
+	<table class="table">
+		<thead>
+			<tr>
+				<th>IdCat</th>
+				<th>NomCat</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for categorie in categories %}
+				<tr>
+					<td>{{ categorie.idCat }}</td>
+					<td>{{ categorie.nomCat }}</td>
+					<td>
+						<a href="{{ path('app_categorie_show', {'idCat': categorie.idCat}) }}">Voir</a>
+						<a href="{{ path('app_categorie_edit', {'idCat': categorie.idCat}) }}">Modifier</a>
+						{{ include('categorie/_delete_form.html.twig', {'idCat': categorie.idCat}) }}
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="3">Aucun enregistrement trouvé</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+	<a href="{{ path('app_list_formations') }}">Voir la liste des formations</a>
+
+	<a href="{{ path('app_categorie_new') }}">Créer une nouvelle catégorie</a>
+{% endblock %}

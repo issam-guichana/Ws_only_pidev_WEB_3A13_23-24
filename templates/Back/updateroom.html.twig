@@ -1,0 +1,43 @@
+{# templates/Back/updateroom.html.twig #}
+
+
+{% if app.flashes('success') %}
+        <div class="alert alert-success">
+            {% for message in app.flashes('success') %}
+                {{ message }}
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <form method="post">
+        <input type="hidden" name="id_room" value="{{ room.idRoom }}">
+        <div class="form-group">
+            <label for="nomRoom">Room Name</label>
+            <input type="text" id="nomRoom" name="nomRoom" class="form-control" value="{{ room.nomRoom }}">
+        </div>
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea id="description" name="description" class="form-control">{{ room.description }}</textarea>
+        </div>
+        <div class="form-group">
+            <label for="dateCRoom">Creation Date</label>
+            <input type="date" id="dateCRoom" name="dateCRoom" class="form-control" value="{{ room.dateCRoom|date('Y-m-d') }}">
+        </div>
+        <div class="form-group">
+            <label for="combobox">Formation</label>
+            <select id="combobox" name="combobox" class="form-control">
+                {% for formation in formations %}
+                    <option value="{{ formation.idForm }}">{{ formation.nomForm }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="comboboxu">User</label>
+            <select id="comboboxu" name="comboboxu" class="form-control">
+                {% for user in users %}
+                    <option value="{{ user.idUser }}">{{ user.username }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Update Room</button>
+    </form>

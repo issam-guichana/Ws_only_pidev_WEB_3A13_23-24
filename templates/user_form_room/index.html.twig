@@ -1,0 +1,130 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Détails des Formations{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        /* Styles CSS pour la liste des formations */
+        .page-content {
+            font-family: Georgia, serif; /* Appliquer la police Georgia au contenu de la page */
+        }
+        body {
+            background-color: #f8f9fa; /* Couleur de fond gris clair */
+            color: #212529; /* Couleur du texte sombre */
+        }
+        .title-container {
+            text-align: center; /* Centrer le titre */
+            margin-bottom: 40px; /* Ajouter de l'espace en dessous du titre */
+        }
+        .form-title {
+            font-size: 32px; /* Augmenter la taille de la police */
+            color: #213e60; /* Votre couleur personnalisée */
+            font-weight: bold; /* Rendre le titre en gras */
+            text-transform: uppercase; /* Texte en majuscules */
+            letter-spacing: 2px; /* Ajouter de l'espacement entre les lettres */
+        }
+        .table {
+            width: 100%;
+            margin-bottom: 1rem;
+            color: #212529;
+            border-collapse: collapse;
+        }
+        .table th,
+        .table td {
+            padding: 0.75rem;
+            vertical-align: top;
+            border-top: 1px solid #dee2e6;
+        }
+        .table thead th {
+            vertical-align: bottom;
+            border-bottom: 2px solid #dee2e6;
+        }
+        .table tbody+tbody {
+            border-top: 2px solid #dee2e6;
+        }
+        .alert-danger {
+            color: #721c24;
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+        }
+        .alert {
+            position: relative;
+            padding: 0.75rem 1.25rem;
+            margin-bottom: 1rem;
+            border: 1px solid transparent;
+            border-radius: 0.25rem;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        ul li {
+            margin-bottom: 5px;
+        }
+        a {
+            color: #007bff;
+            text-decoration: none;
+            background-color: transparent;
+        }
+        a:hover {
+            color: #0056b3;
+            text-decoration: underline;
+        }
+    </style>
+</style>
+{% endblock %}
+
+{% block content %}
+    <div class="page-content">
+        <div class="title-container">
+            <h2 class="form-title">Détails des Formations</h2>
+        </div>
+
+        {% for message in app.flashes('error') %}
+            <div class="alert alert-danger">{{ message }}</div>
+        {% endfor %}
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Formation</th>
+                    <th>Formateur</th>
+                    <th>Clients</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user_form_room in user_form_rooms %}
+                    <tr>
+                        <td>{{ user_form_room.getForm().getNomForm() }}</td>
+                        <td>
+                            {% set formateurs = user_form_room.getForm().getFormateurs() %}
+                            {% if formateurs|length > 0 %}
+                                {% set formateur = formateurs.first() %}
+                                {% if formateur is not null %}
+                                    {{ formateur.getUser().getUsername() }}
+                                {% else %}
+                                    Aucun formateur
+                                {% endif %}
+                            {% else %}
+                                Aucun formateur
+                            {% endif %}
+                        </td>
+                        <td>
+                            <ul>
+                                {% for client in user_form_room.getForm().getParticipants() %}
+                                    <li>
+                                        {{ client.getUser().getUsername() }}
+                                        <a href="{{ path('app_user_form_room_delete', {'idFR': user_form_room.getIdFR()}) }}">Supprimer</a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <a href="{{ path('app_list_formations') }}">Retour à la liste des formations</a>
+    </div>
+{% endblock %}

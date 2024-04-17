@@ -1,3 +1,25 @@
-#index:
-#    path: /
-#    controller: App\Controller\DefaultController::index
+index:
+  path: /test
+  controller: App\Controller\TestController::index
+
+login:
+  path: /login
+  controller: App\Controller\LoginController::login
+
+app_list_formations:
+  path: /formations
+  controller: 'App\Controller\FormationController::listFormations'
+  methods: GET
+
+app_back:
+  path: /Back
+  controller: 'App\Controller\BackController::index'
+  methods: GET
+
+app_front:
+  path: /Front
+  controller: 'App\Controller\FrontController::index'
+  methods: GET
+courses:
+  path: "/courses"
+  controller: App\Controller\FormationController::courses

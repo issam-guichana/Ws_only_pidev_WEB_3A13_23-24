@@ -1,0 +1,111 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}
+    Liste des Formations
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <style>
+        /* Styles CSS pour la liste des formations */
+        .page-content {
+            font-family: Georgia, serif; /* Appliquer la police Georgia au contenu de la page */
+        }
+        body {
+            background-color: #f8f9fa; /* Couleur de fond gris clair */
+            color: #212529; /* Couleur du texte sombre */
+        }
+        .title-container {
+            text-align: center; /* Centrer le titre */
+            margin-bottom: 40px; /* Ajouter de l'espace en dessous du titre */
+        }
+        .form-title {
+            font-size: 32px; /* Augmenter la taille de la police */
+            color: #213e60; /* Votre couleur personnalisée */
+            font-weight: bold; /* Rendre le titre en gras */
+            text-transform: uppercase; /* Texte en majuscules */
+            letter-spacing: 2px; /* Ajouter de l'espacement entre les lettres */
+        }
+        .form-label {
+            font-size: 15px; /* Ajuster la taille de la police si nécessaire */
+            font-weight: bold; /* Poids de la police en gras */
+        }
+        .form-input {
+            border-color: #d8d1bd;
+            border: 2px solid #ccc; /* Style de bordure personnalisé */
+            border-radius: 10px; /* Ajuster le rayon de la bordure si nécessaire */
+            font-size: 16px; /* Ajuster la taille de la police si nécessaire */
+        }
+        .form-group {
+            margin-bottom: 20px; /* Ajouter de l'espace entre les groupes de formulaire */
+        }
+        .custom-card {
+            border-radius: 15px; /* Ajuster le rayon de la bordure si nécessaire */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Ombre personnalisée */
+        }
+        .custom-button {
+            background-color: #213E60; /* Changer en votre couleur souhaitée */
+            color: white; /* Couleur du texte */
+            display: block;
+            margin: 0 auto;
+            width: 300px; /* Ajuster la largeur si nécessaire */
+            text-align: center;
+            padding: 10px 20px; /* Ajuster le rembourrage si nécessaire */
+            border-radius: 20px; /* Coins arrondis */
+            border: none; /* Supprimer la bordure */
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s; /* Ajouter des transitions */
+            font-weight: bold; /* Rendre le texte en gras */
+        }
+        .custom-button:hover {
+            text-decoration: underline; /* Souligner au survol */
+            transform: scale(1.05); /* Agrandir légèrement au survol */
+            background-color: #2C5282; /* Changer en votre couleur souhaitée au survol */
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="page-content">
+        <div class="title-container">
+            <h1 class="form-title">Liste des Formations</h1>
+        </div>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Description</th>
+                    <th>Catégorie</th>
+                    <th>Room</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for formation in formations %}
+                    <tr>
+                        <td>{{ formation.nomForm }}</td>
+                        <td>{{ formation.description }}</td>
+                        <td>{{ formation.cat.nomCat }}</td>
+                        <td>
+                            {% set userFormRoom = userFormRooms[formation.getIdForm()] %}
+                            {% if userFormRoom is not empty %}
+                                {{ userFormRoom[0].getRoom().getNomRoom() }}
+                            {% else %}
+                                N/A
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a href="{{ path('app_formation_edit', {'idForm': formation.idForm}) }}">Éditer</a>
+                            {{ include('formation/_delete_form.html.twig', {'idForm': formation.idForm}) }}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <a href="{{ path('app_formation_new') }}" class="custom-button">Créer une nouvelle formation</a>
+        <a href="{{ path('app_user_form_room_index') }}" class="custom-button">Liste des formateurs et participants</a>
+    </div>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends 'admin.html.twig' %}
+
+{% block content %}
+
+
+	<h1>Formation</h1>
+
+	<table class="table">
+		<tbody>
+			<tr>
+				<th>IdForm</th>
+				<td>{{ formation.idForm }}</td>
+			</tr>
+			<tr>
+				<th>NomForm</th>
+				<td>{{ formation.nomForm }}</td>
+			</tr>
+			<tr>
+				<th>Description</th>
+				<td>{{ formation.description }}</td>
+			</tr>
+
+			<tr>
+				<th>Catégorie</th>
+				<td>{{ formation.cat.nomCat }}</td>
+			</tr>
+
+		</tbody>
+	</table>
+
+	<a href="{{ path('app_list_formations') }}">Retour à la liste</a>
+
+	<a href="{{ path('app_formation_edit', {'idForm': formation.idForm}) }}">Éditer</a>
+
+	{{ include('formation/_delete_form.html.twig') }}
+{% endblock %}
