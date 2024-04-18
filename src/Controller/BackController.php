@@ -15,4 +15,11 @@ class BackController extends AbstractController
             'controller_name' => 'BackController',
         ]);
     }
+    #[Route('/Front', name: 'app_front')]
+    public function index2(): Response
+    {
+        return $this->render('Front/base.html.twig', [
+            'controller_name' => 'BackController',
+        ]);
+    }
 }

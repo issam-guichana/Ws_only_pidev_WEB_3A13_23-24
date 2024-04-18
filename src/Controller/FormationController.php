@@ -192,4 +192,6 @@ public function getRoomDetails(MessageRepository $msgRepository,RoomRepository $
         // Add more details as needed
     ]);
 }
+
+
 }
