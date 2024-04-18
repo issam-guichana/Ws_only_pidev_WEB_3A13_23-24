@@ -6,6 +6,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use DateTimeInterface;
 use Symfony\Component\Validator\Constraints\DateTime;
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 /**
@@ -30,6 +31,13 @@ class Room
      * @var string
      *
      * @ORM\Column(name="nom_room", type="string", length=255, nullable=false)
+     * @Assert\NotBlank(message="Le nom de la salle ne peut pas être vide")
+     * @Assert\Length(
+     *      min = 3,
+     *      max = 255,
+     *      minMessage = "Le nom de la salle doit contenir au moins {{ limit }} caractères",
+     *      maxMessage = "Le nom de la salle ne peut pas dépasser {{ limit }} caractères"
+     * )
      */
     private $nomRoom;
 
@@ -37,6 +45,13 @@ class Room
      * @var string
      *
      * @ORM\Column(name="description", type="string", length=255, nullable=false)
+     * @Assert\NotBlank(message="La description de la salle ne peut pas être vide")
+     * @Assert\Length(
+     *      min = 10,
+     *      max = 255,
+     *      minMessage = "La description de la salle doit contenir au moins {{ limit }} caractères",
+     *      maxMessage = "La description de la salle ne peut pas dépasser {{ limit }} caractères"
+     * )
      */
     private $description;
 

@@ -122,6 +122,7 @@ class UserFormRoomController extends AbstractController
         if (!$user) {
             throw $this->createNotFoundException('L\'utilisateur demandé n\'existe pas.');
         }
+        
 
         // Créez une nouvelle inscription pour l'utilisateur fictif à cette formation
         $userFormRoom = new UserFormRoom();
@@ -215,7 +216,7 @@ public function getUserFormations(EntityManagerInterface $entityManager): Respon
 public function getFormateurFormations(EntityManagerInterface $entityManager): Response
 {
     // Define the formateur ID manually
-    $formateurId = 8; // Replace 8 with the desired formateur ID
+    $formateurId = 9; // Replace 8 with the desired formateur ID
 
     // Retrieve the formateur entity
     $formateur = $entityManager->getRepository(User::class)->find($formateurId);

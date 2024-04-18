@@ -28,3 +28,8 @@ app_user_form_room_delete_client:
     path: '/user/form/room/{idFR}/delete/client/{userId}'
     controller: 'App\Controller\UserFormRoomController::deleteClient'
     methods: ['POST']
+    
+app_formation_new1:
+    path: /newformation
+    controller: App\Controller\FormationController::newFormation
+    methods: ['GET', 'POST']

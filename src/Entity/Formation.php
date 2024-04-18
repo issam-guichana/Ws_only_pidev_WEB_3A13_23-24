@@ -29,6 +29,7 @@ class Formation
      *
      * @ORM\Column(name="nom_form", type="string", length=255, nullable=false)
      * @Assert\NotBlank(message="Le nom de la formation est obligatoire.")
+
      */
     private $nomForm;
 

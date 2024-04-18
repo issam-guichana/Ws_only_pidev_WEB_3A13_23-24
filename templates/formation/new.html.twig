@@ -39,14 +39,16 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="form-label" for="formation_cat"> <i style="margin-right: 10px;" class="fas fa-tags"></i>Catégorie:</label>
-                            <select id="formation_cat" name="categoryId" class="form-control form-input" required>
-                                <option value="">Choisir la catégorie</option>
-                                {% for category in categories %}
-                                    <option value="{{ category.getIdCat() }}">{{ category.getNomCat() }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
+    <label class="form-label" for="formation_cat">
+        <i style="margin-right: 10px;" class="fas fa-tags"></i>Catégorie:</label>
+    <select id="formation_cat" name="categoryId" class="form-control form-input" required>
+        <option value="">Choisir la catégorie </option>
+        {% for category in categories %}
+            <option value="{{ category.getIdCat() }}">{{ category.getNomCat() }}</option>
+        {% endfor %}
+    </select>
+    <a href="{{ path('app_categorie_new') }}" class="btn btn-primary btn-block custom-link">Ajouter une catégorie</a>
+</div>
 
                         <br/> <br/> <br/> <br/>
                     </div>
@@ -74,7 +76,7 @@
                             <label for="comboboxu" class="form-label">
                                 <i style="margin-right: 10px;"  class="fas fa-user"></i>Utilisateur:</label>
                             <select id="comboboxu" name="comboboxu" class="form-control form-input">
-							 <option value="">Choisir un admin </option>
+							 <option value="">Choisir un formateur </option>
                                 {% for user in users %}
                                     <option value="{{ user.getIdUser() }}">{{ user.getUsername() }}</option>
                                 {% endfor %}
@@ -176,6 +178,23 @@
 .card-body {
   flex-grow: 1; /* Ensure card body takes up remaining space */
 }
+.custom-link {
+    background-color: white; /* Set background color to white */
+    color: #213E60; /* Set text color to blue */
+    border: white; /* Add blue border */
+    border-radius: 5px; /* Add border radius */
+    padding: 10px 20px; /* Add padding */
+    text-align: center; /* Center text */
+    display: block; /* Display as block element */
+    text-decoration: none; /* Remove default underline */
+}
+
+.custom-link:hover {
+    background-color: white; /* Change background color on hover */
+    color: white; /* Change text color on hover */
+    border-color: white; /* Change border color on hover */
+}
+
 </style>
               <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
 

@@ -91,11 +91,7 @@
                         <td>{{ formation.cat.nomCat }}</td>
                         <td>
                             {% set userFormRoom = userFormRooms[formation.getIdForm()] %}
-                            {% if userFormRoom is not empty %}
-                                {{ userFormRoom[0].getRoom().getNomRoom() }}
-                            {% else %}
-                                N/A
-                            {% endif %}
+                            {{ userFormRoom[0].getRoom().getNomRoom() ?? 'N/A' }}
                         </td>
                         <td>
                             <a href="{{ path('app_formation_edit', {'idForm': formation.idForm}) }}">Éditer</a>

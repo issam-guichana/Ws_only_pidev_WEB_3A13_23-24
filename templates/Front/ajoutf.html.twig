@@ -11,12 +11,12 @@
 	<head>
 
 		<!-- Basic Page Needs
-																															================================================== -->
+																													================================================== -->
 		<meta charset="utf-8">
 		<title>Formini.tn</title>
 
 		<!-- Mobile Specific Metas
-																															================================================== -->
+																													================================================== -->
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="description" content="Construction Html5 Template">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
@@ -127,7 +127,7 @@
 						<div class="collapse navbar-collapse" id="navigation">
 							<ul class="navbar-nav ml-auto text-center">
 								<li class="nav-item @@home">
-									<a class="nav-link" href="index.html.twig">ACCUEIL</a>
+									<a class="nav-link" href="index.html.twig">Acceuil</a>
 								</li>
 								<li class="nav-item @@about">
 									<a class="nav-link" href="about.html.twig">About</a>
@@ -136,12 +136,12 @@
 									<a class="nav-link" href="courses.html.twig">FORMATIONS</a>
 								</li>
 								<li class="nav-item @@events">
-									<a class="nav-link" href="events.html.twig">EVENMENTS</a>
+									<a class="nav-link" href="events.html.twig">EVENEMENTS</a>
 								</li>
 								<li class="nav-item @@blog">
 									<a class="nav-link" href="blog.html.twig">BLOG</a>
 								</li>
-
+								
 								<li class="nav-item @@contact">
 									<a class="nav-link" href="contact.html.twig">CONTACT</a>
 								</li>
@@ -225,69 +225,99 @@
 							<li class="list-inline-item">
 								<a class="h2 text-primary font-secondary" href="index.html.twig">Acceuil</a>
 							</li>
-							<li class="list-inline-item text-white h3 font-secondary nasted">Vos Formations</li>
+							<li class="list-inline-item text-white h3 font-secondary nasted">Nos Formations</li>
 						</ul>
-						
+						<p class="text-lighten mb-0">
+Notre programme offre une excellente opportunité d'apprendre auprès de formateurs de qualité..</p>
 					</div>
 				</div>
 			</div>
 		</section>
 		<!-- /page title -->
 
-	
+		<!-- courses -->
+<div class="page-content">
+    <div class="title-container">
+        <h2 class="form-title"> <i class="fas fa-lightbulb" style="margin-right: 10px;"></i>Creation d'un espace sur Formini.TN</h2>
+    </div>
+    <br/>
 
-		{% block body %}
-			<section class="section">
-				<div
-					class="container">
-					<h1>Vos formations</h1>
-					<div class="row justify-content-center">
-						{% for formation in formateur_formations %}
-							<!-- course item -->
-							<div class="col-lg-4 col-sm-6 mb-5">
-								<div class="card p-0 border-primary rounded-0 hover-shadow">
-									<div class="card-body">
-										<ul class="list-inline mb-2">
-											<li class="list-inline-item">
-												<a class="text-color" href="#">{{ formation.getCat() }}</a>
-											</li>
-										</ul>
-										<h4 class="card-title">{{ formation.getNomForm() }}</h4>
-										<p class="card-text mb-4">{{ formation.getDescription() }}</p>
-										<a href="#" class="btn btn-primary btn-sm" onclick="event.preventDefault(); document.getElementById('inscription-form-{{ formation.getIdForm() }}').submit();">Détails</a>
+    {% for message in app.flashes('error') %}
+        <div class="alert alert-danger">{{ message }}</div>
+    {% endfor %}
 
-										<form id="inscription-form-{{ formation.getIdForm() }}" action="{{ path('app_user_form_room_inscription', {'idForm': formation.getIdForm()}) }}" method="post" style="display: none;">
-											<input type="hidden" name="idForm" value="{{ formation.getIdForm() }}">
-											{{ csrf_token('app_user_form_room_inscription') }}
-										</form>
-									</div>
-								</div>
-							</div>
-							<!-- /course item -->
-						{% endfor %}
-					</div>
-					<!-- /course list -->
-				</div>
-			</section>
-		{% endblock %}
-		<footer>
-			<!-- newsletter -->
-			<div class="newsletter">
-				<div class="container">
-					<div class="row">
-						<div class="col-md-9 ml-auto bg-primary py-5 newsletter-block">
-							<h3 class="text-white">Subscribe Now</h3>
-							<form action="#">
-								<div class="input-wrapper">
-									<input type="email" class="form-control border-0" id="newsletter" name="newsletter" placeholder="Enter Your Email...">
-									<button type="submit" value="send" class="btn btn-primary">Join</button>
-								</div>
-							</form>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- footer content -->
+    <form method="post" action="{{ path('app_formation_new1') }}">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card custom-card">
+                    <div class="card-header" style="background-color:  #213e60">
+                        <h5 class="card-title" style="color: #ffffff;"> <i style="margin-right: 10px;" class="fas fa-info-circle"></i>Informations Générales</h5>
+                    </div>
+
+                    <div class="card-body card-container">
+                        <div class="form-group">
+                            <label class="form-label" for="nomForm"> <i style="margin-right: 10px;" class="fas fa-chalkboard-teacher"></i>Nom de la formation:</label>
+                            <input type="text" id="nomForm" name="nomForm" class="form-control form-input" placeholder="Taper le nom de la formation">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="description"> <i style="margin-right: 10px;" class="fas fa-align-left"></i> Description:</label>
+                            <input type="text" id="description" name="description" class="form-control form-input" placeholder="Description Formation...">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="formation_cat">
+                                <i style="margin-right: 10px;" class="fas fa-tags"></i>Catégorie:</label>
+                            <select id="formation_cat" name="categoryId" class="form-control form-input" required>
+                                <option value="">Choisir la catégorie </option>
+                                {% for category in categories %}
+                                    <option value="{{ category.getIdCat() }}">{{ category.getNomCat() }}</option>
+                                {% endfor %}
+                            </select>
+                         
+                        </div>
+
+                        <br/> <br/> <br/> <br/>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card custom-card">
+                    <div class="card-header" style="background-color:  #213e60">
+                        <h5 class="card-title" style="color: #ffffff;"> <i style="margin-right: 10px;" class="fas fa-bars"></i> Autres Options </h5>
+                    </div>
+
+                    <div class="card-body card-container" style=" " >
+                        <div class="form-group">
+                            <label class="form-label" for="nomRoom"><i style="margin-right: 10px;" class="fas fa-envelope"></i> Nom de la messagerie:</label>
+                            <input type="text" id="nomRoom" name="nomRoom" required class="form-control form-input" placeholder="Nom de la messagerie">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="roomDescription"><i style="margin-right: 10px;"  class="fas fa-comment"></i>Description:</label>
+                            <input type="text" id="roomDescription" name="roomDescription" class="form-control form-input" placeholder="Description">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="certificat"><i style="margin-right: 10px;"  class="fas fa-certificate"></i>Certificat :</label>
+                            <select id="certificat" name="certificatId" class="form-control form-input" required>
+                                <option value="">Choisir un certificat</option>
+                                {% for certificat in certificats %}
+                                    <option value="{{ certificat.getIdCertif() }}">{{ certificat.getNomCertif() }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button type="submit" class="custom-button btn-block mt-4">Confirmer</button>
+    </form>
+
+</div>
+
+		<!-- footer content -->
 			<div class="footer bg-footer section border-bottom">
 				<div class="container">
 					<div class="row">
