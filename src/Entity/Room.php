@@ -5,7 +5,9 @@ namespace App\Entity;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use DateTimeInterface;
+use App\Entity\Message;
 use Symfony\Component\Validator\Constraints\DateTime;
+use Doctrine\Common\Collections\Collection;
 
 
 /**
@@ -153,6 +155,21 @@ class Room
         $this->suspendTime = $suspendTime;
 
         return $this;
+    }
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="room")
+     */
+    private $messages;
+
+    // Constructor and other methods...
+
+    /**
+     * @return Collection|Message[]
+     */
+    public function getMessages(): Collection
+    {
+        return $this->messages;
     }
 
 

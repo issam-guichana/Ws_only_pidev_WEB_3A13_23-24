@@ -6,41 +6,46 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Liste des Formations</h1>
-
-    <table class="table">
-        <thead>
+<div class="page-content">
+     <div class="title-container">
+        <h2 class="form-title"> <i class="fas fa-lightbulb"  style="margin-right: 10px;"></i>Formations sur Formini.TN</h2>
+    </div>
+<table class="table table-striped table-bordered">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">Nom</th>
+            <th scope="col">Description</th>
+            <th scope="col">Catégorie</th>
+            <th scope="col">Room</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for formation in formations %}
             <tr>
-                <th>Nom</th>
-                <th>Description</th>
-                <th>Catégorie</th>
-                <th>Room</th>
-                <th>Actions</th>
+                <td>{{ formation.nomForm }}</td>
+                <td>{{ formation.description }}</td>
+                <td>{{ formation.cat.nomCat }}</td>
+                <td>
+                    {% set userFormRoom = userFormRooms[formation.getIdForm()] %}
+                    {% if userFormRoom is not empty %}
+                        <a href="{{ path('app_get_room_details', {'id': userFormRoom[0].getRoom().getIdRoom()}) }}" 
+                            class="room-link" 
+                            data-room-id="{{ userFormRoom[0].getRoom().getIdRoom() }}">{{ userFormRoom[0].getRoom().getNomRoom() }}</a>
+                    {% else %}
+                        N/A
+                    {% endif %}
+                    <div class="room-details" style="display: none;"></div>
+                </td>
+                <td>
+                    <a href="{{ path('app_formation_edit', {'idForm': formation.idForm}) }}" class="btn btn-primary">Éditer</a>
+                    {{ include('formation/_delete_form.html.twig', {'idForm': formation.idForm}) }}
+                </td>
             </tr>
-        </thead>
-        <tbody>
-            {% for formation in formations %}
-                <tr>
-                    <td>{{ formation.nomForm }}</td>
-                    <td>{{ formation.description }}</td>
-                    <td>{{ formation.cat.nomCat }}</td>
-                    <td>
-                        {% set userFormRoom = userFormRooms[formation.getIdForm()] %}
-                        {% if userFormRoom is not empty %}
-        <a href="{{ path('app_get_room_details', {'id': userFormRoom[0].getRoom().getIdRoom()}) }}" class="room-link" data-room-id="{{ userFormRoom[0].getRoom().getIdRoom() }}">{{ userFormRoom[0].getRoom().getNomRoom() }}</a>
-                        {% else %}
-                            N/A
-                        {% endif %}
-                        <div class="room-details" style="display: none;"></div>
-                    </td>
-                    <td>
-                        <a href="{{ path('app_formation_edit', {'idForm': formation.idForm}) }}">Éditer</a>
-                        {{ include('formation/_delete_form.html.twig', {'idForm': formation.idForm}) }}
-                    </td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+        {% endfor %}
+    </tbody>
+</table>
+</div>
 
     <a href="{{ path('app_formation_new') }}">Créer une nouvelle formation</a>
     <a href="{{ path('app_user_form_room_index') }}">Liste des formateurs et participants</a>
@@ -61,11 +66,12 @@
                 fetch(`/formation/rooms/${roomId}`)
                     .then(response => {
                         if (!response.ok) {
-                            throw new Error("Room not found");
+                            throw new Error("Discussion indisponible!");
                         }
                         return response.json();
                     })
                     .then(data => {
+                        console.log(data)
                         openModalWithData(data);
                     })
                     .catch(error => {
@@ -80,37 +86,98 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="roomModalLabel">Room Details</h5>
+               
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <!-- Room details will be displayed here -->
-                <p id="roomName"></p>
-                <p id="roomDescription"></p>
+                <!-- Card -->
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title">Discussion Details</h5>
+                    </div>
+                    <div class="card-body">
+                        <table class="table">
+        <thead>
+            <tr>
+                <th>Room Name</th>
+                <th>Description</th>
+                <th>Date Created</th>
+                <th>Number of Messages</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td id="roomName"></td>
+                <td id="roomDescription"></td>
+                <td id="roomDateCRoom"></td>
+                <td id="nbmsg"></td>
+            </tr>
+        </tbody>
+    </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
 <!-- Include jQuery from a CDN -->
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
 <!-- Your other script that uses jQuery -->
-<script>
-    // Function to open modal and display room details
-    function openModalWithData(data) {
-        // Update modal content with room details
-        document.getElementById('roomName').innerText = data.nom;
-        document.getElementById('roomDescription').innerText = data.description;
+ <script>
+        // Define the openModalWithData function outside of DOMContentLoaded event listener
+        function openModalWithData(data) {
+            document.getElementById('roomName').innerText = data.nom;
+            document.getElementById('roomDescription').innerText = data.description;
+            document.getElementById('roomDateCRoom').innerText = data.dateCRoom.date;
+            document.getElementById('nbmsg').innerText = data.message_count; // Corrected ID here
+            $('#roomModal').modal('show');
+        }
 
-        // Open the modal
-        $('#roomModal').modal('show');
+        document.addEventListener("DOMContentLoaded", function() {
+            const roomLinks = document.querySelectorAll(".room-link");
+            
+            roomLinks.forEach(link => {
+                link.addEventListener("click", function(event) {
+                    event.preventDefault();
+                    const roomId = link.getAttribute("data-room-id");
+                    fetchRoomDetails(roomId);
+                });
+            });
+
+            function fetchRoomDetails(roomId) {
+                fetch(`/formation/rooms/${roomId}`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error("Discussion indisponible!");
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log(data)
+                        openModalWithData(data);
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    });
+            }
+        });
+    </script>
+<style>
+.page-content {
+        font-family: Georgia, serif; /* Apply font-family to page content */
     }
 
-    // Your other JavaScript code here...
-</script>
-<style> .modal {
+title-container {
+            text-align: center; /* Center the title */
+            margin-bottom: 40px; /* Add some space below the title */
+        }
+/* Modal styles */
+.modal {
+     width:50%;
   display: none;
   position: fixed;
   z-index: 1000;
@@ -119,15 +186,17 @@
   width: 100%;
   height: 100%;
   overflow: auto;
-  background-color: rgba(0,0,0,0.4);
+  background-color: rgba(0, 0, 0, 0.4); /* Semi-transparent black background */
 }
 
 .modal-content {
-  background-color: #fefefe;
+  background-color: #fefefe; /* White background */
   margin: 15% auto;
   padding: 20px;
   border: 1px solid #888;
   width: 80%;
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Drop shadow */
 }
 
 .close {
@@ -143,6 +212,26 @@
   text-decoration: none;
   cursor: pointer;
 }
- </style>
+
+/* Card styles */
+.card {
+   
+  border: 1px solid #ccc; /* Card border */
+  border-radius: 10px; /* Rounded corners */
+  margin-bottom: 20px; /* Spacing between cards */
+}
+
+.card-header {
+ background-color: #213E60;  /* Card header background color */
+  padding: 10px;
+  border-bottom: 1px solid #ccc; /* Border bottom */
+}
+
+.card-title {
+  margin-bottom: 0;
+  /* Remove margin bottom for card title */
+}
+
+</style>
 
 {% endblock %}

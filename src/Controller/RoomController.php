@@ -8,6 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Form\RoomType;
 use App\Form\RoomF;
 
+
 use Doctrine\Persistence\ManagerRegistry;
 use App\Entity\Room;
 use App\Entity\User;
@@ -20,7 +21,8 @@ use App\Repository\UserRepository;
 use App\Repository\RoomRepository;
 use App\Form\EntityType;
 use DateTime;
-
+use App\Entity\Message;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 
 
@@ -28,14 +30,35 @@ use DateTime;
 class RoomController extends AbstractController
 {
     #[Route('/roomlist', name: 'app_room')]
-    public function index(): Response
+    public function index(Request $request): Response
     {
-        //$rooms = $this->getDoctrine()->getRepository(Room::class)->findAll();
-
-        //return $this->render('your_template.html.twig', [
-        //  'rooms' => $rooms,
-        //]);
+        $roomId = $request->query->get('roomId');
+        
+        if ($roomId) {
+            // If roomId is provided in the request, fetch messages for the specified room
+            $room = $this->getDoctrine()->getRepository(Room::class)->find($roomId);
+            $messages = $room->getMessages(); 
+            $messagesArray = [];
+            foreach ($messages as $message) {
+                $messagesArray[] = [
+                    'contenu' => $message->getContenu(), // Assuming the content property of the message entity
+                    // Add other properties as needed
+                ];
+            }
+            
+            return new JsonResponse([
+                'messages' => $messagesArray,
+            ]);
+        } else {
+            // If roomId is not provided, return the regular room list view
+            $rooms = $this->getDoctrine()->getRepository(Room::class)->findAll();
+            return $this->render('room/listroom.html.twig', [
+                'rooms' => $rooms,
+            ]);
+        }
     }
+    
+
 
 
     #[Route('/addroom', name: 'addroom')]
@@ -163,4 +186,36 @@ class RoomController extends AbstractController
         // Redirect to a different route after successful deletion
         return $this->redirectToRoute('success_route_name');
     }
+
+
+   
+
+    #[Route('/roomlist/{id}', name: 'app_room_d')]
+public function index2(int $id): JsonResponse
+{
+    // Fetch the room by ID
+    $room = $this->getDoctrine()->getRepository(Room::class)->find($id);
+    
+    if (!$room) {
+        // If room not found, return an appropriate response
+        // For example, throw a 404 Not Found exception
+        throw $this->createNotFoundException('Room not found');
+    }
+    
+    // Fetch messages associated with the room
+    $messages = $room->getMessages();
+    
+    // Prepare messages array
+    $messagesArray = [];
+    foreach ($messages as $message) {
+        $messagesArray[] = [
+            'contenu' => $message->getContenu(), // Assuming the content property of the message entity
+            // Add other properties as needed
+        ];
+    }
+    
+    return new JsonResponse([
+        'messages' => $messagesArray,
+    ]);
+}
 }

@@ -8,6 +8,7 @@ use App\Entity\UserFormRoom;
 use App\Entity\Room;
 use App\Form\FormationType;
 use App\Repository\CategorieRepository;
+use App\Repository\MessageRepository;
 use App\Repository\RoomRepository;
 use App\Repository\FormationRepository;
 use App\Repository\CertificatRepository;
@@ -169,9 +170,9 @@ public function listFormations(FormationRepository $formationRepository, UserFor
 }
 
 #[Route('/rooms/{id}', name: 'app_get_room_details', methods: ['GET'])]
-public function getRoomDetails(RoomRepository $roomRepository, $id): JsonResponse
+public function getRoomDetails(MessageRepository $msgRepository,RoomRepository $roomRepository, $id): JsonResponse
 {
-    // Fetch the room details using the RoomRepository
+    // Fetch the room details using the R!oomRepository
     $room = $roomRepository->find($id);
 
     // Check if the room exists
@@ -179,12 +180,15 @@ public function getRoomDetails(RoomRepository $roomRepository, $id): JsonRespons
         // Return a 404 Not Found response if the room does not exist
         return new JsonResponse(['error' => 'Room not found'], JsonResponse::HTTP_NOT_FOUND);
     }
-
+  // Fetch the number of messages associated with the room
+  $messageCount = $msgRepository->getMessageCountForRoom($room);
     // Return the room details as JSON
     return new JsonResponse([
         'id' => $room->getIdRoom(),
         'nom' => $room->getNomRoom(),
         'description' => $room->getDescription(),
+        'dateCRoom' => $room->getDateCRoom(),
+        'message_count' => $messageCount,
         // Add more details as needed
     ]);
 }

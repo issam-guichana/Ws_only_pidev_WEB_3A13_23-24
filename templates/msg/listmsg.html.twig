@@ -1,0 +1,39 @@
+{% extends 'admin.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+{% endblock %}
+
+{% block content %}
+<div class="page-content">
+     <div class="title-container">
+        <h2 class="form-title"> <i class="fas fa-lightbulb"  style="margin-right: 10px;"></i>Discussions sur Formini.TN</h2>
+    </div>
+<table class="table table-striped table-bordered">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">Nom Room</th>
+            <th scope="col">Description</th>
+            <th scope="col">Date creation</th>
+            <th scope="col">Admin</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for room in rooms %}
+            <tr>
+                <td>{{ room.nomRoom }}</td>
+                <td>{{ room.description }}</td>
+                <td>{{ room.dateCRoom|date('Y-m-d H:i:s') }}</td>
+                
+               
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</div>
+
+    <a href="{{ path('app_formation_new') }}">Créer une nouvelle formation</a>
+    <a href="{{ path('app_user_form_room_index') }}">Liste des formateurs et participants</a>
+{%endblock%}
