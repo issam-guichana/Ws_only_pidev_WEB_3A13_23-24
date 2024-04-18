@@ -8,6 +8,11 @@ use DateTimeInterface;
 use App\Entity\Message;
 use Symfony\Component\Validator\Constraints\DateTime;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Validator\Constraints as Assert;
+
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
+
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 
 /**
@@ -15,8 +20,10 @@ use Doctrine\Common\Collections\Collection;
  *
  * @ORM\Table(name="room")
  * @ORM\Entity(repositoryClass=App\Repository\RoomRepository::class)
-
+ *  @UniqueEntity(fields={"nomRoom"}, message="Le nom de la room doit être unique.")
  */
+
+ 
 class Room
 {
     /**
@@ -30,8 +37,10 @@ class Room
 
     /**
      * @var string
+     * @Assert\NotBlank(message="Nom Room est obligatoire")
      *
      * @ORM\Column(name="nom_room", type="string", length=255, nullable=false)
+     * @ORM\Column(type="string", length=255, unique=true)
      */
     private $nomRoom;
 
@@ -39,6 +48,7 @@ class Room
      * @var string
      *
      * @ORM\Column(name="description", type="string", length=255, nullable=false)
+     * @Assert\NotBlank(message="Description est obligatoire")
      */
     private $description;
 

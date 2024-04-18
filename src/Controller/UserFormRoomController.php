@@ -3,16 +3,51 @@
 namespace App\Controller;
 
 use App\Entity\UserFormRoom;
+
+use App\Entity\User;
 use App\Form\UserFormRoomType;
+use App\Entity\UserFormation;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+
 #[Route('/user/form/room')]
 class UserFormRoomController extends AbstractController
 {
+    #[Route('/formateur/formations', name: 'app_formateur_formations', methods: ['GET'])]
+public function getFormateurFormations(EntityManagerInterface $entityManager): Response
+{
+    // Define the formateur ID manually
+    $formateurId = 9; // Replace 8 with the desired formateur ID
+
+    // Retrieve the formateur entity
+    $formateur = $entityManager->getRepository(User::class)->find($formateurId);
+
+    // Check if the formateur exists
+    if (!$formateur) {
+        throw $this->createNotFoundException('Le formateur demandé n\'existe pas.');
+    }
+
+    // Retrieve all UserFormation entities associated with the formateur
+    $formateurFormations = $entityManager->getRepository(UserFormation::class)->findBy(['user' => $formateur]);
+
+    // Filter out the formations where the formateur has the role 'FORMATEUR'
+    $formateurFormationsList = [];
+    foreach ($formateurFormations as $formateurFormation) {
+        if ($formateurFormation->getRole() === 'FORMATEUR') {
+            $formateurFormationsList[] = $formateurFormation->getFormation();
+        }
+    }
+
+    return $this->render('Front/formateur.html.twig', [
+        'formateur' => $formateur,
+        'formateur_formations' => $formateurFormationsList,
+    ]);
+}
+
     #[Route('/', name: 'app_user_form_room_index', methods: ['GET'])]
     public function index(EntityManagerInterface $entityManager): Response
     {

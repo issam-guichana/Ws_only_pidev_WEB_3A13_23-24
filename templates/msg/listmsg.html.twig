@@ -1,39 +1,79 @@
-{% extends 'admin.html.twig' %}
+{# chat.html.twig #}
 
-{% block stylesheets %}
-    {{ parent() }}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
-{% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .chat-container {
+            max-width: 600px;
+            margin: 20px auto;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 20px;
+        }
+        .messages {
+            max-height: 400px;
+            overflow-y: scroll;
+        }
+        .message {
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+        .message.me {
+            background-color: #DCF8C6;
+            align-self: flex-end;
+        }
+        .message.other {
+            background-color: #E8E8E8;
+            align-self: flex-start;
+        }
+        .message-body {
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body>
 
-{% block content %}
-<div class="page-content">
-     <div class="title-container">
-        <h2 class="form-title"> <i class="fas fa-lightbulb"  style="margin-right: 10px;"></i>Discussions sur Formini.TN</h2>
+<div class="container">
+    <div class="chat-container">
+        <div class="messages" id="message-container">
+            {% for message in messages %}
+                <div class="message {% if message.senderMsg == 'me' %}me{% else %}other{% endif %}">
+                    <span class="message-body">{{ message.contenu }}</span>
+                </div>
+            {% endfor %}
+        </div>
+        <form id="chat-form">
+            <div class="form-group">
+                <textarea class="form-control" id="message-input" placeholder="Type a message..."></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Send</button>
+        </form>
     </div>
-<table class="table table-striped table-bordered">
-    <thead class="thead-dark">
-        <tr>
-            <th scope="col">Nom Room</th>
-            <th scope="col">Description</th>
-            <th scope="col">Date creation</th>
-            <th scope="col">Admin</th>
-            <th scope="col">Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for room in rooms %}
-            <tr>
-                <td>{{ room.nomRoom }}</td>
-                <td>{{ room.description }}</td>
-                <td>{{ room.dateCRoom|date('Y-m-d H:i:s') }}</td>
-                
-               
-            </tr>
-        {% endfor %}
-    </tbody>
-</table>
 </div>
 
-    <a href="{{ path('app_formation_new') }}">Créer une nouvelle formation</a>
-    <a href="{{ path('app_user_form_room_index') }}">Liste des formateurs et participants</a>
-{%endblock%}
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $('#chat-form').submit(function(event){
+            event.preventDefault();
+            var message = $('#message-input').val();
+            $('#message-input').val('');
+            $('#message-container').append('<div class="message me"><span class="message-body">' + message + '</span></div>');
+            // Here you would typically send the message to the server and receive a response
+            // For the sake of simplicity, I'm simulating the response after a short delay
+            setTimeout(function(){
+                $('#message-container').append('<div class="message other"><span class="message-body">This is a response from the server</span></div>');
+                $('.messages').scrollTop($('.messages')[0].scrollHeight); // Auto scroll to bottom
+            }, 1000);
+        });
+    });
+</script>
+
+</body>
+</html>

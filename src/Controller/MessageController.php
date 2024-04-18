@@ -26,9 +26,14 @@ class MessageController extends AbstractController
 
     #[Route('/message', name: 'app_message')]
     public function index(): Response
-    {    $rooms = $this->getUser()->getRooms();
-        return $this->render('Front/message.html.twig', [
-            'rooms' => $rooms,
+    {   // $rooms = $this->getUser()->getRooms();
+        //return $this->render('Front/message.html.twig', [
+         //   'rooms' => $rooms,
+        //]);
+
+        $messages = $this->getDoctrine()->getRepository(Message::class)->findAll();
+        return $this->render('msg/listmsg.html.twig', [
+            'messages' => $messages,
         ]);
     }
 
@@ -82,6 +87,27 @@ class MessageController extends AbstractController
         'users' => $users,
     ]);
 }
+#[Route('/deletemsg/{id}', name: 'deletemsg')]
+    public function deleteRoom($id, MessageRepository $msgRepository): Response
+    {
+        // Retrieve the room entity to delete
+        $msg = $msgRepository->find($id);
+        if (!$msg) {
+            throw $this->createNotFoundException('message not found');
+        }
 
+        // Get the EntityManager
+        $entityManager = $this->getDoctrine()->getManager();
+
+        // Remove the room entity
+        $entityManager->remove($msg);
+        $entityManager->flush();
+
+        // Add a flash message to indicate success
+        $this->addFlash('success', 'msg deleted successfully.');
+
+        // Redirect to a different route after successful deletion
+        return $this->redirectToRoute('success_route_name');
+    }
     
 }

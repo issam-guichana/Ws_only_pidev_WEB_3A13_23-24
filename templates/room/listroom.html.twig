@@ -7,8 +7,8 @@
 
 {% block content %}
 <div class="page-content">
-     <div class="title-container">
-        <h2 class="form-title"> <i class="fas fa-lightbulb"  style="margin-right: 10px;"></i>Discussions sur Formini.TN</h2>
+    <div class="title-container">
+        <h2 class="form-title"><i class="fas fa-lightbulb" style="margin-right: 10px;"></i>Discussions sur Formini.TN</h2>
     </div>
     <table class="table table-striped table-bordered">
         <thead class="thead-dark">
@@ -16,6 +16,7 @@
                 <th scope="col">Nom Room</th>
                 <th scope="col">Description</th>
                 <th scope="col">Date creation</th>
+                 <th scope="col">Formation</th>
                 <th scope="col">Actions</th>
             </tr>
         </thead>
@@ -25,46 +26,44 @@
                     <td>{{ room.nomRoom }}</td>
                     <td>{{ room.description }}</td>
                     <td>{{ room.dateCRoom|date('Y-m-d') }}</td>
+                      <td>{{ room.dateCRoom|date('Y-m-d') }}</td>
                     <td>
-                        <td>
-    <a href="{{ path('app_room_d',
-     {'id': room.IdRoom }) }}" class="btn btn-primary consulter-btn" data-room-id="{{ room.IdRoom}}" data-toggle="modal" data-target="#messagesModal">Messages</a>
-
-    <a href="{{ path('updateroom',
-     {'id': room.IdRoom }) }}" class="btn btn-primary editer-btn" data-room-id="{{ room.IdRoom }}" data-toggle="modal" data-target="#updateModal">Editer</a>
-<a href="{{ path('deleteroom',
-     {'id': room.IdRoom }) }}" class="btn btn-primary delete-btn" data-room-id="{{ room.IdRoom }}" data-toggle="modal" >Supprimer</a>
-</td>
-
-                    
+                        <a href="{{ path('app_room_d', {'id': room.IdRoom }) }}" class="btn btn-primary consulter-btn" data-room-id="{{ room.IdRoom }}" data-toggle="modal" data-target="#messagesModal">Messages</a>
+                        <a href="{{ path('updateroom', {'id': room.IdRoom }) }}" class="btn btn-primary editer-btn" data-room-id="{{ room.IdRoom }}" data-toggle="modal" data-target="#updateModal">Editer</a>
+                        <a href="{{ path('deleteroom', {'id': room.IdRoom }) }}" class="btn btn-primary delete-btn" data-room-id="{{ room.IdRoom }}">Supprimer</a>
+                    </td>
                 </tr>
             {% endfor %}
         </tbody>
     </table>
 </div>
 
-
+<!-- Modal for displaying messages -->
 <!-- Modal for displaying messages -->
 <div class="modal fade" id="messagesModal" tabindex="-1" role="dialog" aria-labelledby="messagesModalLabel" aria-hidden="true">
-    <!-- Modal content goes here -->
-
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="messagesModalLabel">Messages de la Salle</h5>
+                <h5 class="modal-title" id="messagesModalLabel">Messages</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <ul id="messagesList"></ul> <!-- Placeholder for messages list -->
+                <!-- Chat UI -->
+                <div class="chat-container">
+                    <ul class="messages" id="messagesList">
+                        <!-- Messages will be displayed here -->
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+
 <!-- Modal for updating room details -->
 <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
-    <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -93,8 +92,6 @@
         </div>
     </div>
 </div>
-</div>
-
 
 {% endblock %}
 
@@ -102,37 +99,109 @@
     {{ parent() }}
     <!-- Ensure jQuery is loaded before your custom JavaScript code -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            // Event listener for Consulter button
-            $('.consulter-btn').click(function(event) {
-                event.preventDefault(); // Prevent default anchor behavior
+   <script>
+    $(document).ready(function() {
+        // Event listener for Consulter button
+        $('.consulter-btn').click(function(event) {
+            event.preventDefault(); // Prevent default anchor behavior
 
-                var roomId = $(this).data('room-id');
+            // Assuming you have a variable containing the room ID
+            var roomId = $(this).data('room-id');
 
-                // Fetch messages data for the room
-                $.get('{{ path('app_room_d', {'id': '__roomId__'}) }}'.replace('__roomId__', roomId), function(response) {
-                    // Update modal content with messages
-                    var messages = response.messages;
-                    var messagesList = $('#messagesList');
-                    messagesList.empty(); // Clear previous messages
+            // Fetch messages data for the room
+            $.get('{{ path('app_room_d', {'id': '__roomId__'}) }}'.replace('__roomId__', roomId), function(response) {
+                // Update modal content with messages
+                var messages = response.messages;
+                var messagesList = $('#messagesList');
+                messagesList.empty(); // Clear previous messages
 
-                    messages.forEach(function(message) {
-                        var listItem = $('<li>').text(message.contenu); // Assuming the content property of the message entity
-                        messagesList.append(listItem);
-                    });
+                messages.forEach(function(message) {
+                    
+                    // Create list item for the message
+                    console.log(message);
+                    var listItem = $('<li>').text(message.contenu); // Assuming the content property of the message entity
 
-                    // Show the modal
-                    $('#messagesModal').modal('show');
-                }).fail(function(jqXHR, textStatus, errorThrown) {
-                    // Handle errors here
-                    console.error("Error:", textStatus, errorThrown);
+                    // Create delete button for the message
+                    var deleteButton = $('<button>').addClass('btn btn-danger delete-message').text('Supprimer');
+                    deleteButton.data('message-id', message.idMsg); // Set data attribute for message ID
+                     console.log("Message ID:", message.idMsg);
+
+                    // Append the delete button to the list item
+                    listItem.append(deleteButton);
+
+                    // Append the list item to the messages list
+                    messagesList.append(listItem);
                 });
+
+                // Show the modal
+                $('#messagesModal').modal('show');
+            }).fail(function(jqXHR, textStatus, errorThrown) {
+                // Handle errors here
+                console.error("Error:", textStatus, errorThrown);
             });
         });
-    </script>
+
+        // Event listener for delete message button
+        $('#messagesList').on('click', '.delete-message', function() {
+            // Retrieve the message ID from the data attribute of the delete button
+            var messageId = $(this).data('message-id');
+
+            // Check if message ID is available
+            if (typeof messageId !== 'undefined') {
+                // Perform AJAX request to delete the message
+                $.ajax({
+                    url: '{{ path('deletemsg', {'id': '__messageId__'}) }}'.replace('__messageId__', messageId),
+                    type: 'DELETE',
+                    success: function(response) {
+                        // Handle success response (e.g., remove the message from UI)
+                        console.log('Message deleted successfully:', response);
+                        // Refresh the messages list
+                        $('.consulter-btn').trigger('click');
+                    },
+                    error: function(xhr, status, error) {
+                        // Handle error response
+                        console.error("Error:", xhr.responseText);
+                    }
+                });
+            } else {
+                console.error("Message ID is undefined.");
+            }
+        });
+    });
+</script>
+
+
+
+
 
     <style>
+    .chat-container {
+            max-width: 600px;
+            margin: 20px auto;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 20px;
+        }
+        .messages {
+            max-height: 400px;
+            overflow-y: scroll;
+        }
+        .message {
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+        .message.me {
+            background-color: #DCF8C6;
+            align-self: flex-end;
+        }
+        .message.other {
+            background-color: #E8E8E8;
+            align-self: flex-start;
+        }
+        .message-body {
+            word-wrap: break-word;
+        }
 .page-content {
         font-family: Georgia, serif; /* Apply font-family to page content */
     }

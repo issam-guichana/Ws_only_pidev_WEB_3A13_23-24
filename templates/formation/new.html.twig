@@ -9,6 +9,7 @@
 
 
 {% block content %}
+
  <div class="page-content">
      <div class="title-container">
         <h2 class="form-title"> <i class="fas fa-lightbulb"  style="margin-right: 10px;"></i>Creation d'un espace sur Formini.TN</h2>
@@ -18,8 +19,9 @@
     {% for message in app.flashes('error') %}
         <div class="alert alert-danger">{{ message }}</div>
     {% endfor %}
-
+    
     <form method="post" action="{{ path('app_formation_new') }}">
+    
         <div class="row">
             <div class="col-md-6">
                 <div class="card custom-card">
@@ -29,13 +31,27 @@
                
                     <div class="card-body card-container">
                         <div class="form-group">
-                            <label class="form-label" for="nomForm"> <i style="margin-right: 10px;" class="fas fa-chalkboard-teacher"></i>Nom de la formation:</label>
-                            <input type="text" id="nomForm" name="nomForm" class="form-control form-input" placeholder="Taper le nom de la formation">
-                        </div>
+    <label class="form-label" for="nomForm">
+        <i style="margin-right: 10px;" class="fas fa-chalkboard-teacher"></i>Nom de la formation:
+    </label>
+    <div class="input-error-container">
+        <input type="text" id="nomForm" name="nomForm" class="form-control form-input" placeholder="Taper le nom de la formation">
+         <div class="alert alert-danger">
+        {% if errors is defined and errors is not empty and errors['nomForm'] is defined %}
+            <div class="text-danger">{{ errors['nomForm'] }}</div>
+        {% endif %}
+        </div>
+    </div>
+</div>
 
                         <div class="form-group">
                             <label class="form-label" for="description"> <i style="margin-right: 10px;" class="fas fa-align-left"></i> Description:</label>
                             <input type="text" id="description" name="description" class="form-control form-input" placeholder="Description Formation...">
+                       <div class="alert alert-danger">
+        {% if errors is defined and errors is not empty and errors['descriptionF'] is defined %}
+            <div class="text-danger">{{ errors['descriptionF'] }}</div>
+        {% endif %}
+        </div>
                         </div>
 
                         <div class="form-group">
@@ -62,12 +78,18 @@
                     <div class="card-body card-container"  style=" " >
                         <div class="form-group">
                             <label class="form-label" for="nomRoom"><i style="margin-right: 10px;" class="fas fa-envelope"></i> Nom de la messagerie:</label>
-                            <input type="text" id="nomRoom" name="nomRoom" required class="form-control form-input" placeholder="Nom de la messagerie">
+                            <input type="text" id="nomRoom" name="nomRoom"  class="form-control form-input" placeholder="Nom de la messagerie">
+                         {% if errors is defined and errors is not empty and errors['nomRoom'] is defined %}
+            <div class="text-danger">{{ errors['nomRoom'] }}</div>
+        {% endif %}
                         </div>
 
                         <div class="form-group">
                             <label class="form-label" for="roomDescription"><i style="margin-right: 10px;"  class="fas fa-comment"></i>Description:</label>
-                            <input type="text" id="roomDescription" name="roomDescription" class="form-control form-input" placeholder="Description">
+                            <input type="text" id="roomDescription" name="roomDescription" class="form-control form-input" placeholder="Description" >
+                           {% if errors is defined and errors is not empty and errors['descriptionR'] is defined %}
+            <div class="text-danger">{{ errors['descriptionR'] }}</div>
+        {% endif %}
                         </div>
 
                         <div class="form-group">
@@ -95,11 +117,17 @@
             </div>
         </div>
 
+
         <button type="submit" class="custom-button btn-block mt-4">Confirmer</button>
     </form>
 
 	</div>
 	 <style>
+     .input-error-container {
+    display: flex;
+    flex-direction: column;
+    color:red;
+}
 	.page-content {
         font-family: Georgia, serif; /* Apply font-family to page content */
     }

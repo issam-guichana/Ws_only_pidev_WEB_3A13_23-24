@@ -13,3 +13,8 @@ app_back:
   path: /Back
   controller: 'App\Controller\BackController::index'
   methods: GET
+app_formation_new1:
+    path: /newformation
+    controller: App\Controller\FormationController::newFormation
+    methods: ['GET', 'POST']
+

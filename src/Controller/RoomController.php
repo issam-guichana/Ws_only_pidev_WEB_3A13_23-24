@@ -209,7 +209,9 @@ public function index2(int $id): JsonResponse
     $messagesArray = [];
     foreach ($messages as $message) {
         $messagesArray[] = [
-            'contenu' => $message->getContenu(), // Assuming the content property of the message entity
+            'contenu' => $message->getContenu(), 
+            'idMsg' => $message->getIdMsg(),
+            // Assuming the content property of the message entity
             // Add other properties as needed
         ];
     }
