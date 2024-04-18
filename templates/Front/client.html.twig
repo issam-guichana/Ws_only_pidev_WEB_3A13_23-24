@@ -1,0 +1,17 @@
+
+
+{% block title %}Formations de l'utilisateur{% endblock %}
+
+{% block body %}
+    <h1>Formations de l'utilisateur</h1>
+
+    <p>Liste des formations pour l'utilisateur : {{ user.getUsername() }}</p>
+
+    <ul>
+        {% for formation in client_formations %}
+            <li>{{ formation.getNomForm() }}</li>
+        {% endfor %}
+    </ul>
+
+    <a href="{{ path('app_user_form_room_index') }}">Retour</a>
+{% endblock %}

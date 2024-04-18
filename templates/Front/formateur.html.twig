@@ -1,0 +1,17 @@
+
+
+{% block title %}Formations du formateur{% endblock %}
+
+{% block body %}
+    <h1>Formations du formateur</h1>
+
+    <p>Liste des formations pour le formateur : {{ formateur.getUsername() }}</p>
+
+    <ul>
+        {% for formation in formateur_formations %}
+            <li>{{ formation.getNomForm() }}</li>
+        {% endfor %}
+    </ul>
+
+    <a href="{{ path('app_user_form_room_index') }}">Retour</a>
+{% endblock %}

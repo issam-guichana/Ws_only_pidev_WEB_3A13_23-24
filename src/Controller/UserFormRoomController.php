@@ -141,35 +141,107 @@ class UserFormRoomController extends AbstractController
         $entityManager->flush();
 
         // Redirigez l'utilisateur vers une page appropriée
-        return $this->redirectToRoute('app_user_form_room_index');
+        return $this->redirectToRoute('app_client_formations');
     }
     
 
     #[Route('/{idFR}/delete/client/{userId}', name: 'app_user_form_room_delete_client', methods: ['POST'])]
 public function deleteClient(Request $request, int $idFR, int $userId, EntityManagerInterface $entityManager): Response
 {
+    // Retrieve the UserFormRoom entity and the user entity
     $userFormRoom = $entityManager->getRepository(UserFormRoom::class)->find($idFR);
     $user = $entityManager->getRepository(User::class)->find($userId);
 
+    // Check if the UserFormRoom and user entities exist
     if (!$userFormRoom || !$user) {
         throw $this->createNotFoundException('La relation utilisateur-formation demandée n\'existe pas.');
     }
 
-    // Assurez-vous que l'utilisateur supprimé est effectivement un client de la formation
+    // Retrieve the UserFormation entity associated with the User and the Formation
     $userFormation = $entityManager->getRepository(UserFormation::class)->findOneBy([
-        'formation' => $userFormRoom->getForm(),
-        'user' => $user
+        'user' => $user,
+        'formation' => $userFormRoom->getForm()
     ]);
 
-    if (!$userFormation || $userFormation->getRole() !== 'CLIENT') {
-        throw $this->createNotFoundException('L\'utilisateur n\'est pas un client de cette formation.');
+    // Check if the UserFormation entity exists
+    if ($userFormation) {
+        // Remove the UserFormation entity
+        $entityManager->remove($userFormation);
     }
 
+    // Remove the UserFormRoom entity
     $entityManager->remove($userFormRoom);
+
+    // Flush changes to the database
     $entityManager->flush();
 
-    // Redirection vers la page précédente ou une autre page appropriée
+    // Redirect back to the index page or any other appropriate page
     return $this->redirectToRoute('app_user_form_room_index');
 }
+
+
+#[Route('/user/formations', name: 'app_client_formations', methods: ['GET'])]
+public function getUserFormations(EntityManagerInterface $entityManager): Response
+{
+    // Define the user ID manually
+    $userId = 7; // Replace 7 with the desired user ID
+
+    // Retrieve the user entity
+    $user = $entityManager->getRepository(User::class)->find($userId);
+
+    // Check if the user exists
+    if (!$user) {
+        throw $this->createNotFoundException('L\'utilisateur demandé n\'existe pas.');
+    }
+
+    // Retrieve all UserFormation entities associated with the user
+    $userFormations = $entityManager->getRepository(UserFormation::class)->findBy(['user' => $user]);
+
+    // Filter out the formations where the user has the role 'CLIENT'
+    $clientFormations = [];
+    foreach ($userFormations as $userFormation) {
+        if ($userFormation->getRole() === 'CLIENT') {
+            $clientFormations[] = $userFormation->getFormation();
+        }
+    }
+
+    return $this->render('Front/client.html.twig', [
+        'user' => $user,
+        'client_formations' => $clientFormations,
+    ]);
+    
+}
+#[Route('/formateur/formations', name: 'app_formateur_formations', methods: ['GET'])]
+public function getFormateurFormations(EntityManagerInterface $entityManager): Response
+{
+    // Define the formateur ID manually
+    $formateurId = 8; // Replace 8 with the desired formateur ID
+
+    // Retrieve the formateur entity
+    $formateur = $entityManager->getRepository(User::class)->find($formateurId);
+
+    // Check if the formateur exists
+    if (!$formateur) {
+        throw $this->createNotFoundException('Le formateur demandé n\'existe pas.');
+    }
+
+    // Retrieve all UserFormation entities associated with the formateur
+    $formateurFormations = $entityManager->getRepository(UserFormation::class)->findBy(['user' => $formateur]);
+
+    // Filter out the formations where the formateur has the role 'FORMATEUR'
+    $formateurFormationsList = [];
+    foreach ($formateurFormations as $formateurFormation) {
+        if ($formateurFormation->getRole() === 'FORMATEUR') {
+            $formateurFormationsList[] = $formateurFormation->getFormation();
+        }
+    }
+
+    return $this->render('Front/formateur.html.twig', [
+        'formateur' => $formateur,
+        'formateur_formations' => $formateurFormationsList,
+    ]);
+}
+
+
 
 }

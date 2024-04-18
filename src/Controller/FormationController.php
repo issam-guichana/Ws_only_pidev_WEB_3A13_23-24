@@ -174,6 +174,7 @@ class FormationController extends AbstractController
         return $this->render('Front/courses.html.twig', [
             'formations' => $formations,
         ]);
+      
     }
     
 }
