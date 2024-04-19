@@ -1,43 +1,74 @@
 {# templates/Back/updateroom.html.twig #}
+{% extends 'admin.html.twig' %}
 
 
-{% if app.flashes('success') %}
-        <div class="alert alert-success">
-            {% for message in app.flashes('success') %}
-                {{ message }}
-            {% endfor %}
-        </div>
-    {% endif %}
+{% block title %}New Formation{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('path/to/font-awesome/css/all.min.css') }}" />
+{% endblock %}
 
-    <form method="post">
-        <input type="hidden" name="id_room" value="{{ room.idRoom }}">
-        <div class="form-group">
-            <label for="nomRoom">Room Name</label>
-            <input type="text" id="nomRoom" name="nomRoom" class="form-control" value="{{ room.nomRoom }}">
-        </div>
-        <div class="form-group">
-            <label for="description">Description</label>
-            <textarea id="description" name="description" class="form-control">{{ room.description }}</textarea>
-        </div>
-        <div class="form-group">
-            <label for="dateCRoom">Creation Date</label>
-            <input type="date" id="dateCRoom" name="dateCRoom" class="form-control" value="{{ room.dateCRoom|date('Y-m-d') }}">
-        </div>
-        <div class="form-group">
-            <label for="combobox">Formation</label>
-            <select id="combobox" name="combobox" class="form-control">
-                {% for formation in formations %}
-                    <option value="{{ formation.idForm }}">{{ formation.nomForm }}</option>
+
+{% block content %}
+
+<div class="card">
+    <div class="card-header">
+        <h5 class="card-title">Update Room Details</h5>
+    </div>
+    <div class="card-body">
+        {% if app.flashes('success') %}
+            <div class="alert alert-success">
+                {% for message in app.flashes('success') %}
+                    {{ message }}
                 {% endfor %}
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="comboboxu">User</label>
-            <select id="comboboxu" name="comboboxu" class="form-control">
-                {% for user in users %}
-                    <option value="{{ user.idUser }}">{{ user.username }}</option>
-                {% endfor %}
-            </select>
-        </div>
-        <button type="submit" class="btn btn-primary">Update Room</button>
-    </form>
+            </div>
+        {% endif %}
+        <form method="post">
+            <input type="hidden" name="id_room" value="{{ room.idRoom }}">
+            <div class="form-group">
+                <label for="nomRoom">Room Name</label>
+                <input type="text" id="nomRoom" name="nomRoom" class="form-control" value="{{ room.nomRoom }}">
+                <div class="alert alert-danger">
+                    {% if errors is defined and errors is not empty and errors['nomRoom'] is defined %}
+                        <div class="text-danger">{{ errors['nomRoom'] }}</div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea id="description" name="description" class="form-control">{{ room.description }}</textarea>
+                <div class="alert alert-danger">
+                    {% if errors is defined and errors is not empty and errors['descriptionF'] is defined %}
+                        <div class="text-danger">{{ errors['descriptionF'] }}</div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="dateCRoom">Creation Date</label>
+                <input type="date" id="dateCRoom" name="dateCRoom" class="form-control" value="{{ room.dateCRoom|date('Y-m-d') }}">
+            </div>
+            <div class="form-group">
+                <label for="combobox">Formation</label>
+                <select id="combobox" name="combobox" class="form-control">
+                    {% for formation in formations %}
+                        <option value="{{ formation.idForm }}">{{ formation.nomForm }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="comboboxu">User</label>
+                <select id="comboboxu" name="comboboxu" class="form-control">
+                    {% for user in users %}
+                        <option value="{{ user.idUser }}">{{ user.username }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Update Room</button>
+
+           
+        </form>
+    </div>
+</div>
+
+{% endblock %}
+

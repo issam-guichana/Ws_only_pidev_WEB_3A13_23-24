@@ -21,8 +21,43 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class MessageController extends AbstractController
 {
+    #[Route('/send', name: 'send', methods: ['POST'])]
+    public function sendMessage(Request $request): JsonResponse
+    {
+        // Get the message from the request
+        $message = $request->request->get('message');
 
+        // Here you can process the message (e.g., save to the database, send to other users, etc.)
+
+        // For demonstration purposes, I'm just returning the message back to the client
+        return new JsonResponse(['message' => $message]);
+    }
    
+
+    #[Route('/messages/{idRoom}', name: 'get_messages_by_room')]
+    public function getMessagesByRoom($idRoom, MessageRepository $messageRepository): Response
+    {
+        // Fetch messages by room ID
+        $messages = $messageRepository->findBy(['room' => $idRoom]);
+
+        // Convert messages to array (optional)
+        $formattedMessages = [];
+        foreach ($messages as $message) {
+            $formattedMessages[] = [
+                'idMsg' => $message->getIdMsg(),
+                'contenu' => $message->getContenu(),
+                // Add other message properties as needed
+            ];
+        }
+
+        // Return messages as JSON response
+       // return new JsonResponse(['messages' => $formattedMessages]);
+
+       return $this->render('msg/listmsgbyid.html.twig', [
+        'messages' => $formattedMessages,
+    ]);
+    }
+
 
     #[Route('/message', name: 'app_message')]
     public function index(): Response
@@ -78,10 +113,14 @@ class MessageController extends AbstractController
         $this->addFlash('success', 'Room added successfully.');
 
         // Redirect to a different route after successful submission
-        return $this->redirectToRoute('success_route_name');
+        //return $this->redirectToRoute('addmsg');
     }
     // Render the template and pass the Room entity and formation choices to it
-    return $this->render('Back/addmsg.html.twig', [
+    //return $this->render('Back/addmsg.html.twig', [
+        $messages = $this->getDoctrine()->getRepository(Message::class)->findAll();
+        return $this->render('msg/listmsg.html.twig', [
+            'messages' => $messages,
+        
         'rooms' => $rooms,
         'msgs' => $msg,
         'users' => $users,

@@ -74,8 +74,8 @@
             </div>
             <div class="modal-body">
                 <!-- Form for updating room details -->
-                <form action="{{ path('updateroom', {'id': '__roomId__'}) }}" method="post">
-                    <!-- Update the action attribute with the correct route and room ID -->
+                <form id="updateForm" action="" method="post">
+                    <!-- Update the action attribute with the correct route and room ID dynamically -->
                     <!-- Include form fields for updating room details -->
                     <!-- Example: -->
                     <div class="form-group">
@@ -93,12 +93,36 @@
     </div>
 </div>
 
+
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
     <!-- Ensure jQuery is loaded before your custom JavaScript code -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $('.update-btn').click(function(){
+            var roomId = $(this).data('room-id');
+            var roomName = $(this).data('room-name');
+            var description = $(this).data('description');
+            
+            // Update form action attribute with the correct route and room ID
+            var formAction = "{{ path('updateroom', {'id': '__roomId__'}) }}".replace('__roomId__', roomId);
+            $('#updateForm').attr('action', formAction);
+            
+            // Populate form fields with room details
+            $('#roomName').val(roomName);
+            $('#description').val(description);
+            
+            // Show the modal
+            $('#updateModal').modal('show');
+        });
+    });
+</script>
+
    <script>
     $(document).ready(function() {
         // Event listener for Consulter button

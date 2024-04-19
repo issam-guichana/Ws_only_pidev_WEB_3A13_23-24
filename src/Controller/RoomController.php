@@ -23,6 +23,7 @@ use App\Form\EntityType;
 use DateTime;
 use App\Entity\Message;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 
 
@@ -122,6 +123,26 @@ class RoomController extends AbstractController
         ]);
     }
 
+    public function __construct(private ValidatorInterface $validator)
+    {
+    }
+
+    private function validateEntities(Room $room): array
+    {
+        $errors = [];
+
+       
+
+        // Validate Room entity
+        $roomErrors = $this->validator->validate($room);
+        foreach ($roomErrors as $error) {
+            $errors['nomRoom'] = $error->getMessage(); 
+            $errors['descriptionR'] = $error->getMessage(); 
+        }
+
+        return $errors;
+    }
+
     #[Route('/updateroom/{id}', name: 'updateroom')]
     public function updateRoom($id, Request $request, RoomRepository $roomRepository, FormationRepository $formationRepository, UserRepository $userRepository): Response
     {
@@ -145,6 +166,21 @@ class RoomController extends AbstractController
             $room->setDescription($formData['description']);
             // Update other fields as needed
 
+              // Validate entities
+              $errors = $this->validateEntities($room);
+
+              // If there are validation errors, render the template with the errors
+              if (count($errors) > 0) {
+                return $this->render('Back/updateroom.html.twig', [
+                    'room' => $room,
+                    'rooms' => $rooms,
+                    'formations' => $formations,
+                    'users' => $users,
+                
+                      'errors' => $errors,
+                  ]);
+              }
+
             // Persist the updated room entity
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->flush();
@@ -153,7 +189,7 @@ class RoomController extends AbstractController
             $this->addFlash('success', 'Room updated successfully.');
 
             // Redirect to a different route after successful update
-            return $this->redirectToRoute('success_route_name');
+            return $this->redirectToRoute('app_room');
         }
 
         // Render the template and pass the room entity and related entities to it
@@ -181,7 +217,10 @@ class RoomController extends AbstractController
         $entityManager->flush();
 
         // Add a flash message to indicate success
-        $this->addFlash('success', 'Room deleted successfully.');
+        $this->addFlash('success', 'Formation added successfully.');
+
+        // Redirect to the index route after successful submission
+        return $this->redirectToRoute('app_list_formations');
 
         // Redirect to a different route after successful deletion
         return $this->redirectToRoute('success_route_name');
