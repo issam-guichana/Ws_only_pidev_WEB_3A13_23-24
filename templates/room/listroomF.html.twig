@@ -1,19 +1,16 @@
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List of Rooms</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+    <!-- Include Slick Slider CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
-		<!-- Basic Page Needs
-																													================================================== -->
-		<meta charset="utf-8">
-		<title>Formini.tn</title>
-
-		<!-- Mobile Specific Metas
-																													================================================== -->
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="description" content="Construction Html5 Template">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-		<meta name="author" content="Themefisher">
-		<meta name="generator" content="Themefisher Educenter HTML Template v1.0">
-
-		<!-- ** Plugins Needed for the Project ** -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
+   <!-- ** Plugins Needed for the Project ** -->
 		<!-- Bootstrap -->
 		<link
 		rel="stylesheet" href="{{asset('Front/plugins/bootstrap/bootstrap.min.css')}}"> <!-- slick slider -->
@@ -39,85 +36,89 @@
 		<!--Favicon-->
 		<link rel="shortcut icon" href="{{asset('Front/images/favicon.png')}}" type="image/x-icon">
 		<link rel="icon" href="{{asset('Front/images/favicon.png')}}" type="image/x-icon">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
 
-/* CSS for the chat messages */
+   <style>
+    /* Custom styles for the list of rooms */
+    .room-card {
+        display: inline-block;
+    width: calc(33.33% - 20px); /* 1/3 of the container width minus margin */
+    margin-right: 20px; /* Add some space between cards */
+    margin-bottom: 20px; /* Add some space at the bottom */
+    vertical-align: top; /* Align cards at the top */
+    position: relative; /* Ensure cards are positioned relative */
+    z-index: 0; /* Set z-index to ensure cards are below arrows and dots */
+    }
+    .room-card .card-body {
+        padding: 20px;
+    }
+    .room-card .card-title {
+        font-size: 1.2rem;
+        font-weight: bold;
+    }
+    .room-card .card-text {
+        color: #6c757d;
+    }
+    .room-card .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+    .room-card .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #0056b3;
+    }
 
-<style>
-.message {
-    margin-bottom: 10px;
-    padding: 8px 12px;
-    border-radius: 15px;
-    max-width: 70%;
+   /* Custom styles for Slick Slider arrows */
+.slick-prev,
+.slick-next {
+    color: black; /* Change the arrow color to black */
+    font-size: 24px; /* Adjust the arrow size if needed */
+    z-index: 1; /* Ensure arrows are above cards */
+    position: absolute; /* Ensure arrows are absolutely positioned */
+    top: 50%; /* Position arrows vertically in the middle */
+    transform: translateY(-50%); /* Center arrows vertically */
 }
 
-.me {
-    background-color: #007bff;
-    color: white;
-    align-self: flex-end;
+.slick-prev {
+    left: 0; /* Position previous arrow on the left */
 }
 
-.other {
-    background-color: #f0f0f0;
-    color: black;
-    align-self: flex-start;
+.slick-next {
+    right: 0; /* Position next arrow on the right */
 }
 
-.message-body {
-    word-wrap: break-word;
-}
-/* CSS for the chat footer */
-.chat-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
+/* Style the arrows on hover */
+.slick-prev:hover,
+.slick-next:hover {
+    color: darkgray; /* Change the arrow color on hover */
 }
 
-/* CSS for the chat submit button */
-.chat-submit {
-    flex-shrink: 0; /* Prevent the button from shrinking */
+#room-slider {
+    position: relative; /* Ensure the slider container is positioned relative */
 }
 
-.chat-submit button {
-    background-color: #007bff; /* Button background color */
-    color: white; /* Button text color */
-    border: none; /* Remove button border */
-    border-radius: 20px; /* Rounded button corners */
-    padding: 10px 20px; /* Button padding */
-    cursor: pointer; /* Change cursor to pointer on hover */
-    transition: background-color 0.3s; /* Smooth transition for background color */
-}
-
-.chat-submit button:hover {
-    background-color: #0056b3; /* Darker background color on hover */
-}
-
-.chat-input {
-    position: relative; /* Relative positioning for the input area */
-}
-
-.chat-input textarea {
-    width: 100%; /* Full width for the textarea */
-    min-height: 60px; /* Minimum height for the textarea */
-    padding: 10px; /* Padding for the textarea */
-    border-radius: 10px; /* Rounded corners for the textarea */
-    border: 1px solid #ced4da; /* Border color for the textarea */
-    resize: none; /* Disable textarea resizing */
+.slick-dots {
+    position: absolute; /* Ensure dots are absolutely positioned */
+    bottom: 10px; /* Adjust the distance from the bottom */
+    left: 0;
+    right: 0;
+    margin: auto; /* Center the dots horizontally */
+    width: auto; /* Set width to auto to fit content */
+    text-align: center; /* Center the dots text */
+    z-index: 1; /* Ensure dots are above cards */
 }
 
 </style>
 
-	</head>
+ 
+</head>
+<body>
+ <div class="preloader">
+    <img src="{{ asset('Front/images/preloader.gif') }}" alt="preloader">
+  </div>
+  <!-- preloader end -->
 
-	<body>
-		<!-- preloader start -->
-		<div class="preloader">
-			<img src="{{asset('Front/images/preloader.gif')}}" alt="preloader">
-		</div>
-		<!-- preloader end -->
 
-		<!-- header -->
+ <!-- header -->
 		<header
 			class="fixed-top header">
 			<!-- top header -->
@@ -283,9 +284,12 @@
 							<li class="list-inline-item">
 								<a class="h2 text-primary font-secondary" href="index.html.twig">Messagerie</a>
 							</li>
-							<li class="list-inline-item text-white h3 font-secondary nasted">chat</li>
+							<li class="list-inline-item text-white h3 font-secondary nasted">Vos discussions</li>
 						</ul>
-						<p class="text-lighten mb-0">Veuillez visiter le room pour plus d'intérac</p>
+						<p class="text-lighten mb-0">C'est ici que les étudiants comme vous se réunissent pour explorer, 
+                        <br/>échanger des idées et approfondir leur compréhension.
+                        <br/> Que vous soyez ici pour poser des questions, partager vos expériences ou simplement écouter, 
+                        <br/>vous êtes le bienvenu à contribuer à cette communauté dynamique.</p>
 					</div>
 				</div>
 			</div>
@@ -295,81 +299,34 @@
 		<!-- courses -->
 <div class="page-content">
     <div class="title-container">
-        <h2 class="form-title"> </h2>
+        <h2 class="form-title"> <i class="fas fa-lightbulb" style="margin-right: 10px;"></i></h2>
     </div>
     <br/>
 
-    {% for message in app.flashes('error') %}
-        <div class="alert alert-danger">{{ message }}</div>
-    {% endfor %}
-
-<form method="post">
-    {% block content %}
-    <div class="container py-4">
-        <div class="row">
-            <!-- First card -->
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    <div class="card-header">
-                        <h5 class="card-title">Membres</h5>
-                    </div>
-                    <div class="card-body">
-                        {% for participant in participants %}
-                        <div class="participant">
-                            <a >
-                                <i class="fas fa-user"></i> {{ participant.user.getUsername() }}
-                            </a>
-                        </div>
-                        {% endfor %}
-                    </div>
-                </div>
-            </div>
-            <!-- Second card -->
-            <div class="col-md-8 mb-4">
-                <div class="card">
-                    <div class="card-header">
-                        <h5 class="card-title">{{roomname}}</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="chat-container">
-                            <div class="messages" id="message-container">
-                                {% for message in messages %}
-                                <div class="message {% if message.senderMsg == 'me' %}me{% else %}other{% endif %}">
-                                    <span class="message-body">{{ message.contenu }}</span>
-                                </div>
-                                {% endfor %}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="chat-footer">
-                    <div id="chat-form">
-                        <div class="form-group chat-input">
-                            <textarea class="form-control" name="contenu" id="contenu" placeholder="Type a message..."></textarea>
-                            <div class="alert alert-danger">
-                                {% if errors is defined and errors is not empty and errors['contenu'] is defined %}
-                                <div class="text-danger">{{ errors['contenu'] }}</div>
-                                {% endif %}
-                            </div>
-                        </div>
-                        <div class="chat-submit">
-                            <button type="submit" class="btn btn-primary">Send</button>
-                        </div>
-                    </div>
-                
-                
-                </div>
+   <div class="container mt-5">
+    <div class="text-center">
+        {% for message in app.flashes('error') %}
+            <div class="alert alert-danger">{{ message }}</div>
+        {% endfor %}
+    </div>
+    
+    <h1 class="text-center mb-4">List of Rooms</h1>
+    <!-- Use a div for the Slick Slider -->
+    <div id="room-slider" class="slick-slider">
+        {% for room in rooms %}
+        <div class="room-card">
+            <div class="card-body">
+                <h5 class="card-title">{{ room.nomRoom }}</h5>
+                <p class="card-text">{{ room.description }}</p>
+                <a href="{{ path('addmsg', {'id': room.idRoom}) }}" class="btn btn-primary btn-sm">View Details</a>
             </div>
         </div>
-    </div>
-    {% endblock %}
-</form>
-
+        {% endfor %}
     </div>
 </div>
 
-</div>
 
-		<!-- footer content -->
+<!-- footer content -->
 			<div class="footer bg-footer section border-bottom">
 				<div class="container">
 					<div class="row">
@@ -503,7 +460,13 @@ document.write(CurrentYear)
 		</footer>
 		<!-- /footer -->
 
-		<!-- jQuery -->
+		
+	
+ 
+
+
+    <!-- Include jQuery, Bootstrap JS, and Slick Slider JS -->
+    <!-- jQuery -->
 		<script src="{{asset('Front/plugins/jQuery/jquery.min.js')}}"></script>
 		<!-- Bootstrap JS -->
 		<script src="{{asset('Front/plugins/bootstrap/bootstrap.min.js')}}"></script>
@@ -525,19 +488,24 @@ document.write(CurrentYear)
 	
  
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script>
-    $(document).ready(function(){
-        $('#chat-form').submit(function(event){
-            event.preventDefault();
-            var message = $('#contenu').val();
-            $('#contenu').val('');
-            $('#message-container').append('<div class="message me"><span class="message-body">' + message + '</span></div>');
-            // Here you would typically send the message to the server and receive a response
-            // For the sake of simplicity, I'm simulating the response after a short delay
-            setTimeout(function(){
-                $('#message-container').append('<div class="message other"><span class="message-body">This is a response from the server</span></div>');
-                $('.messages').scrollTop($('.messages')[0].scrollHeight); // Auto scroll to bottom
-            }, 1000);
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.6.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    <script>
+        // Initialize the Slick Slider
+        $(document).ready(function(){
+            $('#room-slider').slick({
+                 slidesToShow: 5,
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 2000,
+        dots: true,
+        arrows: true,
+        prevArrow: '<button type="button" class="slick-prev"><i class="fas fa-chevron-left"></i></button>',
+        nextArrow: '<button type="button" class="slick-next"><i class="fas fa-chevron-right"></i></button>'
+    
+            });
         });
-    });
-</script>
+    </script>
+</body>
+</html>

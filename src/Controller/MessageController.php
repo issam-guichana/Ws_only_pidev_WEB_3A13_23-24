@@ -8,9 +8,13 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\MessageRepository;
 use App\Repository\UserRepository;
 use App\Repository\RoomRepository;
+use App\Repository\UserFormRoomRepository;
+
+use App\Entity\UserFormRoom;
 
 use App\Entity\Room;
 use App\Entity\User;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 use App\Entity\Message;
 use Symfony\Component\HttpFoundation\Request;
@@ -72,11 +76,43 @@ class MessageController extends AbstractController
         ]);
     }
 
+    private function validateEntities(Message $msg): array
+    {
+        $errors = [];
 
-    #[Route('/addmsg', name: 'addmsg')]
-    public function addmsg(Request $request, ManagerRegistry $mr, RoomRepository $roomRepository, UserRepository $userRepository, MessageRepository $messageRepository): Response
+        
+        // Validate Room entity
+        $msgErrors = $this->validator->validate($msg);
+        foreach ($msgErrors as $error) {
+            $errors['contenu'] = $error->getMessage(); 
+        }
+
+        return $errors;
+    }
+
+    #[Route('/listmsg', name: 'listmsg')]
+    public function listmsg(Request $request, ManagerRegistry $mr, RoomRepository $roomRepository, UserRepository $userRepository, MessageRepository $messageRepository): Response
+   {
+
+     $rooms = $roomRepository->findAll();
+
+           return $this->render('room/listroomF.html.twig', [
+            'rooms' => $rooms,
+           ]);
+   }
+
+    #[Route('/addmsg/{id}', name: 'addmsg')]
+    public function addmsg( UserFormRoomRepository $UserFormRoomRepository,$id,Request $request, ManagerRegistry $mr, RoomRepository $roomRepository, UserRepository $userRepository, MessageRepository $messageRepository): Response
    {
     $msg = $this->getDoctrine()->getRepository(Message::class)->findAll();
+    //$messages= $messageRepository->find($id);
+    $room = $roomRepository->find($id);
+    $roomname=$room->getNomRoom();
+    //= $this->getDoctrine()->getRepository(Message::class)->findAll();
+    $messages = $messageRepository->findBy(['room' => $room]);
+    $participants = $this->getDoctrine()->getRepository(UserFormRoom::class)->findBy(['room' => $id]);
+
+
     $rooms = $roomRepository->findAll();
     $users = $userRepository->findAll();
 
@@ -85,26 +121,30 @@ class MessageController extends AbstractController
      if ($request->isMethod('POST')) {
       
         $formData = $request->request->all();
-
         $message->setContenu($formData['contenu']);
-     
-       
-        $selectedRoomId = (int) $formData['combobox'];
-        $selectedUserId = (int)$formData['comboboxu'];
-       
-
-       
-       
-
-        $user = $userRepository->find($selectedUserId);
-        $room = $roomRepository->find($selectedRoomId);
-    
-    
-       
-    $message->setSenderMsg($selectedUserId);
+       // $selectedRoomId = (int) $formData['combobox'];
+        //$selectedUserId = (int)$formData['comboboxu'];
+        //$user = $userRepository->find($selectedUserId);
+        //$room = $roomRepository->find($selectedRoomId);   
+    //$message->setSenderMsg($selectedUserId);
     $message->setRoom($room);
    
+   
+        // Validate entities
+        $errors = $this->validateEntities($message);
 
+        // If there are validation errors, render the template with the errors
+        if (count($errors) > 0) {
+            return $this->render('msg/listmsg.html.twig', [
+                'messages' => $messages,
+             'roomname' => $roomname,
+             'participants' => $participants,
+            'rooms' => $rooms,
+            'msgs' => $msg,
+            'users' => $users,
+                'errors' => $errors,
+            ]);
+        }
     $entityManager = $this->getDoctrine()->getManager();
     $entityManager->persist($message);
     $entityManager->flush();
@@ -112,19 +152,23 @@ class MessageController extends AbstractController
         // Add a flash message to indicate success
         $this->addFlash('success', 'Room added successfully.');
 
-        // Redirect to a different route after successful submission
-        //return $this->redirectToRoute('addmsg');
+        
     }
-    // Render the template and pass the Room entity and formation choices to it
-    //return $this->render('Back/addmsg.html.twig', [
-        $messages = $this->getDoctrine()->getRepository(Message::class)->findAll();
+   
         return $this->render('msg/listmsg.html.twig', [
             'messages' => $messages,
-        
+        'roomname' => $roomname,
+        'participants' => $participants,
         'rooms' => $rooms,
         'msgs' => $msg,
         'users' => $users,
     ]);
+}
+
+
+
+public function __construct(private ValidatorInterface $validator)
+{
 }
 #[Route('/deletemsg/{id}', name: 'deletemsg')]
     public function deleteRoom($id, MessageRepository $msgRepository): Response

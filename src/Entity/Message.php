@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use DateTimeInterface;
 use Symfony\Component\Validator\Constraints\DateTime;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Message
@@ -25,6 +26,7 @@ class Message
 
     /**
      * @var string|null
+     * @Assert\NotBlank(message="le message ne peut pas etre vide")
      *
      * @ORM\Column(name="contenu", type="string", length=2500, nullable=true)
      */
