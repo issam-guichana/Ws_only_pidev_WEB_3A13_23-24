@@ -6,6 +6,7 @@
 parameters:
 
 services:
+    App\Controller\Filter\OffensiveLanguageFilter:
     App\Security\CustomUserProvider:
         arguments:
             - '@doctrine.orm.entity_manager'

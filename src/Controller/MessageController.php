@@ -20,6 +20,7 @@ use App\Entity\Message;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use App\Controller\Filter\OffensiveLanguageFilter;
 
 
 
@@ -100,9 +101,16 @@ class MessageController extends AbstractController
             'rooms' => $rooms,
            ]);
    }
+   #[Route('/emj', name: 'emj')]
+   public function emj( ): Response
+  {
+    return $this->render('msg/emoji.html.twig');
+  }
+
 
     #[Route('/addmsg/{id}', name: 'addmsg')]
-    public function addmsg( UserFormRoomRepository $UserFormRoomRepository,$id,Request $request, ManagerRegistry $mr, RoomRepository $roomRepository, UserRepository $userRepository, MessageRepository $messageRepository): Response
+    public function addmsg( UserFormRoomRepository $UserFormRoomRepository,$id,Request $request, ManagerRegistry $mr,
+     RoomRepository $roomRepository, UserRepository $userRepository, MessageRepository $messageRepository,  OffensiveLanguageFilter $offensiveLanguageFilter): Response
    {
     $msg = $this->getDoctrine()->getRepository(Message::class)->findAll();
     //$messages= $messageRepository->find($id);
@@ -110,6 +118,12 @@ class MessageController extends AbstractController
     $roomname=$room->getNomRoom();
     //= $this->getDoctrine()->getRepository(Message::class)->findAll();
     $messages = $messageRepository->findBy(['room' => $room]);
+    foreach ($messages as $message) {
+        if ($message->getStatus() === "Supprimer") {
+            $message->setContenu("ce message a été supprimé");
+        }
+    }
+
     $participants = $this->getDoctrine()->getRepository(UserFormRoom::class)->findBy(['room' => $id]);
 
 
@@ -122,14 +136,19 @@ class MessageController extends AbstractController
       
         $formData = $request->request->all();
         $message->setContenu($formData['contenu']);
+
        // $selectedRoomId = (int) $formData['combobox'];
         //$selectedUserId = (int)$formData['comboboxu'];
         //$user = $userRepository->find($selectedUserId);
         //$room = $roomRepository->find($selectedRoomId);   
     //$message->setSenderMsg($selectedUserId);
     $message->setRoom($room);
-   
-   
+     $content = $request->request->get('contenu');
+     // Filter the message content for offensive language
+     $filteredContent = $offensiveLanguageFilter->filter($content);
+
+     // Set the filtered message content
+     $message->setContenu($filteredContent);
         // Validate entities
         $errors = $this->validateEntities($message);
 

@@ -30,7 +30,7 @@
                     <td>
                         <a href="{{ path('app_room_d', {'id': room.IdRoom }) }}" class="btn btn-primary consulter-btn" data-room-id="{{ room.IdRoom }}" data-toggle="modal" data-target="#messagesModal">Messages</a>
                         <a href="{{ path('updateroom', {'id': room.IdRoom }) }}" class="btn btn-primary editer-btn" data-room-id="{{ room.IdRoom }}" data-toggle="modal" data-target="#updateModal">Editer</a>
-                        <a href="{{ path('deleteroom', {'id': room.IdRoom }) }}" class="btn btn-primary delete-btn" data-room-id="{{ room.IdRoom }}">Supprimer</a>
+                        <a href="{{ path('deleteroom', {'id': room.IdRoom }) }}" class="btn btn-primary delete-btn" data-room-id="{{ room.IdRoom }}" onclick="confirmDelete('{{ room.IdRoom }}')">Supprimer</a>
                     </td>
                 </tr>
             {% endfor %}
@@ -122,7 +122,17 @@
         });
     });
 </script>
-
+<script>
+    function confirmDelete(roomId) {
+        // Display a confirmation dialog
+        if (confirm("Attention! La suppression de cette discussion invoquera la suppression de tous les messages")) {
+            // If user confirms, redirect to the delete route
+            window.location.href = "{{ path('deleteroom', {'id': 'ROOM_ID'}) }}".replace('ROOM_ID', roomId);
+        } else {
+            window.location.reload();
+        }
+    }
+</script>
    <script>
     $(document).ready(function() {
         // Event listener for Consulter button

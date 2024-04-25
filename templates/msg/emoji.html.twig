@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat App</title>
+  <!-- Include EmojiOneArea library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.1/emojionearea.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.1/emojionearea.min.css">
+</head>
+<body>
+  <!-- Your chat input field -->
+<input type="text" id="message-input" placeholder="Type a message...">
+
+<!-- Button to trigger EmojioneArea -->
+<button id="emoji-button">😀</button>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const inputField = document.getElementById('message-input');
+  const emojiButton = document.getElementById('emoji-button');
+
+  // Initialize EmojioneArea
+  const emojiPicker = new EmojiArea({
+    standalone: true,
+    emojiPickerPosition: 'bottom'
+  });
+
+  // Display EmojioneArea when emoji button is clicked
+  emojiButton.addEventListener('click', function() {
+    emojiPicker.showPicker(inputField);
+  });
+});
+</script>
+
+</body>
+</html>
