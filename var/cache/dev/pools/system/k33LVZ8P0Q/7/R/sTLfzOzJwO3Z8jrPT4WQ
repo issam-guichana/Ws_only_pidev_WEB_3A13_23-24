@@ -1,0 +1,60 @@
+<?php //App%255CEntity%255CEvenement%2524imageFile
+
+return [PHP_INT_MAX, static function () { return \Symfony\Component\VarExporter\Internal\Hydrator::hydrate(
+    $o = [
+        clone (($p = &\Symfony\Component\VarExporter\Internal\Registry::$prototypes)['Vich\\UploaderBundle\\Mapping\\Annotation\\UploadableField'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('Vich\\UploaderBundle\\Mapping\\Annotation\\UploadableField')),
+        clone ($p['Symfony\\Component\\Validator\\Constraints\\File'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('Symfony\\Component\\Validator\\Constraints\\File')),
+    ],
+    null,
+    [
+        'Vich\\UploaderBundle\\Mapping\\Annotation\\UploadableField' => [
+            'mapping' => [
+                'product_images',
+            ],
+            'fileNameProperty' => [
+                'imageEvent',
+            ],
+            'size' => [
+                null,
+            ],
+            'mimeType' => [
+                null,
+            ],
+            'originalName' => [
+                null,
+            ],
+            'dimensions' => [
+                null,
+            ],
+        ],
+        'stdClass' => [
+            'groups' => [
+                1 => [
+                    'Default',
+                ],
+            ],
+            'binaryFormat' => [
+                1 => false,
+            ],
+            'mimeTypes' => [
+                1 => [
+                    'image/jpeg',
+                    'image/png',
+                ],
+            ],
+            'mimeTypesMessage' => [
+                1 => 'Please upload a valid image (JPEG or PNG) file',
+            ],
+        ],
+        'Symfony\\Component\\Validator\\Constraints\\File' => [
+            'maxSize' => [
+                1 => 5000000,
+            ],
+        ],
+    ],
+    [
+        $o[0],
+        $o[1],
+    ],
+    []
+); }];
