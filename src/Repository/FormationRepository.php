@@ -18,5 +18,19 @@ class FormationRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Formation::class);
     }
-    
+    /**
+     * Récupère toutes les formations dans une catégorie spécifique.
+     *
+     * @param int $categoryId L'ID de la catégorie
+     * @return Formation[]|null Les formations dans la catégorie donnée
+     */
+    public function findByCategory(int $categoryId): ?array
+    {
+        return $this->createQueryBuilder('f')
+            ->innerJoin('f.cat', 'c')
+            ->where('c.idCat = :categoryId')
+            ->setParameter('categoryId', $categoryId)
+            ->getQuery()
+            ->getResult();
+    }
 }

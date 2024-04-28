@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Formini.tn
+{% endblock %}
+
+{% block body %}
+			<section class="section">
+				<div
+					class="container">
+					<h1>Vos formations</h1>
+					<div class="row justify-content-center">
+						{% for formation in formateur_formations %}
+							<!-- course item -->
+							<div class="col-lg-4 col-sm-6 mb-5">
+								<div class="card p-0 border-primary rounded-0 hover-shadow">
+									<div class="card-body">
+										<ul class="list-inline mb-2">
+											<li class="list-inline-item">
+												<a class="text-color" href="#">{{ formation.getCat() }}</a>
+											</li>
+										</ul>
+										<h4 class="card-title">{{ formation.getNomForm() }}</h4>
+										<p class="card-text mb-4">{{ formation.getDescription() }}</p>
+										<a href="#" class="btn btn-primary btn-sm" onclick="event.preventDefault(); document.getElementById('inscription-form-{{ formation.getIdForm() }}').submit();">Détails</a>
+
+										<form id="inscription-form-{{ formation.getIdForm() }}" action="{{ path('app_user_form_room_inscription', {'idForm': formation.getIdForm()}) }}" method="post" style="display: none;">
+											<input type="hidden" name="idForm" value="{{ formation.getIdForm() }}">
+											{{ csrf_token('app_user_form_room_inscription') }}
+										</form>
+									</div>
+								</div>
+							</div>
+							<!-- /course item -->
+						{% endfor %}
+					</div>
+					<!-- /course list -->
+				</div>
+			</section>
+		{% endblock %}

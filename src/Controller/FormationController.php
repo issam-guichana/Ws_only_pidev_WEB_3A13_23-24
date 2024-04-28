@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Controller;
-
+use Knp\Component\Pager\PaginatorInterface;
 use App\Entity\UserFormation;
 use App\Entity\Formation;
 use App\Entity\UserFormRoom;
@@ -20,6 +20,13 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\UserFormRoomRepository;
 use App\Controller\UserFormRoomController;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use BotMan\BotMan\BotMan;
+use BotMan\BotMan\Messages\Incoming\Answer;
+
+use BotMan\BotMan\BotManFactory;
+use BotMan\BotMan\Drivers\DriverManager;
+
+
 #[Route('/formation')]
 class FormationController extends AbstractController
 {
@@ -29,32 +36,29 @@ class FormationController extends AbstractController
     #[Route('/new', name: 'app_formation_new', methods: ['GET', 'POST'])]
     public function new(RoomRepository $roomRepository, Request $request, EntityManagerInterface $entityManager, UserRepository $userRepository, CategorieRepository $categorieRepository, CertificatRepository $certificatRepository): Response
     {
-        // Fetch all users to include in the selection
+       
         $users = $userRepository->findByRole('FORMATEUR');
-        $rooms = $roomRepository->findAll(); // Use injected repository directly
+        $rooms = $roomRepository->findAll();
     
-        // Fetch all categories to include in the selection
+        
         $categories = $categorieRepository->findAll();
         $certificats = $certificatRepository->findAll();
 
     
-        // Create a new instance of Formation and Room
+       
         $formation = new Formation();
         $room = new Room();
         
-          // Fetch formateurs only
-         // $formateurs = $userRepository->findByRole('FORMATEUR');
-    
-        // If the form is submitted via POST method
+          
         if ($request->isMethod('POST')) {
-            // Get form data
+       
             $formData = $request->request->all();
     
-            // Set formation data
+      
             $formation->setNomForm($formData['nomForm']);
             $formation->setDescription($formData['description']);
     
-            // Get selected category
+            
             $selectedCategoryId = $formData['categoryId'];
             $categorie = $categorieRepository->find($selectedCategoryId);
             $formation->setCat($categorie);
@@ -63,16 +67,14 @@ class FormationController extends AbstractController
             $room->setDateCRoom(new \DateTime());
             $room->setDescription($formData['description']);
     
-            // Persist the formation and room
+            
             $entityManager->persist($formation);
             $entityManager->persist($room);
             $entityManager->flush();
     
-            // Get selected user
             $selectedUserId = (int) $formData['comboboxu'];
             $user = $userRepository->find($selectedUserId);
-          //  $userId = $userRepository->find($selectedUserId);
-
+          
             
           $errors = $this->validateEntities($formation, $room);
           if (count($errors) > 0) {
@@ -86,36 +88,35 @@ class FormationController extends AbstractController
             ]);
         }
 
-            // Create a new instance of UserFormRoom
             $userFormRoom = new UserFormRoom();
             $userFormRoom->setUser($user );
             $userFormRoom->setForm($formation);
-            $userFormRoom->setRoom($room); // Set room for userFormRoom
+            $userFormRoom->setRoom($room); 
     
-            // Persist the userFormRoom
+            
             $entityManager->persist($userFormRoom);
     
-            // Create a new instance of UserFormation
+           
             $userFormation = new UserFormation();
             $userFormation->setUser($user );
             $userFormation->setFormation($formation);
     
             $selectedCertificatId = $formData['certificatId'];
             $certificat = $certificatRepository->find($selectedCertificatId);
-            $userFormation->setCertif($certificat); // Set certificat for userFormation
+            $userFormation->setCertif($certificat); 
     
-            // Persist the userFormation
+           
             $entityManager->persist($userFormation);
             $entityManager->flush();
     
-            // Add a flash message to indicate success
-            $this->addFlash('success', 'Formation added successfully.');
+           
+            $this->addFlash('success', 'Formation ajoutée avec succès.');
     
-            // Redirect to the index route after successful submission
+          
             return $this->redirectToRoute('app_list_formations');
         }
     
-        // Render the template and pass the Formation entity, form, users, and categories to it
+     
         return $this->render('formation/new.html.twig', [
             'formation' => $formation,
             'users' => $users,
@@ -152,6 +153,7 @@ class FormationController extends AbstractController
             'form' => $form,
         ]);
     }
+    //affichage avec room
     #[Route('/formations', name: 'app_list_formations', methods: ['GET'])]
     public function listFormations(FormationRepository $formationRepository, UserFormRoomRepository $userFormRoomRepository): Response
     {
@@ -159,7 +161,7 @@ class FormationController extends AbstractController
         $userFormRooms = [];
 
         foreach ($formations as $formation) {
-            // Fetch userFormRooms for each formation
+            
             $userFormRooms[$formation->getIdForm()] = $userFormRoomRepository->findBy(['form' => $formation]);
         }
 
@@ -180,48 +182,53 @@ class FormationController extends AbstractController
     }
     
     #[Route('/courses', name: 'courses')]
-    public function courses(FormationRepository $formationRepository): Response
-    {
-        // Fetch all formations from the repository
-        $formations = $formationRepository->findAll();
+public function courses(FormationRepository $formationRepository, PaginatorInterface $paginator, Request $request): Response
+{
+    // Récupérer toutes les formations
+    $allFormations = $formationRepository->findAll();
 
-        // Pass the formations to the Twig template
-        return $this->render('Front/courses.html.twig', [
-            'formations' => $formations,
-        ]);
-      
-    }
+    // Paginer les formations
+    $formations = $paginator->paginate(
+        $allFormations, // Requête à paginer
+        $request->query->getInt('page', 1), // Numéro de page
+        10 // Nombre d'éléments par page
+    );
+
+    return $this->render('formation/courses.html.twig', [
+        'formations' => $formations,
+    ]);
+}
     
     #[Route('/newformation', name: 'app_formation_new1', methods: ['GET', 'POST'])]
     public function newFormation(Request $request, EntityManagerInterface $entityManager, UserRepository $userRepository, CategorieRepository $categorieRepository, CertificatRepository $certificatRepository, RoomRepository $roomRepository): Response
     {
-        // Define the specific user ID
+        
         $userId = 9;
     
-        // Fetch the specific user from the repository
+        
         $specificUser = $userRepository->find($userId);
     
-        // Fetch other necessary data
-        $rooms = $roomRepository->findAll(); // Use injected repository directly
+       
+        $rooms = $roomRepository->findAll(); 
     
-        // Fetch all categories to include in the selection
+        
         $categories = $categorieRepository->findAll();
-        $certificats = $certificatRepository->findAll(); // Assuming the user has a method to retrieve associated rooms
-    
-        // Create a new instance of Formation and Room
+        $certificats = $certificatRepository->findAll(); 
+
+        
         $formation = new Formation();
         $room = new Room();
     
-        // If the form is submitted via POST method
+        
         if ($request->isMethod('POST')) {
-            // Get form data
+            
             $formData = $request->request->all();
     
-            // Set formation data
+            
             $formation->setNomForm($formData['nomForm']);
             $formation->setDescription($formData['description']);
     
-            // Get selected category
+           
             $selectedCategoryId = $formData['categoryId'];
             $categorie = $categorieRepository->find($selectedCategoryId);
             $formation->setCat($categorie);
@@ -230,42 +237,40 @@ class FormationController extends AbstractController
             $room->setDateCRoom(new \DateTime());
             $room->setDescription($formData['description']);
     
-            // Persist the formation and room
+            
             $entityManager->persist($formation);
             $entityManager->persist($room);
             $entityManager->flush();
     
-            // Create a new instance of UserFormRoom
+           
             $userFormRoom = new UserFormRoom();
             $userFormRoom->setUser($specificUser);
             $userFormRoom->setForm($formation);
-            $userFormRoom->setRoom($room); // Set room for userFormRoom
+            $userFormRoom->setRoom($room); 
     
-            // Persist the userFormRoom
+           
             $entityManager->persist($userFormRoom);
     
-            // Create a new instance of UserFormation
             $userFormation = new UserFormation();
             $userFormation->setUser($specificUser);
             $userFormation->setFormation($formation);
     
             $selectedCertificatId = $formData['certificatId'];
             $certificat = $certificatRepository->find($selectedCertificatId);
-            $userFormation->setCertif($certificat); // Set certificat for userFormation
-    
-            // Persist the userFormation
+            $userFormation->setCertif($certificat);     
+           
             $entityManager->persist($userFormation);
             $entityManager->flush();
     
-            // Add a flash message to indicate success
-            $this->addFlash('success', 'Formation added successfully.');
+          
+            $this->addFlash('success', 'Formation ajoutée avec succès.');
     
-            // Redirect to the index route after successful submission
+            
             return $this->redirectToRoute('app_formateur_formations');
         }
     
-        // Render the template and pass the Formation entity, specific user, categories, room, and certificats to it
-        return $this->render('Front/ajoutf.html.twig', [
+       
+        return $this->render('formation/ajoutf.html.twig', [
             'formation' => $formation,
             'specificUser' => $specificUser,
             'categories' => $categories,
@@ -278,14 +283,14 @@ class FormationController extends AbstractController
     {
         $errors = [];
 
-        // Validate Formation entity
+
         $formationErrors = $this->validator->validate($formation);
-        foreach ($formationErrors as $error) {
+        foreach ($formationErrors as $error) {                                 
             $errors['nomForm'] = $error->getMessage(); 
             $errors['descriptionF'] = $error->getMessage(); 
         }
 
-        // Validate Room entity
+      
         $roomErrors = $this->validator->validate($room);
         foreach ($roomErrors as $error) {
             $errors['nomRoom'] = $error->getMessage(); 
@@ -295,5 +300,33 @@ class FormationController extends AbstractController
         return $errors;
     } 
 
+    #[Route('/botman', name: 'formation_botman', methods: ['GET', 'POST'])]
+public function handleBotMan(Request $request, BotMan $botman): Response
+{
+    
+    DriverManager::loadDriver(\BotMan\Drivers\Web\WebDriver::class);
 
+    // Configuration for the BotMan WebDriver
+    $config = [];
+
+    // Create BotMan instance
+    $botman = BotManFactory::create($config);
+
+    // Give the bot some things to listen for.
+    $botman->hears('(hello|hi|hey)', function ($bot) {
+        $bot->reply('Hello!');
+    });
+
+    // Set a fallback
+    $botman->fallback(function ($bot) {
+        $bot->reply('Sorry, I did not understand.');
+    });
+
+    // Start listening
+    $botman->listen();
+
+    // Return a response if necessary
+    return new Response();
+
+}
 }

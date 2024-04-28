@@ -33,3 +33,8 @@ app_formation_new1:
     path: /newformation
     controller: App\Controller\FormationController::newFormation
     methods: ['GET', 'POST']
+app_recommendations:
+    path: /formation/recommendations
+    controller: 'App\Controller\FormationController::recommend'
+    methods: ['GET']
+

@@ -1,0 +1,88 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Formini.tn
+{% endblock %}
+
+{% block body %}
+<div class="page-content">
+    <div class="title-container">
+        <h2 class="form-title"> <i class="fas fa-lightbulb" style="margin-right: 10px;"></i>Creation d'un espace sur Formini.TN</h2>
+    </div>
+    <br/>
+
+    {% for message in app.flashes('error') %}
+        <div class="alert alert-danger">{{ message }}</div>
+    {% endfor %}
+
+    <form method="post" action="{{ path('app_formation_new1') }}">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card custom-card">
+                    <div class="card-header" style="background-color:  #213e60">
+                        <h5 class="card-title" style="color: #ffffff;"> <i style="margin-right: 10px;" class="fas fa-info-circle"></i>Informations Générales</h5>
+                    </div>
+
+                    <div class="card-body card-container">
+                        <div class="form-group">
+                            <label class="form-label" for="nomForm"> <i style="margin-right: 10px;" class="fas fa-chalkboard-teacher"></i>Nom de la formation:</label>
+                            <input type="text" id="nomForm" name="nomForm" class="form-control form-input" placeholder="Taper le nom de la formation">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="description"> <i style="margin-right: 10px;" class="fas fa-align-left"></i> Description:</label>
+                            <input type="text" id="description" name="description" class="form-control form-input" placeholder="Description Formation...">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="formation_cat">
+                                <i style="margin-right: 10px;" class="fas fa-tags"></i>Catégorie:</label>
+                            <select id="formation_cat" name="categoryId" class="form-control form-input" required>
+                                <option value="">Choisir la catégorie </option>
+                                {% for category in categories %}
+                                    <option value="{{ category.getIdCat() }}">{{ category.getNomCat() }}</option>
+                                {% endfor %}
+                            </select>
+                         
+                        </div>
+
+                        <br/> <br/> <br/> <br/>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card custom-card">
+                    <div class="card-header" style="background-color:  #213e60">
+                        <h5 class="card-title" style="color: #ffffff;"> <i style="margin-right: 10px;" class="fas fa-bars"></i> Autres Options </h5>
+                    </div>
+
+                    <div class="card-body card-container" style=" " >
+                        <div class="form-group">
+                            <label class="form-label" for="nomRoom"><i style="margin-right: 10px;" class="fas fa-envelope"></i> Nom de la messagerie:</label>
+                            <input type="text" id="nomRoom" name="nomRoom" required class="form-control form-input" placeholder="Nom de la messagerie">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="roomDescription"><i style="margin-right: 10px;"  class="fas fa-comment"></i>Description:</label>
+                            <input type="text" id="roomDescription" name="roomDescription" class="form-control form-input" placeholder="Description">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="certificat"><i style="margin-right: 10px;"  class="fas fa-certificate"></i>Certificat :</label>
+                            <select id="certificat" name="certificatId" class="form-control form-input" required>
+                                <option value="">Choisir un certificat</option>
+                                {% for certificat in certificats %}
+                                    <option value="{{ certificat.getIdCertif() }}">{{ certificat.getNomCertif() }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button type="submit" class="custom-button btn-block mt-4">Confirmer</button>
+    </form>
+
+</div>
+
+	{% endblock %}

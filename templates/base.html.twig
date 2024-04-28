@@ -1,25 +1,15 @@
 <!DOCTYPE html>
 
-<!--
- // WEBSITE: https://themefisher.com
- // TWITTER: https://twitter.com/themefisher
- // FACEBOOK: https://www.facebook.com/themefisher
- // GITHUB: https://github.com/themefisher/
--->
-
 <html lang="en">
 	<head>
 
-		<!-- Basic Page Needs
-							================================================== -->
 		<meta charset="utf-8">
 		<title>
 			{% block title %}ForminiTN
 			{% endblock %}
 		</title>
 
-		<!-- Mobile Specific Metas
-							================================================== -->
+
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="description" content="Construction Html5 Template">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
@@ -60,6 +50,7 @@
 	</head>
 
 	<body>
+	
 		<!-- preloader start -->
 		<div class="preloader">
 			<img src="{{ asset('Front/images/preloader.gif') }}" alt="preloader">
@@ -131,7 +122,7 @@
 			<div class="navigation w-100">
 				<div class="container">
 					<nav class="navbar navbar-expand-lg navbar-dark p-0">
-						<a class="navbar-brand" href="index.html.twig"><img src="images/logo1.png" alt="logo"></a>
+						<a class="navbar-brand" href="index.html.twig"><img src="Front/images/logo1.png" alt="logo"></a>
 						<button class="navbar-toggler rounded-0" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
 							<span class="navbar-toggler-icon"></span>
 						</button>
@@ -160,11 +151,11 @@
 			</div>
 
 		</header>
-		{%endblock%}
+
 		<!-- /header -->
 
 		<!-- Modal -->
-			{% block body %}
+			
 				<div class="modal fade" id="signupModal" tabindex="-1" role="dialog" aria-hidden="true"> <div class="modal-dialog modal-lg" role="document">
 					<div class="modal-content rounded-0 border-0 p-4">
 						<div class="modal-header border-0">
@@ -272,7 +263,7 @@
 			</div>
 		</section>
 		<!-- /hero slider -->
-
+{% block body %}
 		<!-- banner-feature -->
 		<section class="bg-gray overflow-md-hidden">
 			<div class="container-fluid p-0">
@@ -313,7 +304,7 @@
 		</section>
 		<!-- /banner-feature -->
 
-		<!-- about us -->
+		
 		<section class="section">
 			<div class="container">
 				<div class="row align-items-center">
@@ -371,6 +362,7 @@
 							</div>
 						</div>
 					</div>
+					
 					<!-- course item -->
 					<div class="col-lg-4 col-sm-6 mb-5">
 						<div class="card p-0 border-primary rounded-0 hover-shadow">
@@ -808,7 +800,7 @@
 		<!-- /blog -->
 
 		<!-- footer -->
-
+{% endblock %}
 		{%block footer %}
 		<footer>
 			<!-- newsletter -->
@@ -834,7 +826,7 @@
 						<div
 							class="col-lg-4 col-sm-8 mb-5 mb-lg-0">
 							<!-- logo -->
-							<a class="logo-footer" href="index.html.twig"><img class="img-fluid mb-4" src="images/logo1.png" alt="logo"></a>
+							<a class="logo-footer" href="index.html.twig"><img class="img-fluid mb-4" src="Front/images/logo1.png" alt="logo"></a>
 							<ul class="list-unstyled">
 								<li class="mb-2">23621 15 Mile Rd #C104, Clinton MI, 48035, New York, USA</li>
 								<li class="mb-2">+1 (2) 345 6789</li>
@@ -918,47 +910,7 @@
 				</div>
 			</div>
 			<!-- copyright -->
-			<div class="copyright py-4 bg-footer">
-				<div class="container">
-					<div class="row">
-						<div class="col-sm-7 text-sm-left text-center">
-							<p class="mb-0">Copyright &copy;
-								<script>
-									var CurrentYear = new Date().getFullYear()
-document.write(CurrentYear)
-								</script>
-								, designed & developed by
-								<a href="{{ asset('https://themefisher.com/') }}">
-									class="text-muted">Themefisher</a>
-							</p>
-						</div>
-						<div class="col-sm-5 text-sm-right text-center">
-							<ul class="list-inline">
-								<li class="list-inline-item">
-									<a class="d-inline-block p-2" href="https://facebook.com/themefisher/">
-										<i class="ti-facebook text-primary"></i>
-									</a>
-								</li>
-								<li class="list-inline-item">
-									<a class="d-inline-block p-2" href="https://twitter.com/themefisher">
-										<i class="ti-twitter-alt text-primary"></i>
-									</a>
-								</li>
-								<li class="list-inline-item">
-									<a class="d-inline-block p-2" href="https://github.com/themefisher">
-										<i class="ti-github text-primary"></i>
-									</a>
-								</li>
-								<li class="list-inline-item">
-									<a class="d-inline-block p-2" href="https://instagram.com/themefisher/">
-										<i class="ti-instagram text-primary"></i>
-									</a>
-								</li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
+			
 		</footer>
 		<!-- /footer -->
 
@@ -984,7 +936,6 @@ document.write(CurrentYear)
 			<!-- Main Script -->
 			<script src="{{asset('Front/js/script.js')}}"></script>
 		{% endblock %}
-
 
 	</body>
 </html>
