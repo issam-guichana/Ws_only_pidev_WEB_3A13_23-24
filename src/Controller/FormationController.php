@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controller;
+use Doctrine\Common\Collections\ArrayCollection;
 use Knp\Component\Pager\PaginatorInterface;
 use App\Entity\UserFormation;
 use App\Entity\Formation;
@@ -181,9 +182,13 @@ class FormationController extends AbstractController
         return $this->redirectToRoute('app_list_formations', [], Response::HTTP_SEE_OTHER);
     }
     
-    #[Route('/courses', name: 'courses')]
-public function courses(FormationRepository $formationRepository, PaginatorInterface $paginator, Request $request): Response
+
+
+#[Route('/courses', name: 'courses')]
+public function courses(FormationRepository $formationRepository, PaginatorInterface $paginator, EntityManagerInterface $entityManager, Request $request): Response
 {
+    $userId = 9; // ID de l'utilisateur statique
+
     // Récupérer toutes les formations
     $allFormations = $formationRepository->findAll();
 
@@ -194,11 +199,35 @@ public function courses(FormationRepository $formationRepository, PaginatorInter
         10 // Nombre d'éléments par page
     );
 
+    // Récupérer les formations précédemment consultées par l'utilisateur
+    $userFormations = $entityManager->getRepository(UserFormation::class)->findBy(['user' => $userId]);
+
+    // Récupérer les IDs des catégories des formations précédemment consultées
+    $categoriesIds = [];
+    foreach ($userFormations as $userFormation) {
+        $formation = $userFormation->getFormation();
+        if ($formation && $cat = $formation->getCat()) {
+            $categoriesIds[] = $cat->getIdCat();
+        }
+    }
+
+    // Récupérer d'autres formations dans les mêmes catégories que celles consultées précédemment
+    $recommendations = new ArrayCollection();
+    foreach ($categoriesIds as $categoryId) {
+        $formationsInCategory = $formationRepository->findByCategory($categoryId);
+        foreach ($formationsInCategory as $formation) {
+            if (!$recommendations->contains($formation)) {
+                $recommendations->add($formation);
+            }
+        }
+    }
+
     return $this->render('formation/courses.html.twig', [
         'formations' => $formations,
+        'recommendations' => $recommendations,
     ]);
 }
-    
+
     #[Route('/newformation', name: 'app_formation_new1', methods: ['GET', 'POST'])]
     public function newFormation(Request $request, EntityManagerInterface $entityManager, UserRepository $userRepository, CategorieRepository $categorieRepository, CertificatRepository $certificatRepository, RoomRepository $roomRepository): Response
     {

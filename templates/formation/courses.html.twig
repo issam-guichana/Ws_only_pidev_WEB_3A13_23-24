@@ -1,38 +1,37 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Formini.tn
-{% endblock %}
+{% block title %}Formini.tn{% endblock %}
 
 {% block body %}
 <section class="section">
     <div class="container">
-        <!-- course list -->
+        <!-- Course list -->
         <div class="row justify-content-center">
             {% for formation in formations %}
-                <!-- course item -->
+                <!-- Course item -->
                 <div class="col-lg-4 col-sm-6 mb-5">
                     <div class="card p-0 border-primary rounded-0 hover-shadow">
                         <div class="card-body">
                             <ul class="list-inline mb-2">
                                 <li class="list-inline-item">
-                                    <a class="text-color" href="#">{{ formation.getCat() }}</a>
+                                    <a class="text-color" href="#">{{ formation.cat }}</a>
                                 </li>
                             </ul>
-                            <h4 class="card-title">{{ formation.getNomForm() }}</h4>
-                            <p class="card-text mb-4">{{ formation.getDescription() }}</p>
-                            <a href="#" class="btn btn-primary btn-sm" onclick="event.preventDefault(); document.getElementById('inscription-form-{{ formation.getIdForm() }}').submit();">Apply now</a>
+                            <h4 class="card-title">{{ formation.nomForm }}</h4>
+                            <p class="card-text mb-4">{{ formation.description }}</p>
+                            <a href="#" class="btn btn-primary btn-sm" onclick="event.preventDefault(); document.getElementById('inscription-form-{{ formation.idForm }}').submit();">Apply now</a>
 
-                            <form id="inscription-form-{{ formation.getIdForm() }}" action="{{ path('app_user_form_room_inscription', {'idForm': formation.getIdForm()}) }}" method="post" style="display: none;">
-                                <input type="hidden" name="idForm" value="{{ formation.getIdForm() }}">
+                            <form id="inscription-form-{{ formation.idForm }}" action="{{ path('app_user_form_room_inscription', {'idForm': formation.idForm}) }}" method="post" style="display: none;">
+                                <input type="hidden" name="idForm" value="{{ formation.idForm }}">
                                 {{ csrf_token('app_user_form_room_inscription') }}
                             </form>
                         </div>
                     </div>
                 </div>
-                <!-- /course item -->
+                <!-- /Course item -->
             {% endfor %}
         </div>
-        <!-- /course list -->
+        <!-- /Course list -->
 
         <!-- Pagination -->
         <div class="row justify-content-center">
@@ -42,10 +41,41 @@
         </div>
         <!-- /Pagination -->
 
+        <!-- Recommendations -->
+        {% if recommendations is not empty %}
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title mb-4">Recommandations</h2>
+                <div class="row justify-content-center">
+                    {% for recommendation in recommendations %}
+                        <!-- Recommendation item -->
+                        <div class="col-lg-4 col-sm-6 mb-5">
+                            <div class="card p-0 border-primary rounded-0 hover-shadow">
+                                <div class="card-body">
+                                    <ul class="list-inline mb-2">
+                                        <li class="list-inline-item">
+                                            <a class="text-color" href="#">{{ recommendation.cat }}</a>
+                                        </li>
+                                    </ul>
+                                    <h4 class="card-title">{{ recommendation.nomForm }}</h4>
+                                    <p class="card-text mb-4">{{ recommendation.description }}</p>
+                                    <a href="#" class="btn btn-primary btn-sm" onclick="event.preventDefault(); document.getElementById('inscription-form-{{ recommendation.idForm }}').submit();">Apply now</a>
+
+                                    <form id="inscription-form-{{ recommendation.idForm }}" action="{{ path('app_user_form_room_inscription', {'idForm': recommendation.idForm}) }}" method="post" style="display: none;">
+                                        <input type="hidden" name="idForm" value="{{ recommendation.idForm }}">
+                                        {{ csrf_token('app_user_form_room_inscription') }}
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /Recommendation item -->
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+        {% endif %}
+        <!-- /Recommendations -->
+
     </div>
 </section>
-
-		</section>
-		<!-- /courses -->
-
-		{% endblock %}
+{% endblock %}
