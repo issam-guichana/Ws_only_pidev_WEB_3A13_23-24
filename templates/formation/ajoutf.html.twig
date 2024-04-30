@@ -1,7 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Formini.tn
-{% endblock %}
+{% block title %}Formini.tn{% endblock %}
 
 {% block body %}
 <div class="page-content">
@@ -42,10 +41,17 @@
                                     <option value="{{ category.getIdCat() }}">{{ category.getNomCat() }}</option>
                                 {% endfor %}
                             </select>
-                         
                         </div>
 
-                        <br/> <br/> <br/> <br/>
+                        <div class="form-group">
+                            <label class="form-label" for="dateDebut">Date de début:</label>
+                            <input type="date" id="dateDebut" name="dateDebut" class="form-control form-input" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="dateFin">Date de fin:</label>
+                            <input type="date" id="dateFin" name="dateFin" class="form-control form-input" required>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -85,4 +91,4 @@
 
 </div>
 
-	{% endblock %}
+{% endblock %}

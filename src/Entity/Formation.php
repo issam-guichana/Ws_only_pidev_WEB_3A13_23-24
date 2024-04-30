@@ -29,7 +29,6 @@ class Formation
      *
      * @ORM\Column(name="nom_form", type="string", length=255, nullable=false)
      * @Assert\NotBlank(message="Le nom de la formation est obligatoire.")
-
      */
     private $nomForm;
 
@@ -53,6 +52,22 @@ class Formation
     private $cat;
 
     /**
+     * @var \DateTime|null
+     *
+     * @ORM\Column(name="date_debut", type="datetime", nullable=true)
+     * @Assert\DateTime
+     */
+    private $dateDebut;
+
+    /**
+     * @var \DateTime|null
+     *
+     * @ORM\Column(name="date_fin", type="datetime", nullable=true)
+     * @Assert\DateTime
+     */
+    private $dateFin;
+
+    /**
      * @var Collection|UserFormation[]
      *
      * @ORM\OneToMany(targetEntity="App\Entity\UserFormation", mappedBy="formation")
@@ -62,6 +77,9 @@ class Formation
     public function __construct()
     {
         $this->userFormations = new ArrayCollection();
+        // Initialize dates to null by default
+        $this->dateDebut = null;
+        $this->dateFin = null;
     }
 
     public function getIdForm(): ?int
@@ -102,6 +120,28 @@ class Formation
         return $this;
     }
 
+    public function getDateDebut(): ?\DateTime
+    {
+        return $this->dateDebut;
+    }
+
+    public function setDateDebut(?\DateTime $dateDebut): self
+    {
+        $this->dateDebut = $dateDebut;
+        return $this;
+    }
+
+    public function getDateFin(): ?\DateTime
+    {
+        return $this->dateFin;
+    }
+
+    public function setDateFin(?\DateTime $dateFin): self
+    {
+        $this->dateFin = $dateFin;
+        return $this;
+    }
+
     public function getUserFormations(): Collection
     {
         return $this->userFormations;
@@ -120,6 +160,7 @@ class Formation
             return $userFormation->getRole() === 'CLIENT';
         });
     }
+
     public function addUserFormation(UserFormation $userFormation): self
     {
         if (!$this->userFormations->contains($userFormation)) {
@@ -129,8 +170,4 @@ class Formation
 
         return $this;
     }
-    
-    
-
-
 }

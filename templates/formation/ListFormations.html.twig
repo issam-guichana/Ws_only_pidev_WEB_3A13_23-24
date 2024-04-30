@@ -68,6 +68,7 @@
     </style>
 {% endblock %}
 
+
 {% block content %}
     <div class="page-content">
         <div class="title-container">
@@ -80,6 +81,8 @@
                     <th>Nom</th>
                     <th>Description</th>
                     <th>Catégorie</th>
+                    <th>Date de début</th>
+                    <th>Date de fin</th>
                     <th>Room</th>
                     <th>Actions</th>
                 </tr>
@@ -90,6 +93,8 @@
                         <td>{{ formation.nomForm }}</td>
                         <td>{{ formation.description }}</td>
                         <td>{{ formation.cat.nomCat }}</td>
+                        <td>{{ formation.dateDebut|date('Y-m-d') }}</td> <!-- Formatage de la date de début -->
+                        <td>{{ formation.dateFin|date('Y-m-d') }}</td> <!-- Formatage de la date de fin -->
                         <td>
                             {% set userFormRoom = userFormRooms[formation.getIdForm()] %}
                             {{ userFormRoom[0].getRoom().getNomRoom() ?? 'N/A' }}

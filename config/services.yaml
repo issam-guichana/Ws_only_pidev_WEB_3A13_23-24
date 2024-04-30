@@ -8,8 +8,7 @@
 parameters:
 
 services:
-    BotMan\BotMan\BotMan:
-        autowire: true
+    App\EventSubscriber\CalendarSubscriber:
     App\Security\CustomUserProvider:
         arguments:
             - '@doctrine.orm.entity_manager'

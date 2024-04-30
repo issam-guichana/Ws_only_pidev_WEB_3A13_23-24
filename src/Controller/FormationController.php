@@ -35,98 +35,104 @@ class FormationController extends AbstractController
     {
     }
     #[Route('/new', name: 'app_formation_new', methods: ['GET', 'POST'])]
-    public function new(RoomRepository $roomRepository, Request $request, EntityManagerInterface $entityManager, UserRepository $userRepository, CategorieRepository $categorieRepository, CertificatRepository $certificatRepository): Response
-    {
-       
-        $users = $userRepository->findByRole('FORMATEUR');
-        $rooms = $roomRepository->findAll();
-    
-        
-        $categories = $categorieRepository->findAll();
-        $certificats = $certificatRepository->findAll();
+public function new(RoomRepository $roomRepository, Request $request, EntityManagerInterface $entityManager, UserRepository $userRepository, CategorieRepository $categorieRepository, CertificatRepository $certificatRepository): Response
+{
+   
+    $users = $userRepository->findByRole('FORMATEUR');
+    $rooms = $roomRepository->findAll();
 
     
-       
-        $formation = new Formation();
-        $room = new Room();
-        
-          
-        if ($request->isMethod('POST')) {
-       
-            $formData = $request->request->all();
+    $categories = $categorieRepository->findAll();
+    $certificats = $certificatRepository->findAll();
+
+
+   
+    $formation = new Formation();
+    $room = new Room();
     
       
-            $formation->setNomForm($formData['nomForm']);
-            $formation->setDescription($formData['description']);
-    
-            
-            $selectedCategoryId = $formData['categoryId'];
-            $categorie = $categorieRepository->find($selectedCategoryId);
-            $formation->setCat($categorie);
-    
-            $room->setNomRoom($formData['nomRoom']);
-            $room->setDateCRoom(new \DateTime());
-            $room->setDescription($formData['description']);
-    
-            
-            $entityManager->persist($formation);
-            $entityManager->persist($room);
-            $entityManager->flush();
-    
-            $selectedUserId = (int) $formData['comboboxu'];
-            $user = $userRepository->find($selectedUserId);
-          
-            
-          $errors = $this->validateEntities($formation, $room);
-          if (count($errors) > 0) {
-            return $this->render('formation/new.html.twig', [
-                'formation' => $formation,
-                'users' => $users,
-                'categories' => $categories,
-                'room' => $room,
-                'certificats' => $certificats,
-                'errors' => $errors,
-            ]);
-        }
+    if ($request->isMethod('POST')) {
+   
+        $formData = $request->request->all();
 
-            $userFormRoom = new UserFormRoom();
-            $userFormRoom->setUser($user );
-            $userFormRoom->setForm($formation);
-            $userFormRoom->setRoom($room); 
-    
-            
-            $entityManager->persist($userFormRoom);
-    
-           
-            $userFormation = new UserFormation();
-            $userFormation->setUser($user );
-            $userFormation->setFormation($formation);
-    
-            $selectedCertificatId = $formData['certificatId'];
-            $certificat = $certificatRepository->find($selectedCertificatId);
-            $userFormation->setCertif($certificat); 
-    
-           
-            $entityManager->persist($userFormation);
-            $entityManager->flush();
-    
-           
-            $this->addFlash('success', 'Formation ajoutée avec succès.');
-    
-          
-            return $this->redirectToRoute('app_list_formations');
-        }
-    
-     
+  
+        $formation->setNomForm($formData['nomForm']);
+        $formation->setDescription($formData['description']);
+        
+        // Ajoutez ces lignes pour récupérer les dates de début et de fin
+        $dateDebut = \DateTime::createFromFormat('Y-m-d', $formData['dateDebut']);
+        $dateFin = \DateTime::createFromFormat('Y-m-d', $formData['dateFin']);
+        $formation->setDateDebut($dateDebut);
+        $formation->setDateFin($dateFin);
+
+        $selectedCategoryId = $formData['categoryId'];
+        $categorie = $categorieRepository->find($selectedCategoryId);
+        $formation->setCat($categorie);
+
+        $room->setNomRoom($formData['nomRoom']);
+        $room->setDateCRoom(new \DateTime());
+        $room->setDescription($formData['description']);
+
+        
+        $entityManager->persist($formation);
+        $entityManager->persist($room);
+        $entityManager->flush();
+
+        $selectedUserId = (int) $formData['comboboxu'];
+        $user = $userRepository->find($selectedUserId);
+      
+        
+      $errors = $this->validateEntities($formation, $room);
+      if (count($errors) > 0) {
         return $this->render('formation/new.html.twig', [
             'formation' => $formation,
             'users' => $users,
             'categories' => $categories,
             'room' => $room,
             'certificats' => $certificats,
-            
+            'errors' => $errors,
         ]);
     }
+
+        $userFormRoom = new UserFormRoom();
+        $userFormRoom->setUser($user );
+        $userFormRoom->setForm($formation);
+        $userFormRoom->setRoom($room); 
+
+        
+        $entityManager->persist($userFormRoom);
+
+       
+        $userFormation = new UserFormation();
+        $userFormation->setUser($user );
+        $userFormation->setFormation($formation);
+
+        $selectedCertificatId = $formData['certificatId'];
+        $certificat = $certificatRepository->find($selectedCertificatId);
+        $userFormation->setCertif($certificat); 
+
+       
+        $entityManager->persist($userFormation);
+        $entityManager->flush();
+
+       
+        $this->addFlash('success', 'Formation ajoutée avec succès.');
+
+      
+        return $this->redirectToRoute('app_list_formations');
+    }
+
+ 
+    return $this->render('formation/new.html.twig', [
+        'formation' => $formation,
+        'users' => $users,
+        'categories' => $categories,
+        'room' => $room,
+        'certificats' => $certificats,
+        
+    ]);
+}
+
 
 
     #[Route('/{idForm}', name: 'app_formation_show', methods: ['GET'])]
@@ -228,85 +234,78 @@ public function courses(FormationRepository $formationRepository, PaginatorInter
     ]);
 }
 
-    #[Route('/newformation', name: 'app_formation_new1', methods: ['GET', 'POST'])]
-    public function newFormation(Request $request, EntityManagerInterface $entityManager, UserRepository $userRepository, CategorieRepository $categorieRepository, CertificatRepository $certificatRepository, RoomRepository $roomRepository): Response
-    {
-        
-        $userId = 9;
-    
-        
-        $specificUser = $userRepository->find($userId);
-    
-       
-        $rooms = $roomRepository->findAll(); 
-    
-        
-        $categories = $categorieRepository->findAll();
-        $certificats = $certificatRepository->findAll(); 
+#[Route('/newformation', name: 'app_formation_new1', methods: ['GET', 'POST'])]
+public function newFormation(Request $request, EntityManagerInterface $entityManager, UserRepository $userRepository, CategorieRepository $categorieRepository, CertificatRepository $certificatRepository, RoomRepository $roomRepository): Response
+{
+    $userId = 9;
+    $specificUser = $userRepository->find($userId);
+    $rooms = $roomRepository->findAll(); 
+    $categories = $categorieRepository->findAll();
+    $certificats = $certificatRepository->findAll(); 
 
-        
-        $formation = new Formation();
-        $room = new Room();
-    
-        
-        if ($request->isMethod('POST')) {
-            
-            $formData = $request->request->all();
-    
-            
-            $formation->setNomForm($formData['nomForm']);
-            $formation->setDescription($formData['description']);
-    
-           
-            $selectedCategoryId = $formData['categoryId'];
-            $categorie = $categorieRepository->find($selectedCategoryId);
-            $formation->setCat($categorie);
-    
-            $room->setNomRoom($formData['nomRoom']);
-            $room->setDateCRoom(new \DateTime());
-            $room->setDescription($formData['description']);
-    
-            
-            $entityManager->persist($formation);
-            $entityManager->persist($room);
-            $entityManager->flush();
-    
-           
-            $userFormRoom = new UserFormRoom();
-            $userFormRoom->setUser($specificUser);
-            $userFormRoom->setForm($formation);
-            $userFormRoom->setRoom($room); 
-    
-           
-            $entityManager->persist($userFormRoom);
-    
-            $userFormation = new UserFormation();
-            $userFormation->setUser($specificUser);
-            $userFormation->setFormation($formation);
-    
-            $selectedCertificatId = $formData['certificatId'];
-            $certificat = $certificatRepository->find($selectedCertificatId);
-            $userFormation->setCertif($certificat);     
-           
-            $entityManager->persist($userFormation);
-            $entityManager->flush();
-    
-          
-            $this->addFlash('success', 'Formation ajoutée avec succès.');
-    
-            
-            return $this->redirectToRoute('app_formateur_formations');
+    $formation = new Formation();
+    $room = new Room();
+
+    if ($request->isMethod('POST')) {
+        $formData = $request->request->all();
+
+        $formation->setNomForm($formData['nomForm']);
+        $formation->setDescription($formData['description']);
+        $formation->setCat($categorieRepository->find($formData['categoryId']));
+
+        // Convertir les dates de début et de fin en objets DateTime
+        $dateDebut = \DateTime::createFromFormat('Y-m-d', $formData['dateDebut']);
+        $dateFin = \DateTime::createFromFormat('Y-m-d', $formData['dateFin']);
+
+        // Vérifiez si les dates ont été correctement converties
+        if ($dateDebut instanceof \DateTime && $dateFin instanceof \DateTime) {
+            $formation->setDateDebut($dateDebut);
+            $formation->setDateFin($dateFin);
+        } else {
+            // Gérer les erreurs si la conversion échoue
+            // ...
         }
-    
-       
-        return $this->render('formation/ajoutf.html.twig', [
-            'formation' => $formation,
-            'specificUser' => $specificUser,
-            'categories' => $categories,
-            'room' => $room,
-            'certificats' => $certificats,
-        ]);
+
+        $room->setNomRoom($formData['nomRoom']);
+        $room->setDescription($formData['description']);
+        $room->setDateCRoom(new \DateTime());
+
+        $entityManager->persist($formation);
+        $entityManager->persist($room);
+        $entityManager->flush();
+
+        $userFormRoom = new UserFormRoom();
+        $userFormRoom->setUser($specificUser);
+        $userFormRoom->setForm($formation);
+        $userFormRoom->setRoom($room); 
+
+        $entityManager->persist($userFormRoom);
+
+        $userFormation = new UserFormation();
+        $userFormation->setUser($specificUser);
+        $userFormation->setFormation($formation);
+
+        $selectedCertificatId = $formData['certificatId'];
+        $certificat = $certificatRepository->find($selectedCertificatId);
+        $userFormation->setCertif($certificat); 
+
+        $entityManager->persist($userFormation);
+        $entityManager->flush();
+
+        $this->addFlash('success', 'Formation ajoutée avec succès.');
+
+        return $this->redirectToRoute('app_formateur_formations');
     }
+
+    return $this->render('formation/ajoutf.html.twig', [
+        'formation' => $formation,
+        'specificUser' => $specificUser,
+        'categories' => $categories,
+        'room' => $room,
+        'certificats' => $certificats,
+    ]);
+}
+
 
     private function validateEntities(Formation $formation, Room $room): array
     {

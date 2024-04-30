@@ -6,7 +6,9 @@
 <section class="section">
     <div class="container">
         <!-- Course list -->
+        <h2 class="section-title mb-4">Nos Formations:</h2>
         <div class="row justify-content-center">
+        
             {% for formation in formations %}
                 <!-- Course item -->
                 <div class="col-lg-4 col-sm-6 mb-5">
@@ -45,7 +47,7 @@
         {% if recommendations is not empty %}
         <section class="section">
             <div class="container">
-                <h2 class="section-title mb-4">Recommandations</h2>
+                <h2 class="section-title mb-4">Pour Vous:</h2>
                 <div class="row justify-content-center">
                     {% for recommendation in recommendations %}
                         <!-- Recommendation item -->
