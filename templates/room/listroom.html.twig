@@ -31,12 +31,46 @@
                         <a href="{{ path('app_room_d', {'id': room.IdRoom }) }}" class="btn btn-primary consulter-btn" data-room-id="{{ room.IdRoom }}" data-toggle="modal" data-target="#messagesModal">Messages</a>
                         <a href="{{ path('updateroom', {'id': room.IdRoom }) }}" class="btn btn-primary editer-btn" data-room-id="{{ room.IdRoom }}" data-toggle="modal" data-target="#updateModal">Editer</a>
                         <a href="{{ path('deleteroom', {'id': room.IdRoom }) }}" class="btn btn-primary delete-btn" data-room-id="{{ room.IdRoom }}" onclick="confirmDelete('{{ room.IdRoom }}')">Supprimer</a>
+                        <a href="{{ path('suspend_room', {'id': room.IdRoom }) }}" class="btn btn-primary delete-btn" data-room-id="{{ room.IdRoom }}" id="suspendRoomBtn">Suspendre</a>
                     </td>
                 </tr>
             {% endfor %}
         </tbody>
     </table>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const suspendBtn = document.getElementById('suspendRoomBtn');
+        suspendBtn.addEventListener('click', function(event) {
+            event.preventDefault();
+            const roomId = suspendBtn.getAttribute('data-room-id');
+            suspendRoom(roomId);
+        });
+
+        function suspendRoom(roomId) {
+            // Send AJAX request to suspend the room
+            const url = '/suspend/room/' + roomId;
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Update the modal or UI based on the response
+                // For example, close the modal or update a status message
+                console.log(data.message); // Log the response message
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    });
+</script>
+
 
 <!-- Modal for displaying messages -->
 <!-- Modal for displaying messages -->

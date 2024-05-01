@@ -122,7 +122,24 @@ class RoomController extends AbstractController
             'users' => $users,
         ]);
     }
+    #[Route('/suspend/room/{id}', name: 'suspend_room', methods: ['POST'])]
+    public function suspendRoom(Request $request, $id): JsonResponse
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $room = $entityManager->getRepository(Room::class)->find($id);
 
+        if (!$room) {
+            return new JsonResponse(['message' => 'Room not found'], 404);
+        }
+
+        // Set the status of the room to "suspend"
+        $room->setStatus('suspend');
+
+        $entityManager->flush();
+
+        // Return a JSON response with a success message
+        return new JsonResponse(['message' => 'Room suspended successfully']);
+    }
     public function __construct(private ValidatorInterface $validator)
     {
     }

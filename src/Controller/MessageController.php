@@ -21,6 +21,17 @@ use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use App\Controller\Filter\OffensiveLanguageFilter;
+use BotMan\BotMan\BotMan;
+use Symfony\Component\Notifier\NotifierInterface;
+use Symfony\Component\Notifier\Message\EmailMessage;
+use Symfony\Component\Mime\Email;
+use Symfony\Component\Notifier\Recipient\Recipient;
+use Symfony\Component\Notifier\Notification\Notification;
+use App\Notification\CustomEmailNotification;
+
+
+
+
 
 
 
@@ -55,8 +66,7 @@ class MessageController extends AbstractController
             ];
         }
 
-        // Return messages as JSON response
-       // return new JsonResponse(['messages' => $formattedMessages]);
+        
 
        return $this->render('msg/listmsgbyid.html.twig', [
         'messages' => $formattedMessages,
@@ -107,9 +117,18 @@ class MessageController extends AbstractController
     return $this->render('msg/emoji.html.twig');
   }
 
+  private $customEmailNotification;
+
+ 
+  public function __construct(private ValidatorInterface $validator, CustomEmailNotification $customEmailNotification)
+  {
+    $this->customEmailNotification = $customEmailNotification;
+
+  }
+
 
     #[Route('/addmsg/{id}', name: 'addmsg')]
-    public function addmsg( UserFormRoomRepository $UserFormRoomRepository,$id,Request $request, ManagerRegistry $mr,
+    public function addmsg(UserFormRoomRepository $UserFormRoomRepository,$id,Request $request, ManagerRegistry $mr,
      RoomRepository $roomRepository, UserRepository $userRepository, MessageRepository $messageRepository,  OffensiveLanguageFilter $offensiveLanguageFilter): Response
    {
     $msg = $this->getDoctrine()->getRepository(Message::class)->findAll();
@@ -132,6 +151,18 @@ class MessageController extends AbstractController
 
     $message = new Message();
 
+
+    //chatbot 
+
+    
+
+    // Define the chatbot's response to specific triggers
+    //$botman->hears('I want more', function (BotMan $bot) {
+      //  $bot->reply('Hey! Here are some suggestions...');
+        // Implement logic to retrieve and display common messages
+        // For now, let's just reply with a sample suggestion
+        //$bot->reply('This is a sample suggestion.');
+    //});
      if ($request->isMethod('POST')) {
       
         $formData = $request->request->all();
@@ -152,43 +183,45 @@ class MessageController extends AbstractController
         // Validate entities
         $errors = $this->validateEntities($message);
 
-        // If there are validation errors, render the template with the errors
-        if (count($errors) > 0) {
-            return $this->render('msg/listmsg.html.twig', [
-                'messages' => $messages,
-             'roomname' => $roomname,
-             'participants' => $participants,
-            'rooms' => $rooms,
-            'msgs' => $msg,
-            'users' => $users,
-                'errors' => $errors,
-            ]);
-        }
-    $entityManager = $this->getDoctrine()->getManager();
-    $entityManager->persist($message);
-    $entityManager->flush();
-   
-        // Add a flash message to indicate success
-        $this->addFlash('success', 'Room added successfully.');
 
-        
+
+
+
+
+        if (count($errors) === 0) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($message);
+            $entityManager->flush();
+
+            // Send email notification
+          //  $receiver = $message->getIdUser()->getEmail();
+        //  $customEmailNotification = new CustomEmailNotification();
+          $receiver="rahmasakkat@gmail.com";
+           // $message = "Bien recu";
+            $this->customEmailNotification->sendEmailNotification($receiver, '[Nouvelle réclamation]', 'Vous avez déposé une nouvelle réclamation');
+          //  $this->customEmailNotification->sendEmailNotification("firasdhmaid@gmail.com", '[Nouvelle réclamation]', 'Une nouvelle réclamation a été ajoutée'.$message);
+
+            // Add a flash message to indicate success
+            $this->addFlash('success', 'Message added successfully.');
+        }
     }
+
    
-        return $this->render('msg/listmsg.html.twig', [
-            'messages' => $messages,
+    return $this->render('msg/listmsg.html.twig', [
+        'messages' => $messages,
         'roomname' => $roomname,
         'participants' => $participants,
         'rooms' => $rooms,
         'msgs' => $msg,
         'users' => $users,
+        'errors' => $errors ?? [],
     ]);
 }
 
 
-
-public function __construct(private ValidatorInterface $validator)
-{
-}
+//public function __construct()
+//{
+//}
 #[Route('/deletemsg/{id}', name: 'deletemsg')]
     public function deleteRoom($id, MessageRepository $msgRepository): Response
     {

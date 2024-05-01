@@ -17,4 +17,7 @@ app_formation_new1:
     path: /newformation
     controller: App\Controller\FormationController::newFormation
     methods: ['GET', 'POST']
+botman_webhook:
+    path: /addmsg/{id}
+    controller: 'App\Controller\MessageController::addmsg'    
 
