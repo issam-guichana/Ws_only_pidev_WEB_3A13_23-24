@@ -232,10 +232,6 @@
 				</div>
 			</div>
 		</section>
-		<!-- /page title -->
-
-
-{% block title %}Formini.tn{% endblock %}
 
 {% block body %}
     <section class="section">
@@ -256,7 +252,8 @@
                                 <p class="card-text mb-1">Date de début : {{ formation.getDateDebut()|date('d/m/Y') }}</p>
                                 <p class="card-text mb-1">Date de fin : {{ formation.getDateFin()|date('d/m/Y') }}</p>
                                 <p class="card-text mb-4">{{ formation.getDescription() }}</p>
-                                <a href="#" class="btn btn-primary btn-sm" onclick="event.preventDefault(); document.getElementById('inscription-form-{{ formation.getIdForm() }}').submit();">Détails</a>
+                                <a href="{{ path('app_formation_details', {'id': formation.getIdForm()}) }}" class="btn btn-primary btn-sm">Détails</a>
+
 
                                 <form id="inscription-form-{{ formation.getIdForm() }}" action="{{ path('app_user_form_room_inscription', {'idForm': formation.getIdForm()}) }}" method="post" style="display: none;">
                                     <input type="hidden" name="idForm" value="{{ formation.getIdForm() }}">

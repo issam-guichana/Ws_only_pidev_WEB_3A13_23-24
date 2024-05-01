@@ -36,13 +36,17 @@ app_formation_new1:
 
 app_client_formations:
     path: /user/formations
-    controller: App\Controller\UserFormRoomController::getUserFormations
+    controller: App\Controller\FormationController::getUserFormations
     methods: ['GET']
-app_user_form_room_calendar:
-    path: '/user/form/room/calendar'
-    controller: 'App\Controller\UserFormRoomController::calendar'
-    methods: ['GET']
+
 app_formateur_formations:
     path: /formateur/formations
-    controller: App\Controller\UserFormRoomController::getFormateurFormations
+    controller: App\Controller\FormationController::getFormateurFormations
     methods: ['GET']
+oneup_uploader:
+    resource: .
+    type: uploader
+app_course_upload:
+    path: /upload
+    controller: App\Controller\FormationController::uploadCourse
+    methods: ['GET', 'POST']

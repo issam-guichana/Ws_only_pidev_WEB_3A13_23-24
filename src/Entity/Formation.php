@@ -72,7 +72,14 @@ class Formation
      *
      * @ORM\OneToMany(targetEntity="App\Entity\UserFormation", mappedBy="formation")
      */
+    
     private $userFormations;
+    /**
+     * @var resource|null
+     *
+     * @ORM\Column(name="file", type="blob", nullable=true)
+     */
+    private $fileContent;
 
     public function __construct()
     {
@@ -168,6 +175,16 @@ class Formation
             $userFormation->setFormation($this);
         }
 
+        return $this;
+    }
+    public function getFileContent()
+    {
+        return $this->fileContent;
+    }
+
+    public function setFileContent($fileContent): self
+    {
+        $this->fileContent = $fileContent;
         return $this;
     }
 }

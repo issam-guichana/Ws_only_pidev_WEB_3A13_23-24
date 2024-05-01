@@ -253,7 +253,7 @@
                                 </ul>
                                 <h4 class="card-title">{{ formation.getNomForm() }}</h4>
                                 <p class="card-text mb-4">{{ formation.getDescription() }}</p>
-                                <a href="#" class="btn btn-primary btn-sm" onclick="event.preventDefault(); document.getElementById('inscription-form-{{ formation.getIdForm() }}').submit();">Apply now</a>
+                                 <a href="{{ path('app_formation_details1', {'id': formation.getIdForm()}) }}" class="btn btn-primary btn-sm">Details</a>
 
                                 <form id="inscription-form-{{ formation.getIdForm() }}" action="{{ path('app_user_form_room_inscription', {'idForm': formation.getIdForm()}) }}" method="post" style="display: none;">
                                     <input type="hidden" name="idForm" value="{{ formation.getIdForm() }}">

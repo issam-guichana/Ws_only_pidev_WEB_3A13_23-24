@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Upload Course{% endblock %}
+
+{% block body %}
+    <h1>Upload Course</h1>
+
+    {# Display form errors if any #}
+    {{ form_errors(form) }}
+
+    {# Render the form #}
+    {{ form_start(form) }}
+    {{ form_row(form.files, { 'attr': {'class': 'form-control', 'multiple': 'multiple'} }) }}
+    {{ form_row(form.submit, { 'attr': {'class': 'btn btn-primary'} }) }}
+    {{ form_end(form) }}
+{% endblock %}
