@@ -30,6 +30,7 @@ use Symfony\Component\Mime\Email;
 use Symfony\Component\Notifier\Recipient\Recipient;
 use Symfony\Component\Notifier\Notification\Notification;
 use App\Notification\CustomEmailNotification;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 
 
@@ -238,10 +239,22 @@ class MessageController extends AbstractController
     ]);
 }
 
+    #[Route('/search', name: 'search')]
+    public function search(Request $request)
+    {
+        $query = $request->query->get('query');
 
-//public function __construct()
-//{
-//}
+        // Use Symfony's query builder to search for records
+        $messages = $this->getDoctrine()->getRepository(Message::class)->createQueryBuilder('m')
+            ->select('m.contenu') // Select only the 'contenu' field
+            ->where('m.contenu LIKE :query')
+            ->setParameter('query', '%'.$query.'%')
+            ->getQuery()
+            ->getResult();
+    
+        // Return search results as JSON
+        return new JsonResponse($messages);
+    }
 #[Route('/deletemsg/{id}', name: 'deletemsg')]
     public function deleteRoom($id, MessageRepository $msgRepository): Response
     {

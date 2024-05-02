@@ -20,4 +20,8 @@ app_formation_new1:
 botman_webhook:
     path: /addmsg/{id}
     controller: 'App\Controller\MessageController::addmsg'    
+search:
+    path: /search
+    controller: 'App\Controller\MessageController::search'    
+
 

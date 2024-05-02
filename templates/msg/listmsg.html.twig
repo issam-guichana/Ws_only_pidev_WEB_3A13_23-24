@@ -331,7 +331,15 @@
                 </div>
             </div>
 			
-            <!-- Second card (Chat room) -->
+            <!-- Second card (Chat room) 
+			 <form id="search-form">
+        <input type="text" id="search-input" name="query" placeholder="Search">
+        <button type="submit">Search</button>
+    </form>
+<div id="search-results"></div>
+<ul>
+       
+    </ul>-->
             <div class="col-md-6 mb-4">
                 <div class="card">
                     <div class="card-header">
@@ -370,7 +378,8 @@
                     </div>
                 </div>
             </div>
-			
+			<!-- Search form -->
+
             <!-- Third card (Charte utilisation du room) -->
             <div class="col-md-3 mb-4">
                 <div class="card">
@@ -383,6 +392,11 @@
                     </div>
                 </div>
             </div>
+			<form id="search-form">
+    <input type="text" id="search-input" name="query" placeholder="Search">
+    <button type="submit">Search</button>
+</form>
+<div id="search-results"></div>
         </div>
     </div>
     {% endblock %}
@@ -546,7 +560,34 @@ document.write(CurrentYear)
 
 		<!-- Main Script -->
 		<script src="{{asset('Front/js/script.js')}}"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Your JavaScript code here -->
+	<!-- JavaScript code for AJAX search -->
+<script>
+  $(document).ready(function(){
+    $('#search-input').on('input', function(){
+        var query = $(this).val();
+        $.ajax({
+            url: '/search',
+            method: 'GET',
+            data: { query: query },
+            success: function(response) {
+                // Clear previous results
+                $('.message').hide(); // Hide all messages
+                // Show only messages that match the search query
+                response.forEach(function(message) {
+                    $('.message:contains("' + message.contenu + '")').show(); // Show messages containing the search query
+                });
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText);
+            }
+        });
+    });
+});
 
+</script>
+    
 	
 <script>
     $(document).ready(function(){
