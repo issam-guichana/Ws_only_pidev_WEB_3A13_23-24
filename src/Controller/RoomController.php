@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Controller;
-
+use MercurySeries\FlashyBundle\FlashyNotifier;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -122,24 +122,33 @@ class RoomController extends AbstractController
             'users' => $users,
         ]);
     }
-    #[Route('/suspend/room/{id}', name: 'suspend_room', methods: ['POST'])]
-    public function suspendRoom(Request $request, $id): JsonResponse
-    {
-        $entityManager = $this->getDoctrine()->getManager();
-        $room = $entityManager->getRepository(Room::class)->find($id);
+    #[Route('/suspend/room/{id}', name: 'suspend_room', methods: ['GET','POST'])]
+public function suspendRoom(Request $request, $id, FlashyNotifier $flashy): Response
+{
+    $entityManager = $this->getDoctrine()->getManager();
+    $room = $entityManager->getRepository(Room::class)->find($id);
 
-        if (!$room) {
-            return new JsonResponse(['message' => 'Room not found'], 404);
-        }
-
-        // Set the status of the room to "suspend"
-        $room->setStatus('suspend');
-
-        $entityManager->flush();
-
-        // Return a JSON response with a success message
-        return new JsonResponse(['message' => 'Room suspended successfully']);
+    if (!$room) {
+        return new JsonResponse(['message' => 'Room not found'], 404);
     }
+
+    // Set the status of the room to "suspend"
+    $room->setStatus('suspend');
+
+    // Retrieve the selected time from the request body or form data
+    
+    //$selectedTime = $request->request->get('time');
+
+    // Set the suspend time property of the room entity
+    //$room->setSuspendTime($selectedTime);
+
+    $entityManager->flush();
+    $flashy->success('Room suspended successfully');
+    
+    // Return a JSON response indicating success
+    return new JsonResponse(['message' => 'Room suspended successfully']);
+}
+
     public function __construct(private ValidatorInterface $validator)
     {
     }

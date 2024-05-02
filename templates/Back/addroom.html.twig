@@ -11,7 +11,7 @@
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="shortcut icon" href="{{ asset ('Back/img/icons/icon-48x48.png')}}" />
-
+      <link rel="stylesheet" href="{{ asset('bundles/mercuryseriesflashy/css/flashy.css') }}">
     <link rel="canonical" href="https://demo-basic.adminkit.io/" />
 
     <title>AdminKit Demo - Bootstrap 5 Admin Template</title>
@@ -264,7 +264,18 @@
     </div> <!-- Closing main div -->
     </div> <!-- Closing wrapper div -->
 </body>
+<script>
+    // Display FlashyNotifier success message
+    Flashy.success("Room suspendu avec succès");
+</script>
 <script src="{{asset('Back/js/app.js')}}"></script>
+  
+    <!-- Flashy depends on jQuery -->
+    <script src="//code.jquery.com/jquery.js"></script>
+    <!-- Load Flashy default JavaScript -->
+    <script src="{{ asset('bundles/mercuryseriesflashy/js/flashy.js') }}"></script>
+    <!-- Include Flashy default partial -->
+    {{ include('@MercurySeriesFlashy/flashy.html.twig') }}
 <script>
 		document.addEventListener("DOMContentLoaded", function() {
 			var ctx = document.getElementById("chartjs-dashboard-line").getContext("2d");
