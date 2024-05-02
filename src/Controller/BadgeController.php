@@ -28,7 +28,7 @@ class BadgeController extends AbstractController
 
 
 
-        // RÃ©cupÃ©rer tous les badges
+        // Récupérer tous les badges
         $badges = $badgeRepository->findAll();
 
         return $this->render('badge/index.html.twig', [
@@ -47,13 +47,13 @@ class BadgeController extends AbstractController
 
 
 
-    // Fonction indÃ©pendante pour obtenir le total des badges
+    // Fonction indépendante pour obtenir le total des badges
     private function getTotalBadges(BadgeRepository $badgeRepository): int
     {
         return $badgeRepository->countTotalBadges();
     }
 
-    // Fonction indÃ©pendante pour obtenir le nom du top badge
+    // Fonction indépendante pour obtenir le nom du top badge
     private function getTopBadgeName(BadgeRepository $badgeRepository): ?string
     {
         return $badgeRepository->getTopBadgeName();
