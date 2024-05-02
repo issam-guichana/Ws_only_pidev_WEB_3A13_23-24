@@ -202,55 +202,63 @@ public function new(RoomRepository $roomRepository, Request $request, EntityMana
 
 
     #[Route('/courses', name: 'courses')]
-    public function courses(FormationRepository $formationRepository, PaginatorInterface $paginator, EntityManagerInterface $entityManager, Request $request): Response
-    {
-        $userId = 7; // ID de l'utilisateur statique
+public function courses(
+    FormationRepository $formationRepository,
+    PaginatorInterface $paginator,
+    EntityManagerInterface $entityManager,
+    Request $request
+): Response {
+    $userId = 7; // ID de l'utilisateur statique
     
-        // Récupérer toutes les formations
-        $allFormations = $formationRepository->findAll();
+    $searchBy = 'nomForm'; // Specify the attribute to search by
+$searchQuery = $request->query->get('search'); // Retrieve the search query from the request
+
+// Call the findBySearchAndSort method with the specified parameters
+$formations = $formationRepository->findBySearchAndSort($searchBy, $searchQuery);
+
+
+    // Paginer les formations
+    $formations = $paginator->paginate(
+        $formations, // Requête à paginer
+        $request->query->getInt('page', 1), // Numéro de page
+        3 // Nombre d'éléments par page
+    );
+
+    // Récupérer les formations précédemment consultées par l'utilisateur
+    $userFormations = $entityManager->getRepository(UserFormation::class)->findBy(['user' => $userId]);
     
-        // Paginer les formations
-        $formations = $paginator->paginate(
-            $allFormations, // Requête à paginer
-            $request->query->getInt('page', 1), // Numéro de page
-            3 // Nombre d'éléments par page
-        );
+    // Récupérer les IDs des catégories des formations précédemment consultées
+    $categoriesIds = [];
+    foreach ($userFormations as $userFormation) {
+        $formation = $userFormation->getFormation();
+        if ($formation && $cat = $formation->getCat()) {
+            $categoriesIds[] = $cat->getIdCat();
+        }
+    }
     
-        // Récupérer les formations précédemment consultées par l'utilisateur
-        $userFormations = $entityManager->getRepository(UserFormation::class)->findBy(['user' => $userId]);
-    
-        // Récupérer les IDs des catégories des formations précédemment consultées
-        $categoriesIds = [];
-        foreach ($userFormations as $userFormation) {
-            $formation = $userFormation->getFormation();
-            if ($formation && $cat = $formation->getCat()) {
-                $categoriesIds[] = $cat->getIdCat();
+    // Récupérer d'autres formations dans les mêmes catégories que celles consultées précédemment
+    $recommendations = new ArrayCollection();
+    foreach ($categoriesIds as $categoryId) {
+        $formationsInCategory = $formationRepository->findByCategory($categoryId);
+        foreach ($formationsInCategory as $formation) {
+            if (!$recommendations->contains($formation)) {
+                $recommendations->add($formation);
             }
         }
-    
-        // Récupérer d'autres formations dans les mêmes catégories que celles consultées précédemment
-        $recommendations = new ArrayCollection();
-        foreach ($categoriesIds as $categoryId) {
-            $formationsInCategory = $formationRepository->findByCategory($categoryId);
-            foreach ($formationsInCategory as $formation) {
-                if (!$recommendations->contains($formation)) {
-                    $recommendations->add($formation);
-                }
-            }
-        }
-        // Paginate recommendations
+    }
+
+    // Paginate recommendations
     $recommendations = $paginator->paginate(
         $recommendations, // Query to paginate
         $request->query->getInt('page', 1), // Page number
         3 // Number of items per page
     );
-    
-        return $this->render('formation/courses.html.twig', [
-            'formations' => $formations,
-            'recommendations' => $recommendations,
-        ]);
-    }
-    
+
+    return $this->render('formation/courses.html.twig', [
+        'formations' => $formations,
+        'recommendations' => $recommendations,
+    ]);
+}
 
 #[Route('/newformation', name: 'app_formation_new1', methods: ['GET', 'POST'])]
 public function newFormation(Request $request, EntityManagerInterface $entityManager, UserRepository $userRepository, CategorieRepository $categorieRepository, CertificatRepository $certificatRepository, RoomRepository $roomRepository): Response
@@ -491,4 +499,5 @@ public function viewPdf($id, EntityManagerInterface $entityManager): Response
 
     return $response;
 }
+
 }

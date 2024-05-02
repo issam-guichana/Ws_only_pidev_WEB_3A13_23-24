@@ -40,11 +40,28 @@
 {% block body %}
 <section class="section">
     <div class="container">
-        <!-- Course list -->
+        <!-- Formulaire de recherche et de tri -->
+        <form class="mb-4 px-1" action="{{ path('courses') }}" method="get">
+            <div class="row">
+               
+                <div class="mt-4 col-lg-10">
+                    <div class="mt-1 input-group">
+                        <input type="text" id="searchInput" class="form-control" name="search" placeholder="Search..." value="{{ app.request.query.get('search') }}">
+<script src="{{ asset('js/search.js') }}"></script>
+
+                        <button type="submit" class="btn btn-primary ml-4">Search</button>
+                    </div>
+                </div>
+                
+                
+        </form>
+        <!-- /Formulaire de recherche et de tri -->
+
+        <!-- Liste des formations -->
         <h2 class="section-title mb-4">Nos Formations:</h2>
         <div class="row justify-content-center">
             {% for formation in formations %}
-            <!-- Course item -->
+            <!-- Element de formation -->
             <div class="col-lg-4 col-sm-6 mb-5">
                 <div class="card p-0 border-primary rounded-0 hover-shadow">
                     <div class="card-body">
@@ -64,21 +81,19 @@
                     </div>
                 </div>
             </div>
-            <!-- /Course item -->
+            <!-- /Element de formation -->
             {% endfor %}
         </div>
-        <!-- /Course list -->
+        <!-- /Liste des formations -->
 
-        
-
-        <!-- Recommendations -->
+        <!-- Recommandations -->
         {% if recommendations is not empty %}
         <section class="section">
             <div class="container">
                 <h2 class="section-title mb-4">Pour Vous:</h2>
                 <div class="row justify-content-center">
                     {% for recommendation in recommendations %}
-                    <!-- Recommendation item -->
+                    <!-- Element de recommandation -->
                     <div class="col-lg-4 col-sm-6 mb-5">
                         <div class="card p-0 border-primary rounded-0 hover-shadow">
                             <div class="card-body">
@@ -98,20 +113,21 @@
                             </div>
                         </div>
                     </div>
-                    <!-- /Recommendation item -->
+                    <!-- /Element de recommandation -->
                     {% endfor %}
                 </div>
             </div>
         </section>
-        <!-- Pagination for main list -->
+        <!-- Pagination pour la liste principale -->
         <div class="pagination">
             {{ knp_pagination_render(formations) }}
         </div>
-        <!-- /Pagination for main list -->
+        <!-- /Pagination pour la liste principale -->
         {% endif %}
-        <!-- /Recommendations -->
-
+        <!-- /Recommandations -->
     </div>
+    
 </section>
 
 {% endblock %}
+
