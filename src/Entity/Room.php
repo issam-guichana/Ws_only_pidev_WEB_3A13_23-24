@@ -81,6 +81,7 @@ class Room
      * @ORM\Column(name="suspend_time", type="integer", nullable=true)
      */
     private $suspendTime;
+   
 
     public function getIdRoom(): ?int
     {
@@ -182,5 +183,6 @@ class Room
         return $this->messages;
     }
 
+   
 
 }

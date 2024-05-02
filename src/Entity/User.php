@@ -81,7 +81,10 @@ class User
     {
         return $this->role;
     }
-
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
    
 
 

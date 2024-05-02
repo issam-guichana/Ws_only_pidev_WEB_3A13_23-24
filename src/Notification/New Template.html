@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Message Notification</title>
+    <style>
+        /* Reset styles */
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        /* Email container styles */
+        .email-container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        /* Header styles */
+        .header {
+            text-align: center;
+            padding-bottom: 20px;
+        }
+        .header h1 {
+            color: #213E60;
+        }
+        /* Logo styles */
+        .logo {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .logo img {
+            max-width: 200px;
+        }
+        /* Message content styles */
+        .message-content {
+            background-color: #D8D18D;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        /* Button styles */
+        .btn {
+            display: inline-block;
+            background-color: #E68C3A;
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .btn:hover {
+            background-color: #d97b22;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="header">
+            <h1>Nouvelle alerte de message</h1>
+        </div>
+        <div class="logo">
+            <img src="./logobleu.png" alt="logobleu">
+        </div>
+        <div class="message-content">
+            <p>Bonjour Monsieur le formateur et Bienvenue sur formini.TN ,</p>
+            <p>Vous avez reçu une nouvelle alerte de message. Veuillez svp consulter vos discussions et soyez plus interactive avec vos étudiants.</p>
+            <p>Merci pour l'interet à notre application!</p>
+        </div>
+        <div class="cta" style="text-align: center;">
+            <a href="http://127.0.0.1:8000/listmsg" class="btn">Visitez mes discussions</a>
+        </div>
+    </div>
+</body>
+</html>

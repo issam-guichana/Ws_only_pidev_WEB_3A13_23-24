@@ -35,6 +35,20 @@ class RoomRepository extends ServiceEntityRepository
         return $choices;
     }
 
+
+    public function findFormateurByRoomId(int $roomId)
+    {
+        return $this->createQueryBuilder('r')
+            ->select('ufr.user')
+            ->leftJoin('r.userFormRooms', 'ufr')
+            ->leftJoin('ufr.user', 'u')
+            ->andWhere('u.role = :role')
+            ->setParameter('role', 'Formateur')
+            ->andWhere('r.id = :roomId')
+            ->setParameter('roomId', $roomId)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 //    /**
 //     * @return Room[] Returns an array of Room objects
 //     */

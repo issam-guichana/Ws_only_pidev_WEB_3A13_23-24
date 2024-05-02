@@ -313,8 +313,8 @@
     {% block content %}
     <div class="container py-4">
         <div class="row">
-            <!-- First card -->
-            <div class="col-md-4 mb-4">
+            <!-- First card (Membres) -->
+            <div class="col-md-3 mb-4">
                 <div class="card">
                     <div class="card-header">
                         <h5 class="card-title">Membres</h5>
@@ -322,7 +322,7 @@
                     <div class="card-body">
                         {% for participant in participants %}
                         <div class="participant">
-                            <a >
+                            <a>
                                 <i class="fas fa-user"></i> {{ participant.user.getUsername() }}
                             </a>
                         </div>
@@ -330,8 +330,9 @@
                     </div>
                 </div>
             </div>
-            <!-- Second card -->
-            <div class="col-md-8 mb-4">
+			
+            <!-- Second card (Chat room) -->
+            <div class="col-md-6 mb-4">
                 <div class="card">
                     <div class="card-header">
                         <h5 class="card-title">{{roomname}}</h5>
@@ -348,32 +349,45 @@
                         </div>
                     </div>
                     <div class="chat-footer">
-                    <div id="chat-form">
-					 <input type="text" id="chat-input">
-                        <div class="form-group chat-input">
-                            <textarea class="form-control" name="contenu" id="contenu" placeholder="Type a message..."></textarea>
-                            <div class="alert alert-danger">
-                                {% if errors is defined and errors is not empty and errors['contenu'] is defined %}
-                                <div class="text-danger">{{ errors['contenu'] }}</div>
-                                {% endif %}
+                        <div id="chat-form">
+                            <input type="text" id="chat-input">
+                            <div class="form-group chat-input">
+                                <textarea class="form-control" name="contenu" id="contenu" placeholder="Type a message..."></textarea>
+                                <div class="alert alert-danger">
+                                    {% if errors is defined and errors is not empty and errors['contenu'] is defined %}
+                                    <div class="text-danger">{{ errors['contenu'] }}</div>
+                                    {% endif %}
+                                </div>
+
+                                <input type="text" id="messageInput">
+                                <!-- Button to trigger emoji picker -->
+                                <button id="emojiButton">😀</button>
+                                <div class="chat-submit">
+                                    <button type="submit" class="btn btn-primary">Send</button>
+                                </div>
                             </div>
-
-							<input type="text" id="messageInput">
-        <!-- Button to trigger emoji picker -->
-		<button id="emojiButton">😀</button>
-                        <div class="chat-submit">
-
-                            <button type="submit" class="btn btn-primary">Send</button>
                         </div>
                     </div>
-                
-                
+                </div>
+            </div>
+			
+            <!-- Third card (Charte utilisation du room) -->
+            <div class="col-md-3 mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title">Charte utilisation du room</h5>
+                    </div>
+                    <div class="card-body">
+                        <!-- Content of the charte utilisation du room card -->
+                        <!-- You can add your content here -->
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     {% endblock %}
 </form>
+
 
     </div>
 </div>

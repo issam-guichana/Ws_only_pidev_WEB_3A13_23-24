@@ -20,6 +20,19 @@ class UserFormRoomRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, UserFormRoom::class);
     }
+    public function findByRoomIdAndUserRole(int $roomId)
+    {
+        return $this->createQueryBuilder('ufr')
+            ->select('ufr') // Select the UserFormRoom entity
+            ->leftJoin('ufr.user', 'u')
+            ->andWhere('ufr.room = :roomId')
+            ->setParameter('roomId', $roomId)
+            ->andWhere('u.role = :role')
+            ->setParameter('role', 'Formateur')
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+    
 
 //    /**
 //     * @return UserFormRoom[] Returns an array of UserFormRoom objects

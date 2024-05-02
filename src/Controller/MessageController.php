@@ -13,6 +13,8 @@ use App\Repository\UserFormRoomRepository;
 use App\Entity\UserFormRoom;
 
 use App\Entity\Room;
+
+use App\Entity\Formation;
 use App\Entity\User;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -135,6 +137,7 @@ class MessageController extends AbstractController
     //$messages= $messageRepository->find($id);
     $room = $roomRepository->find($id);
     $roomname=$room->getNomRoom();
+    $this->userformroomRepository = $UserFormRoomRepository;
     //= $this->getDoctrine()->getRepository(Message::class)->findAll();
     $messages = $messageRepository->findBy(['room' => $room]);
     foreach ($messages as $message) {
@@ -167,6 +170,25 @@ class MessageController extends AbstractController
       
         $formData = $request->request->all();
         $message->setContenu($formData['contenu']);
+          // Check if the message contains the trigger words
+          if (strpos($message->getContenu(), 'Monsieur') !== false || strpos($message->getContenu(), 'Aidez-moi svp') !== false) {
+            //$receiver="rahmasakkat@gmail.com";
+        // $message = "Bien recu";
+        $receiver = $this->userformroomRepository->findByRoomIdAndUserRole($id);
+
+        if ($receiver !== null) {
+            $user = $receiver->getUser(); // Assuming there's a 'getUser' method in UserFormRoom entity to retrieve the associated User entity
+            if ($user !== null) {
+                $recipientEmail = $user->getEmail(); // Assuming there's an 'getEmail' method in User entity to retrieve the email address
+                // Call the sendEmailNotification method with the email address of the recipient
+                $this->customEmailNotification->sendEmailNotification($recipientEmail, '[Nouveau message]', '../src/Notification/New Template.html');
+            } else {
+                // Handle the case when the user is not found
+            }
+        } else {
+            // Handle the case when the recipient is not found
+        }
+    }        
 
        // $selectedRoomId = (int) $formData['combobox'];
         //$selectedUserId = (int)$formData['comboboxu'];
@@ -196,9 +218,7 @@ class MessageController extends AbstractController
             // Send email notification
           //  $receiver = $message->getIdUser()->getEmail();
         //  $customEmailNotification = new CustomEmailNotification();
-          $receiver="rahmasakkat@gmail.com";
-           // $message = "Bien recu";
-            $this->customEmailNotification->sendEmailNotification($receiver, '[Nouvelle réclamation]', 'Vous avez déposé une nouvelle réclamation');
+         
           //  $this->customEmailNotification->sendEmailNotification("firasdhmaid@gmail.com", '[Nouvelle réclamation]', 'Une nouvelle réclamation a été ajoutée'.$message);
 
             // Add a flash message to indicate success
