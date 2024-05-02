@@ -1,0 +1,279 @@
+{% extends 'Front/index.html.twig' %}
+{% block body1 %}
+<body>
+  <!-- preloader start -->
+  <div class="preloader">
+    <img src="/img/preloader.gif" alt="preloader">
+  </div>
+  <!-- preloader end -->
+
+<!-- header -->
+<header class="fixed-top header">
+  <!-- top header -->
+  <div class="top-header py-2 bg-white">
+    <div class="container">
+      <div class="row no-gutters">
+        <div class="col-lg-4 text-center text-lg-left">
+          <a class="text-color mr-3" href="tel:+443003030266"><strong>CALL</strong> +44 300 303 0266</a>
+          <ul class="list-inline d-inline">
+            <li class="list-inline-item mx-0"><a class="d-inline-block p-2 text-color" href="https://facebook.com/themefisher/"><i class="ti-facebook"></i></a></li>
+            <li class="list-inline-item mx-0"><a class="d-inline-block p-2 text-color" href="https://twitter.com/themefisher"><i class="ti-twitter-alt"></i></a></li>
+            <li class="list-inline-item mx-0"><a class="d-inline-block p-2 text-color" href="https://github.com/themefisher"><i class="ti-github"></i></a></li>
+            <li class="list-inline-item mx-0"><a class="d-inline-block p-2 text-color" href="https://instagram.com/themefisher/"><i class="ti-instagram"></i></a></li>
+          </ul>
+        </div>
+        <div class="col-lg-8 text-center text-lg-right">
+          <ul class="list-inline">
+            <li class="list-inline-item"><a class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block" href="notice.html.twig">notice</a></li>
+            <li class="list-inline-item"><a class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block" href="research.html.twig">research</a></li>
+            <li class="list-inline-item"><a class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block" href="scholarship.html.twig">SCHOLARSHIP</a></li>
+            <li class="list-inline-item"><a class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block" href="#loginModal" data-toggle="modal" data-target="#loginModal">login</a></li>
+            <li class="list-inline-item"><a class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block" href="#signupModal" data-toggle="modal" data-target="#signupModal">register</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+ <!-- navbar -->
+  <div class="navigation w-100">
+    <div class="container">
+      <nav class="navbar navbar-expand-lg navbar-dark p-0">
+        <a class="navbar-brand" href="index.html.twig"><img src="/img/logo.png" alt="logo"></a>
+        <button class="navbar-toggler rounded-0" type="button" data-toggle="collapse" data-target="#navigation"
+          aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navigation">
+          <ul class="navbar-nav ml-auto text-center">
+            <li class="nav-item active">
+              <a class="nav-link" href="index.html.twig">Home</a>
+            </li>
+            <li class="nav-item @@about">
+              <a class="nav-link" href="about.html.twig">About</a>
+            </li>
+            <li class="nav-item @@courses">
+              <a class="nav-link" href="courses.html.twig">COURSES</a>
+            </li>
+            <li class="nav-item @@events">
+              <a class="nav-link" href="events.html.twig">EVENTS</a>
+            </li>
+            <li class="nav-item @@blog">
+              <a class="nav-link" href="blog.html.twig">BLOG</a>
+            </li>
+            <li class="nav-item dropdown view">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Pages
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="teacher.html.twig">Teacher</a></li>
+                <li><a class="dropdown-item" href="teacher-single.html.twig">Teacher Single</a></li>
+                <li><a class="dropdown-item" href="{{ path('app_notice') }}">Quiz</a></li>
+                <li><a class="dropdown-item" href="notice-single.html.twig">Notice Details</a></li>
+                <li><a class="dropdown-item" href="research.html.twig">Research</a></li>
+                <li><a class="dropdown-item" href="scholarship.html.twig">Scholarship</a></li>
+                <li><a class="dropdown-item" href="course-single.html.twig">Course Details</a></li>
+                <li><a class="dropdown-item" href="event-single.html.twig">Event Details</a></li>
+                <li><a class="dropdown-item" href="blog-single.html.twig">Blog Details</a></li>
+                
+                <li class="dropdown-item dropdown dropleft">
+                  <a class="dropdown-toggle" href="#" id="navbarDropdownSubmenu" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Sub Menu
+                  </a>
+                  <ul class="dropdown-menu dropdown-submenu" aria-labelledby="navbarDropdownSubmenu">
+                    <li><a class="dropdown-item" href="#!">Sub Menu 01</a></li>
+                    <li><a class="dropdown-item" href="#!">Sub Menu 02</a></li>
+                    <li><a class="dropdown-item" href="#!">Sub Menu 03</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item @@contact">
+              <a class="nav-link" href="contact.html.twig">CONTACT</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+  </div>
+  </header>
+<!-- page title -->
+<section class="page-title-section overlay" data-background="/img/backgrounds/page-title.jpg">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8">
+        <ul class="list-inline custom-breadcrumb mb-2">
+          <li class="list-inline-item"><a class="h2 text-primary font-secondary" href="index.html.twig">Pages</a></li>
+          <li class="list-inline-item text-white h3 font-secondary nasted">Questions</li>
+        </ul>
+        <p class="text-lighten mb-0">Vous avez 30 minutes pour repondre aux questions.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- /questions -->
+    <div class="container">
+        <h1>{{quiz.nomQuiz}}</h1>
+        <div id="countdown-clock" class="text-center"></div>
+        <!-- Progress bar -->
+        <div class="progress mb-3">
+            <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+        {% for question in questions %}
+            <div class="card mb-3" style="display: none;">
+                <div class="card-body">
+                    <h5 class="card-title">{{ question.question }}</h5>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button type="button" class="btn btn-primary btn-block mb-3" onclick="answerQuestion('option1', {{ question|serialize(format = 'json') }})">{{ question.option1 }}</button>
+                            <button type="button" class="btn btn-primary btn-block mb-3" onclick="answerQuestion('option2', {{ question|serialize(format = 'json') }})">{{ question.option2 }}</button>
+                        </div>
+                        <div class="col-md-6">
+                           <button type="button" class="btn btn-primary btn-block mb-3" onclick="answerQuestion('option3', {{ question|serialize(format = 'json') }})">{{ question.option3 }}</button>
+                           <button type="button" class="btn btn-primary btn-block mb-3" onclick="answerQuestion('option4', {{ question|serialize(format = 'json') }})">{{ question.option4 }}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        <div class="text-center">
+            <button type="button" class="btn btn-primary mr-2" onclick="prevQuestion()">Go Back</button>
+            <a href="{{ path('app_notice') }}"id="returnToQuizListBtn" class="btn btn-primary">Confirm and Return to Quiz List</a>
+        </div>
+        
+    </div>
+    <div id="scoreModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Quiz Score</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p id="scoreMessage">Your score will be displayed here</p>
+        </div>
+      </div>
+    </div>
+  </div>
+    <script>
+        var totalQuestions = {{ questions|length }};
+        var currentQuestionIndex = 0;
+        var answeredQuestions = 0;
+
+        function nextQuestion() {
+            // Update progress bar
+            updateProgressBar();
+            // Show the next question if available
+            if (currentQuestionIndex < totalQuestions - 1) {
+                currentQuestionIndex++;
+                showQuestion(currentQuestionIndex);
+            }
+        }
+
+        function prevQuestion() {
+            // Decrement the number of answered questions
+            if (answeredQuestions > 0) {
+                answeredQuestions--;
+            }
+            updateProgressBar();
+            // Show the previous question if available
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                showQuestion(currentQuestionIndex);
+            }
+        }
+
+        function updateProgressBar() {
+            var progress = (answeredQuestions / totalQuestions) * 100;
+            var progressBar = document.querySelector('.progress-bar');
+            progressBar.style.width = progress + '%';
+            progressBar.setAttribute('aria-valuenow', progress);
+        }
+
+        // Function to show a specific question and hide others
+        function showQuestion(questionIndex) {
+            // Hide all questions
+            document.querySelectorAll('.card').forEach(function(card) {
+                card.style.display = 'none';
+            });
+
+            // Show the question with the specified index
+            document.querySelectorAll('.card')[questionIndex].style.display = 'block';
+        }
+
+        // Show the first question initially
+        showQuestion(0);
+
+    // Set the duration of the countdown in seconds (e.g., 30 minutes = 30 * 60 = 1800 seconds)
+    var countdownDuration = 1800; // 30 minutes
+
+    // Start the countdown
+    var countdown = setInterval(function() {
+    // Get the countdown clock element
+    var countdownClock = document.getElementById('countdown-clock');
+
+    // Calculate the minutes and seconds remaining
+    var minutes = Math.floor(countdownDuration / 60);
+    var seconds = countdownDuration % 60;
+
+    // Display the countdown clock
+    countdownClock.textContent = 'Temps restant: ' + minutes + ' minutes ' + seconds + ' secondes';
+
+    // Reduce the countdown duration by 1 second
+    countdownDuration--;
+
+    // Check if the countdown has finished
+    if (countdownDuration < 0) {
+        // Call handleQuizEnd when the time expires
+        handleQuizEnd();
+        clearInterval(countdown); // Stop the countdown
+    }
+}, 1000); // Update the countdown clock every second
+
+    var userScore = 0;
+
+    // Function to calculate and display the user's score
+    function displayScore() {
+      var totalQuestions = {{ questions|length }};
+      var scoreMessage = "You got " + userScore + " out of " + totalQuestions;
+      document.getElementById('scoreMessage').innerText = scoreMessage;
+      $('#scoreModal').modal('show');
+    }
+
+    // Function to handle user's answer to a question
+    function answerQuestion(selectedOption, question) {
+      console.log(question);
+     // Get the correct answer from the question object
+    var correctAnswer = question.reponse;
+    console.log(question.reponse);
+
+    // Check if the selected option matches the correct answer
+    if (selectedOption === correctAnswer) {
+        // Increment the score if the answer is correct
+        userScore++;
+    }
+
+    // Increment the number of answered questions
+    answeredQuestions++;
+
+    // Update the progress bar
+    updateProgressBar();
+
+    // Move to the next question
+    nextQuestion();
+}
+
+    // Function to handle quiz end (time expiry or return to quiz list)
+    function handleQuizEnd() {
+      // Calculate and display the user's score
+      displayScore();
+    }
+    document.getElementById('returnToQuizListBtn').addEventListener('click', function() {
+      handleQuizEnd();
+    });
+</script>
+</body>
+{% endblock %}

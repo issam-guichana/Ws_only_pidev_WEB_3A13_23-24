@@ -1,0 +1,21 @@
+{{ form_start(form) }}
+    <div>
+        {{ form_row(form.question) }}
+    </div>
+    <div>
+        {{ form_row(form.option1) }}
+    </div>
+    <div>
+        {{ form_row(form.option2) }}
+    </div>
+    <div>
+        {{ form_row(form.option3) }}
+    </div>
+    <div>
+        {{ form_row(form.option4) }}
+    </div>
+    <div>
+        {{ form_row(form.reponse) }}
+    </div>
+    <button class="btn btn-success">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}

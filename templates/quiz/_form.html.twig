@@ -1,0 +1,15 @@
+{{ form_start(form) }}
+    {{ form_row(form.nomQuiz, {'attr': {'class': form.nomQuiz.vars.errors|length > 0 ? 'form-control is-invalid' : 'form-control'}}) }}
+    {% if form.nomQuiz.vars.errors %}
+        <div class="invalid-feedback">
+            {{ form_errors(form.nomQuiz) }}
+        </div>
+    {% endif %}
+    {{ form_row(form.imageFile, {'attr': {'class': form.imageFile.vars.errors|length > 0 ? 'form-control is-invalid' : 'form-control'}}) }}
+    {% if form.imageFile.vars.errors %}
+        <div class="invalid-feedback">
+            {{ form_errors(form.imageFile) }}
+        </div>
+    {% endif %}
+    <button type="submit" class="btn btn-primary">Save Quiz</button>
+{{ form_end(form) }}
