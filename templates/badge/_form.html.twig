@@ -1,0 +1,8 @@
+{{ form_start(form) }}
+    {{ form_row(form.nomBadge) }}
+    {{ form_row(form.type) }}
+    {{ form_label(form.imgBadge) }}
+    {{ form_widget(form.imgBadge) }}
+    {{ form_errors(form.imgBadge) }}
+    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}
