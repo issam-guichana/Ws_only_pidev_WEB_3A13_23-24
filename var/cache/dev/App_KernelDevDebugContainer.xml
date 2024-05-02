@@ -5,8 +5,8 @@
     <parameter key="kernel.environment">dev</parameter>
     <parameter key="kernel.runtime_environment">%env(default:kernel.environment:APP_RUNTIME_ENV)%</parameter>
     <parameter key="kernel.debug">true</parameter>
-    <parameter key="kernel.build_dir">C:/Users/user/Desktop/formini crud/formini.tn/var/cache/dev</parameter>
-    <parameter key="kernel.cache_dir">C:/Users/user/Desktop/formini crud/formini.tn/var/cache/dev</parameter>
+    <parameter key="kernel.build_dir">C:\Users\user\Desktop\formini crud\formini.tn\var\cache\dev</parameter>
+    <parameter key="kernel.cache_dir">C:\Users\user\Desktop\formini crud\formini.tn\var\cache\dev</parameter>
     <parameter key="kernel.logs_dir">C:\Users\user\Desktop\formini crud\formini.tn\var\log</parameter>
     <parameter key="kernel.bundles" type="collection">
       <parameter key="FrameworkBundle">Symfony\Bundle\FrameworkBundle\FrameworkBundle</parameter>
@@ -21,7 +21,6 @@
       <parameter key="SecurityBundle">Symfony\Bundle\SecurityBundle\SecurityBundle</parameter>
       <parameter key="MonologBundle">Symfony\Bundle\MonologBundle\MonologBundle</parameter>
       <parameter key="MakerBundle">Symfony\Bundle\MakerBundle\MakerBundle</parameter>
-      <parameter key="SensioFrameworkExtraBundle">Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle</parameter>
       <parameter key="VichUploaderBundle">Vich\UploaderBundle\VichUploaderBundle</parameter>
     </parameter>
     <parameter key="kernel.bundles_metadata" type="collection">
@@ -73,10 +72,6 @@
         <parameter key="path">C:\Users\user\Desktop\formini crud\formini.tn\vendor\symfony\maker-bundle\src</parameter>
         <parameter key="namespace">Symfony\Bundle\MakerBundle</parameter>
       </parameter>
-      <parameter key="SensioFrameworkExtraBundle" type="collection">
-        <parameter key="path">C:\Users\user\Desktop\formini crud\formini.tn\vendor\sensio\framework-extra-bundle\src</parameter>
-        <parameter key="namespace">Sensio\Bundle\FrameworkExtraBundle</parameter>
-      </parameter>
       <parameter key="VichUploaderBundle" type="collection">
         <parameter key="path">C:\Users\user\Desktop\formini crud\formini.tn\vendor\vich\uploader-bundle</parameter>
         <parameter key="namespace">Vich\UploaderBundle</parameter>
@@ -85,6 +80,7 @@
     <parameter key="kernel.charset">UTF-8</parameter>
     <parameter key="kernel.container_class">App_KernelDevDebugContainer</parameter>
     <parameter key="app.path.product_images">C:\Users\user\Desktop\formini crud\formini.tn/public/Uploads</parameter>
+    <parameter key="logo_path">C:\Users\user\Desktop\formini crud\formini.tn/public/uploads/logo.png</parameter>
     <parameter key="event_dispatcher.event_aliases" type="collection">
       <parameter key="Symfony\Component\Console\Event\ConsoleCommandEvent">console.command</parameter>
       <parameter key="Symfony\Component\Console\Event\ConsoleErrorEvent">console.error</parameter>
@@ -122,14 +118,14 @@
     <parameter key="translator.logging">false</parameter>
     <parameter key="translator.default_path">C:\Users\user\Desktop\formini crud\formini.tn/translations</parameter>
     <parameter key="debug.error_handler.throw_at">-1</parameter>
-    <parameter key="debug.container.dump">C:/Users/user/Desktop/formini crud/formini.tn/var/cache/dev/App_KernelDevDebugContainer.xml</parameter>
+    <parameter key="debug.container.dump">C:\Users\user\Desktop\formini crud\formini.tn\var\cache\dev/App_KernelDevDebugContainer.xml</parameter>
     <parameter key="router.request_context.host">localhost</parameter>
     <parameter key="router.request_context.scheme">http</parameter>
     <parameter key="router.request_context.base_url"></parameter>
     <parameter key="router.resource">kernel::loadRoutes</parameter>
     <parameter key="request_listener.http_port">80</parameter>
     <parameter key="request_listener.https_port">443</parameter>
-    <parameter key="serializer.mapping.cache.file">C:/Users/user/Desktop/formini crud/formini.tn/var/cache/dev/serialization.php</parameter>
+    <parameter key="serializer.mapping.cache.file">C:\Users\user\Desktop\formini crud\formini.tn\var\cache\dev/serialization.php</parameter>
     <parameter key="cache.prefix.seed">_C:\Users\user\Desktop\formini crud\formini.tn.App_KernelDevDebugContainer</parameter>
     <parameter key="session.metadata.storage_key">_sf2_meta</parameter>
     <parameter key="session.storage.options" type="collection">
@@ -143,11 +139,11 @@
     <parameter key="session.metadata.update_threshold">0</parameter>
     <parameter key="form.type_extension.csrf.enabled">true</parameter>
     <parameter key="form.type_extension.csrf.field_name">_token</parameter>
-    <parameter key="validator.mapping.cache.file">C:/Users/user/Desktop/formini crud/formini.tn/var/cache/dev/validation.php</parameter>
+    <parameter key="validator.mapping.cache.file">C:\Users\user\Desktop\formini crud\formini.tn\var\cache\dev/validation.php</parameter>
     <parameter key="validator.translation_domain">validators</parameter>
     <parameter key="profiler_listener.only_exceptions">false</parameter>
     <parameter key="profiler_listener.only_main_requests">false</parameter>
-    <parameter key="profiler.storage.dsn">file:C:/Users/user/Desktop/formini crud/formini.tn/var/cache/dev/profiler</parameter>
+    <parameter key="profiler.storage.dsn">file:C:\Users\user\Desktop\formini crud\formini.tn\var\cache\dev/profiler</parameter>
     <parameter key="doctrine.dbal.configuration.class">Doctrine\DBAL\Configuration</parameter>
     <parameter key="doctrine.data_collector.class">Doctrine\Bundle\DoctrineBundle\DataCollector\DoctrineDataCollector</parameter>
     <parameter key="doctrine.dbal.connection.event_manager.class">Symfony\Bridge\Doctrine\ContainerAwareEventManager</parameter>
@@ -212,7 +208,7 @@
     <parameter key="doctrine.orm.second_level_cache.regions_configuration.class">Doctrine\ORM\Cache\RegionsConfiguration</parameter>
     <parameter key="doctrine.orm.auto_generate_proxy_classes">true</parameter>
     <parameter key="doctrine.orm.enable_lazy_ghost_objects">false</parameter>
-    <parameter key="doctrine.orm.proxy_dir">C:/Users/user/Desktop/formini crud/formini.tn/var/cache/dev/doctrine/orm/Proxies</parameter>
+    <parameter key="doctrine.orm.proxy_dir">C:\Users\user\Desktop\formini crud\formini.tn\var\cache\dev/doctrine/orm/Proxies</parameter>
     <parameter key="doctrine.orm.proxy_namespace">Proxies</parameter>
     <parameter key="doctrine.migrations.preferred_em">null</parameter>
     <parameter key="doctrine.migrations.preferred_connection">null</parameter>
@@ -236,22 +232,7 @@
     </parameter>
     <parameter key="monolog.use_microseconds">true</parameter>
     <parameter key="monolog.swift_mailer.handlers" type="collection"/>
-    <parameter key="monolog.handlers_to_channels" type="collection">
-      <parameter key="monolog.handler.console" type="collection">
-        <parameter key="type">exclusive</parameter>
-        <parameter key="elements" type="collection">
-          <parameter>event</parameter>
-          <parameter>doctrine</parameter>
-          <parameter>console</parameter>
-        </parameter>
-      </parameter>
-      <parameter key="monolog.handler.main" type="collection">
-        <parameter key="type">exclusive</parameter>
-        <parameter key="elements" type="collection">
-          <parameter>event</parameter>
-        </parameter>
-      </parameter>
-    </parameter>
+    <parameter key="monolog.handlers_to_channels" type="collection"/>
     <parameter key="vich_uploader.default_filename_attribute_suffix">_name</parameter>
     <parameter key="vich_uploader.mappings" type="collection">
       <parameter key="product_images" type="collection">
@@ -409,12 +390,22 @@
     <service id="App\Form\EvenementType" class="App\Form\EvenementType" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
     </service>
+    <service id="App\Form\PhoneNumberFormType" class="App\Form\PhoneNumberFormType" autowire="true" autoconfigure="true">
+      <tag name="form.type"/>
+    </service>
     <service id="App\Form\UsrEvtType" class="App\Form\UsrEvtType" autowire="true" autoconfigure="true">
+      <tag name="form.type"/>
+    </service>
+    <service id="App\Form\VerificationCodeFormType" class="App\Form\VerificationCodeFormType" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
     </service>
     <service id="App\Repository\EvenementRepository" class="App\Repository\EvenementRepository" autowire="true" autoconfigure="true">
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
+    </service>
+    <service id="Twilio\Rest\Client" class="Twilio\Rest\Client" autowire="true" autoconfigure="true">
+      <argument>%env(TWILIO_ACCOUNT_SID)%</argument>
+      <argument>%env(TWILIO_AUTH_TOKEN)%</argument>
     </service>
     <service id="argument_metadata_factory" class="Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadataFactory"/>
     <service id="response_listener" class="Symfony\Component\HttpKernel\EventListener\ResponseListener">
@@ -485,7 +476,7 @@
       </argument>
     </service>
     <service id="http_cache.store" class="Symfony\Component\HttpKernel\HttpCache\Store">
-      <argument>C:/Users/user/Desktop/formini crud/formini.tn/var/cache/dev/http_cache</argument>
+      <argument>C:\Users\user\Desktop\formini crud\formini.tn\var\cache\dev/http_cache</argument>
     </service>
     <service id="url_helper" class="Symfony\Component\HttpFoundation\UrlHelper">
       <argument type="service" id="request_stack"/>
@@ -495,7 +486,7 @@
       <tag name="container.no_preload"/>
       <argument type="tagged_iterator" tag="kernel.cache_warmer"/>
       <argument>true</argument>
-      <argument>C:/Users/user/Desktop/formini crud/formini.tn/var/cache/dev/App_KernelDevDebugContainerDeprecations.log</argument>
+      <argument>C:\Users\user\Desktop\formini crud\formini.tn\var\cache\dev/App_KernelDevDebugContainerDeprecations.log</argument>
     </service>
     <service id="cache_clearer" class="Symfony\Component\HttpKernel\CacheClearer\ChainCacheClearer" public="true">
       <tag name="container.private" package="symfony/framework-bundle" version="5.2"/>
@@ -547,8 +538,6 @@
         <argument key="cache.security_expression_language" type="service" id="cache.security_expression_language" on-invalid="ignore_uninitialized"/>
         <argument key="debug.security.firewall" type="service" id="debug.security.firewall" on-invalid="ignore_uninitialized"/>
         <argument key="debug.security.firewall.authenticator.main" type="service" id="debug.security.firewall.authenticator.main" on-invalid="ignore_uninitialized"/>
-        <argument key="monolog.handler.main" type="service" id="monolog.handler.main" on-invalid="ignore_uninitialized"/>
-        <argument key="monolog.handler.console" type="service" id="monolog.handler.console" on-invalid="ignore_uninitialized"/>
         <argument key=".debug.http_client" type="service" id=".debug.http_client" on-invalid="ignore_uninitialized"/>
       </argument>
       <argument type="collection">
@@ -626,12 +615,6 @@
           <argument>reset</argument>
         </argument>
         <argument key="debug.security.firewall.authenticator.main" type="collection">
-          <argument>reset</argument>
-        </argument>
-        <argument key="monolog.handler.main" type="collection">
-          <argument>reset</argument>
-        </argument>
-        <argument key="monolog.handler.console" type="collection">
           <argument>reset</argument>
         </argument>
         <argument key=".debug.http_client" type="collection">
@@ -1091,6 +1074,7 @@
         <argument>C:\Users\user\Desktop\formini crud\formini.tn\vendor\symfony\validator/Resources/translations</argument>
         <argument>C:\Users\user\Desktop\formini crud\formini.tn\vendor\symfony\form/Resources/translations</argument>
         <argument>C:\Users\user\Desktop\formini crud\formini.tn\vendor\symfony\security-core/Resources/translations</argument>
+        <argument>C:\Users\user\Desktop\formini crud\formini.tn\vendor\vich\uploader-bundle/translations</argument>
       </argument>
       <argument type="collection">
         <argument>C:\Users\user\Desktop\formini crud\formini.tn\vendor\symfony\twig-bridge/Resources/views/Email</argument>
@@ -1117,6 +1101,7 @@
         <argument>C:\Users\user\Desktop\formini crud\formini.tn\vendor\symfony\validator/Resources/translations</argument>
         <argument>C:\Users\user\Desktop\formini crud\formini.tn\vendor\symfony\form/Resources/translations</argument>
         <argument>C:\Users\user\Desktop\formini crud\formini.tn\vendor\symfony\security-core/Resources/translations</argument>
+        <argument>C:\Users\user\Desktop\formini crud\formini.tn\vendor\vich\uploader-bundle/translations</argument>
       </argument>
       <argument type="collection">
         <argument>C:\Users\user\Desktop\formini crud\formini.tn\vendor\symfony\twig-bridge/Resources/views/Email</argument>
@@ -1208,7 +1193,9 @@
       </argument>
       <argument type="collection">
         <argument>App\Form\EvenementType</argument>
+        <argument>App\Form\PhoneNumberFormType</argument>
         <argument>App\Form\UsrEvtType</argument>
+        <argument>App\Form\VerificationCodeFormType</argument>
         <argument>Symfony\Component\Form\Extension\Core\Type\FormType</argument>
         <argument>Symfony\Component\Form\Extension\Core\Type\ChoiceType</argument>
         <argument>Symfony\Component\Form\Extension\Core\Type\FileType</argument>
@@ -1355,7 +1342,7 @@
       <argument></argument>
       <argument>0</argument>
       <argument>%container.build_id%</argument>
-      <argument>C:/Users/user/Desktop/formini crud/formini.tn/var/cache/dev/pools/system</argument>
+      <argument>C:\Users\user\Desktop\formini crud\formini.tn\var\cache\dev/pools/system</argument>
       <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
     </service>
@@ -1385,7 +1372,7 @@
       <tag name="monolog.logger" channel="cache"/>
       <argument></argument>
       <argument>0</argument>
-      <argument>C:/Users/user/Desktop/formini crud/formini.tn/var/cache/dev/pools/app</argument>
+      <argument>C:\Users\user\Desktop\formini crud\formini.tn\var\cache\dev/pools/app</argument>
       <argument type="service" id="cache.default_marshaller" on-invalid="ignore"/>
       <call method="setLogger">
         <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
@@ -1553,6 +1540,11 @@
       <argument type="service" id="assets.empty_version_strategy"/>
       <argument type="service" id="assets.context"/>
     </service>
+    <service id="psr18.http_client" class="Symfony\Component\HttpClient\Psr18Client">
+      <argument type="service" id=".debug.http_client"/>
+      <argument>null</argument>
+      <argument>null</argument>
+    </service>
     <service id="http_client.abstract_retry_strategy" class="Symfony\Component\HttpClient\Retry\GenericRetryStrategy" abstract="true">
       <argument type="abstract">http codes</argument>
       <argument type="abstract">delay ms</argument>
@@ -1664,7 +1656,7 @@
         </argument>
       </argument>
       <argument type="collection">
-        <argument key="cache_dir">C:/Users/user/Desktop/formini crud/formini.tn/var/cache/dev/translations</argument>
+        <argument key="cache_dir">C:\Users\user\Desktop\formini crud\formini.tn\var\cache\dev/translations</argument>
         <argument key="debug">true</argument>
         <argument key="resource_files" type="collection">
           <argument key="af" type="collection">
@@ -1993,7 +1985,6 @@
           <argument>C:\Users\user\Desktop\formini crud\formini.tn\vendor\symfony\security-bundle/translations</argument>
           <argument>C:\Users\user\Desktop\formini crud\formini.tn\vendor\symfony\monolog-bundle/translations</argument>
           <argument>C:\Users\user\Desktop\formini crud\formini.tn\vendor\symfony\maker-bundle\src/translations</argument>
-          <argument>C:\Users\user\Desktop\formini crud\formini.tn\vendor\sensio\framework-extra-bundle\src/translations</argument>
         </argument>
         <argument key="cache_vary" type="collection">
           <argument key="scanned_directories" type="collection">
@@ -2014,7 +2005,6 @@
             <argument>C:\Users\user\Desktop\formini crud\formini.tn\vendor\symfony\security-bundle/translations</argument>
             <argument>C:\Users\user\Desktop\formini crud\formini.tn\vendor\symfony\monolog-bundle/translations</argument>
             <argument>C:\Users\user\Desktop\formini crud\formini.tn\vendor\symfony\maker-bundle\src/translations</argument>
-            <argument>C:\Users\user\Desktop\formini crud\formini.tn\vendor\sensio\framework-extra-bundle\src/translations</argument>
           </argument>
         </argument>
       </argument>
@@ -2242,7 +2232,7 @@
       <argument>-1</argument>
       <argument>true</argument>
       <argument>true</argument>
-      <argument type="service" id="monolog.logger.deprecation"/>
+      <argument>null</argument>
     </service>
     <service id="debug.file_link_formatter" class="Symfony\Component\HttpKernel\Debug\FileLinkFormatter">
       <argument>null</argument>
@@ -2704,22 +2694,6 @@
         <argument>0</argument>
       </call>
       <call method="addListener">
-        <argument>console.command</argument>
-        <argument type="collection">
-          <argument type="service_closure" id="monolog.handler.console"/>
-          <argument>onCommand</argument>
-        </argument>
-        <argument>255</argument>
-      </call>
-      <call method="addListener">
-        <argument>console.terminate</argument>
-        <argument type="collection">
-          <argument type="service_closure" id="monolog.handler.console"/>
-          <argument>onTerminate</argument>
-        </argument>
-        <argument>-255</argument>
-      </call>
-      <call method="addListener">
         <argument>console.error</argument>
         <argument type="collection">
           <argument type="service_closure" id="maker.console_error_listener"/>
@@ -2732,70 +2706,6 @@
         <argument type="collection">
           <argument type="service_closure" id="maker.console_error_listener"/>
           <argument>onConsoleTerminate</argument>
-        </argument>
-        <argument>0</argument>
-      </call>
-      <call method="addListener">
-        <argument>kernel.controller</argument>
-        <argument type="collection">
-          <argument type="service_closure" id="sensio_framework_extra.controller.listener"/>
-          <argument>onKernelController</argument>
-        </argument>
-        <argument>0</argument>
-      </call>
-      <call method="addListener">
-        <argument>kernel.controller</argument>
-        <argument type="collection">
-          <argument type="service_closure" id="sensio_framework_extra.converter.listener"/>
-          <argument>onKernelController</argument>
-        </argument>
-        <argument>0</argument>
-      </call>
-      <call method="addListener">
-        <argument>kernel.controller</argument>
-        <argument type="collection">
-          <argument type="service_closure" id="sensio_framework_extra.view.listener"/>
-          <argument>onKernelController</argument>
-        </argument>
-        <argument>-128</argument>
-      </call>
-      <call method="addListener">
-        <argument>kernel.view</argument>
-        <argument type="collection">
-          <argument type="service_closure" id="sensio_framework_extra.view.listener"/>
-          <argument>onKernelView</argument>
-        </argument>
-        <argument>0</argument>
-      </call>
-      <call method="addListener">
-        <argument>kernel.controller</argument>
-        <argument type="collection">
-          <argument type="service_closure" id="sensio_framework_extra.cache.listener"/>
-          <argument>onKernelController</argument>
-        </argument>
-        <argument>0</argument>
-      </call>
-      <call method="addListener">
-        <argument>kernel.response</argument>
-        <argument type="collection">
-          <argument type="service_closure" id="sensio_framework_extra.cache.listener"/>
-          <argument>onKernelResponse</argument>
-        </argument>
-        <argument>0</argument>
-      </call>
-      <call method="addListener">
-        <argument>kernel.controller_arguments</argument>
-        <argument type="collection">
-          <argument type="service_closure" id="sensio_framework_extra.security.listener"/>
-          <argument>onKernelControllerArguments</argument>
-        </argument>
-        <argument>0</argument>
-      </call>
-      <call method="addListener">
-        <argument>kernel.controller_arguments</argument>
-        <argument type="collection">
-          <argument type="service_closure" id="framework_extra_bundle.event.is_granted"/>
-          <argument>onKernelControllerArguments</argument>
         </argument>
         <argument>0</argument>
       </call>
@@ -2900,7 +2810,7 @@
       <argument type="service" id=".service_locator.gOdCe1K.router.default"/>
       <argument>kernel::loadRoutes</argument>
       <argument type="collection">
-        <argument key="cache_dir">C:/Users/user/Desktop/formini crud/formini.tn/var/cache/dev</argument>
+        <argument key="cache_dir">C:\Users\user\Desktop\formini crud\formini.tn\var\cache\dev</argument>
         <argument key="debug">true</argument>
         <argument key="generator_class">Symfony\Component\Routing\Generator\CompiledUrlGenerator</argument>
         <argument key="generator_dumper_class">Symfony\Component\Routing\Generator\Dumper\CompiledUrlGeneratorDumper</argument>
@@ -3013,13 +2923,13 @@
     <service id="annotations.cache_warmer" class="Symfony\Bundle\FrameworkBundle\CacheWarmer\AnnotationsCacheWarmer">
       <tag name="kernel.cache_warmer"/>
       <argument type="service" id="annotations.reader"/>
-      <argument>C:/Users/user/Desktop/formini crud/formini.tn/var/cache/dev/annotations.php</argument>
+      <argument>C:\Users\user\Desktop\formini crud\formini.tn\var\cache\dev/annotations.php</argument>
       <argument>#^Symfony\\(?:Component\\HttpKernel\\|Bundle\\FrameworkBundle\\Controller\\(?!.*Controller$))#</argument>
       <argument>true</argument>
     </service>
     <service id="annotations.cache_adapter" class="Symfony\Component\Cache\Adapter\PhpArrayAdapter">
       <tag name="container.hot_path"/>
-      <argument>C:/Users/user/Desktop/formini crud/formini.tn/var/cache/dev/annotations.php</argument>
+      <argument>C:\Users\user\Desktop\formini crud\formini.tn\var\cache\dev/annotations.php</argument>
       <argument type="service" id="cache.annotations"/>
       <factory class="Symfony\Component\Cache\Adapter\PhpArrayAdapter" method="create"/>
     </service>
@@ -3133,6 +3043,8 @@
       <argument type="service" id="property_info" on-invalid="ignore"/>
       <argument type="service" id="serializer.mapping.class_discriminator_resolver" on-invalid="ignore"/>
       <argument>null</argument>
+      <argument type="collection"/>
+      <argument type="service" id="property_info" on-invalid="ignore"/>
     </service>
     <service id="serializer.denormalizer.array" class="Symfony\Component\Serializer\Normalizer\ArrayDenormalizer">
       <tag name="serializer.normalizer" priority="-990"/>
@@ -3158,10 +3070,10 @@
           </service>
         </argument>
       </argument>
-      <argument>C:/Users/user/Desktop/formini crud/formini.tn/var/cache/dev/serialization.php</argument>
+      <argument>C:\Users\user\Desktop\formini crud\formini.tn\var\cache\dev/serialization.php</argument>
     </service>
     <service id="serializer.mapping.cache.symfony" class="Psr\Cache\CacheItemPoolInterface">
-      <argument>C:/Users/user/Desktop/formini crud/formini.tn/var/cache/dev/serialization.php</argument>
+      <argument>C:\Users\user\Desktop\formini crud\formini.tn\var\cache\dev/serialization.php</argument>
       <argument type="service" id="cache.serializer"/>
       <factory class="Symfony\Component\Cache\Adapter\PhpArrayAdapter" method="create"/>
     </service>
@@ -3300,7 +3212,7 @@
       <argument>true</argument>
     </service>
     <service id="session.storage.factory.mock_file" class="Symfony\Component\HttpFoundation\Session\Storage\MockFileSessionStorageFactory">
-      <argument>C:/Users/user/Desktop/formini crud/formini.tn/var/cache/dev/sessions</argument>
+      <argument>C:\Users\user\Desktop\formini crud\formini.tn\var\cache\dev/sessions</argument>
       <argument>MOCKSESSID</argument>
       <argument type="service">
         <service class="Symfony\Component\HttpFoundation\Session\Storage\MetadataBag">
@@ -3390,7 +3302,7 @@
       <argument type="service" id="form.registry"/>
     </service>
     <service id="form.extension" class="Symfony\Component\Form\Extension\DependencyInjection\DependencyInjectionExtension">
-      <argument type="service" id=".service_locator.n4ZVwFa"/>
+      <argument type="service" id=".service_locator.sRpTR_x"/>
       <argument type="collection">
         <argument key="Symfony\Component\Form\Extension\Core\Type\FormType" type="iterator">
           <argument type="service" id="form.type_extension.form.transformation_failure_handling"/>
@@ -3524,10 +3436,10 @@
     <service id="validator.mapping.cache_warmer" class="Symfony\Bundle\FrameworkBundle\CacheWarmer\ValidatorCacheWarmer">
       <tag name="kernel.cache_warmer"/>
       <argument type="service" id="validator.builder"/>
-      <argument>C:/Users/user/Desktop/formini crud/formini.tn/var/cache/dev/validation.php</argument>
+      <argument>C:\Users\user\Desktop\formini crud\formini.tn\var\cache\dev/validation.php</argument>
     </service>
     <service id="validator.mapping.cache.adapter" class="Symfony\Component\Cache\Adapter\PhpArrayAdapter">
-      <argument>C:/Users/user/Desktop/formini crud/formini.tn/var/cache/dev/validation.php</argument>
+      <argument>C:\Users\user\Desktop\formini crud\formini.tn\var\cache\dev/validation.php</argument>
       <argument type="service" id="cache.validator"/>
       <factory class="Symfony\Component\Cache\Adapter\PhpArrayAdapter" method="create"/>
     </service>
@@ -3917,7 +3829,7 @@
       </call>
     </service>
     <service id="profiler.storage" class="Symfony\Component\HttpKernel\Profiler\FileProfilerStorage">
-      <argument>file:C:/Users/user/Desktop/formini crud/formini.tn/var/cache/dev/profiler</argument>
+      <argument>file:C:\Users\user\Desktop\formini crud\formini.tn\var\cache\dev/profiler</argument>
     </service>
     <service id="profiler_listener" class="Symfony\Component\HttpKernel\EventListener\ProfilerListener">
       <tag name="kernel.event_subscriber"/>
@@ -3964,7 +3876,7 @@
       <tag name="monolog.logger" channel="profiler"/>
       <tag name="data_collector" template="@WebProfiler/Collector/logger.html.twig" id="logger" priority="300"/>
       <argument type="service" id="monolog.logger.profiler" on-invalid="ignore"/>
-      <argument>C:/Users/user/Desktop/formini crud/formini.tn/var/cache/dev/App_KernelDevDebugContainer</argument>
+      <argument>C:\Users\user\Desktop\formini crud\formini.tn\var\cache\dev/App_KernelDevDebugContainer</argument>
       <argument type="service" id="request_stack" on-invalid="ignore"/>
     </service>
     <service id="data_collector.time" class="Symfony\Component\HttpKernel\DataCollector\TimeDataCollector">
@@ -4536,7 +4448,7 @@
         <argument type="service" id=".doctrine.orm.default_metadata_driver"/>
       </call>
       <call method="setProxyDir">
-        <argument>C:/Users/user/Desktop/formini crud/formini.tn/var/cache/dev/doctrine/orm/Proxies</argument>
+        <argument>C:\Users\user\Desktop\formini crud\formini.tn\var\cache\dev/doctrine/orm/Proxies</argument>
       </call>
       <call method="setProxyNamespace">
         <argument>Proxies</argument>
@@ -4954,7 +4866,7 @@
       <argument type="service" id="twig.loader.native_filesystem"/>
       <argument type="collection">
         <argument key="autoescape">name</argument>
-        <argument key="cache">C:/Users/user/Desktop/formini crud/formini.tn/var/cache/dev/twig</argument>
+        <argument key="cache">C:\Users\user\Desktop\formini crud\formini.tn\var\cache\dev/twig</argument>
         <argument key="charset">UTF-8</argument>
         <argument key="debug">true</argument>
         <argument key="strict_variables">true</argument>
@@ -6118,10 +6030,7 @@
         <argument>true</argument>
       </call>
       <call method="pushHandler">
-        <argument type="service" id="monolog.handler.console"/>
-      </call>
-      <call method="pushHandler">
-        <argument type="service" id="monolog.handler.main"/>
+        <argument type="service" id="monolog.handler.null_internal"/>
       </call>
       <configurator class="Symfony\Bundle\FrameworkBundle\DependencyInjection\Compiler\AddDebugLogProcessorPass" method="configureLogger"/>
     </service>
@@ -6148,27 +6057,6 @@
     </service>
     <service id="monolog.http_client" class="Symfony\Contracts\HttpClient\HttpClientInterface">
       <factory class="Symfony\Component\HttpClient\HttpClient" method="create"/>
-    </service>
-    <service id="monolog.processor.psr_log_message" class="Monolog\Processor\PsrLogMessageProcessor"/>
-    <service id="monolog.handler.main" class="Monolog\Handler\StreamHandler">
-      <tag name="kernel.reset" method="reset"/>
-      <argument>C:\Users\user\Desktop\formini crud\formini.tn\var\log/dev.log</argument>
-      <argument>debug</argument>
-      <argument>true</argument>
-      <argument>null</argument>
-      <argument>false</argument>
-      <call method="pushProcessor">
-        <argument type="service" id="monolog.processor.psr_log_message"/>
-      </call>
-    </service>
-    <service id="monolog.handler.console" class="Symfony\Bridge\Monolog\Handler\ConsoleHandler">
-      <tag name="kernel.event_subscriber"/>
-      <tag name="kernel.reset" method="reset"/>
-      <tag name="container.no_preload"/>
-      <argument>null</argument>
-      <argument>true</argument>
-      <argument type="collection"/>
-      <argument type="collection"/>
     </service>
     <service id="maker.file_manager" class="Symfony\Bundle\MakerBundle\FileManager">
       <argument type="service" id="filesystem"/>
@@ -6356,76 +6244,6 @@
       <argument type="service" id="maker.security_config_updater"/>
       <argument type="service" id="maker.security_controller_builder"/>
     </service>
-    <service id="sensio_framework_extra.controller.listener" class="Sensio\Bundle\FrameworkExtraBundle\EventListener\ControllerListener">
-      <tag name="kernel.event_subscriber"/>
-      <tag name="container.hot_path"/>
-      <argument type="service" id="annotations.cached_reader"/>
-    </service>
-    <service id="sensio_framework_extra.converter.listener" class="Sensio\Bundle\FrameworkExtraBundle\EventListener\ParamConverterListener">
-      <tag name="kernel.event_subscriber"/>
-      <tag name="container.hot_path"/>
-      <argument type="service" id="sensio_framework_extra.converter.manager"/>
-      <argument>true</argument>
-    </service>
-    <service id="sensio_framework_extra.converter.manager" class="Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterManager">
-      <call method="add">
-        <argument type="service" id="sensio_framework_extra.converter.doctrine.orm"/>
-        <argument>0</argument>
-        <argument>doctrine.orm</argument>
-      </call>
-      <call method="add">
-        <argument type="service" id="framework_extra_bundle.date_time_param_converter"/>
-        <argument>0</argument>
-        <argument>datetime</argument>
-      </call>
-    </service>
-    <service id="sensio_framework_extra.converter.doctrine.orm" class="Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\DoctrineParamConverter">
-      <tag name="request.param_converter" converter="doctrine.orm"/>
-      <argument type="service" id="doctrine" on-invalid="ignore"/>
-      <argument type="service" id="sensio_framework_extra.converter.doctrine.orm.expression_language.default" on-invalid="null"/>
-    </service>
-    <service id="framework_extra_bundle.date_time_param_converter" class="Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\DateTimeParamConverter">
-      <tag name="request.param_converter" converter="datetime"/>
-    </service>
-    <service id="sensio_framework_extra.converter.doctrine.orm.expression_language.default" class="Symfony\Component\ExpressionLanguage\ExpressionLanguage"/>
-    <service id="sensio_framework_extra.view.guesser" class="Sensio\Bundle\FrameworkExtraBundle\Templating\TemplateGuesser">
-      <argument type="service" id="kernel"/>
-    </service>
-    <service id="sensio_framework_extra.view.listener" class="Sensio\Bundle\FrameworkExtraBundle\EventListener\TemplateListener">
-      <tag name="kernel.event_subscriber"/>
-      <tag name="container.service_subscriber" id="twig"/>
-      <tag name="container.hot_path"/>
-      <argument type="service" id="sensio_framework_extra.view.guesser"/>
-      <call method="setContainer">
-        <argument type="service" id=".service_locator.aNklfos.sensio_framework_extra.view.listener"/>
-      </call>
-    </service>
-    <service id="sensio_framework_extra.cache.listener" class="Sensio\Bundle\FrameworkExtraBundle\EventListener\HttpCacheListener">
-      <tag name="kernel.event_subscriber"/>
-      <tag name="container.hot_path"/>
-      <tag name="container.hot_path"/>
-    </service>
-    <service id="sensio_framework_extra.security.listener" class="Sensio\Bundle\FrameworkExtraBundle\EventListener\SecurityListener">
-      <tag name="kernel.event_subscriber"/>
-      <tag name="container.hot_path"/>
-      <argument type="service" id="framework_extra_bundle.argument_name_convertor"/>
-      <argument type="service" id="sensio_framework_extra.security.expression_language.default" on-invalid="null"/>
-      <argument type="service" id="security.authentication.trust_resolver" on-invalid="null"/>
-      <argument type="service" id="security.role_hierarchy" on-invalid="null"/>
-      <argument type="service" id="security.token_storage" on-invalid="null"/>
-      <argument type="service" id="security.authorization_checker" on-invalid="null"/>
-      <argument type="service" id="monolog.logger" on-invalid="null"/>
-    </service>
-    <service id="sensio_framework_extra.security.expression_language.default" class="Sensio\Bundle\FrameworkExtraBundle\Security\ExpressionLanguage"/>
-    <service id="framework_extra_bundle.event.is_granted" class="Sensio\Bundle\FrameworkExtraBundle\EventListener\IsGrantedListener">
-      <tag name="kernel.event_subscriber"/>
-      <tag name="container.hot_path"/>
-      <argument type="service" id="framework_extra_bundle.argument_name_convertor"/>
-      <argument type="service" id="security.authorization_checker" on-invalid="null"/>
-    </service>
-    <service id="framework_extra_bundle.argument_name_convertor" class="Sensio\Bundle\FrameworkExtraBundle\Request\ArgumentNameConverter">
-      <argument type="service" id="argument_metadata_factory"/>
-    </service>
     <service id="Vich\UploaderBundle\Naming\UniqidNamer.product_images" class="Vich\UploaderBundle\Naming\UniqidNamer" public="true"/>
     <service id="vich_uploader.adapter.mongodb" class="Vich\UploaderBundle\Adapter\ODM\MongoDB\MongoDBAdapter"/>
     <service id="vich_uploader.adapter.orm" class="Vich\UploaderBundle\Adapter\ORM\DoctrineORMAdapter"/>
@@ -6549,7 +6367,7 @@
       </argument>
     </service>
     <service id="vich_uploader.metadata.cache.file_cache" class="Metadata\Cache\FileCache">
-      <argument>C:/Users/user/Desktop/formini crud/formini.tn/var/cache/dev/vich_uploader</argument>
+      <argument>C:\Users\user\Desktop\formini crud\formini.tn\var\cache\dev/vich_uploader</argument>
     </service>
     <service id="vich_uploader.metadata_factory" class="Metadata\MetadataFactory">
       <argument type="service" id="vich_uploader.metadata_driver.chain"/>
@@ -6564,7 +6382,7 @@
     </service>
     <service id="Vich\UploaderBundle\Metadata\CacheWarmer" class="Vich\UploaderBundle\Metadata\CacheWarmer">
       <tag name="kernel.cache_warmer"/>
-      <argument>C:/Users/user/Desktop/formini crud/formini.tn/var/cache/dev/vich_uploader</argument>
+      <argument>C:\Users\user\Desktop\formini crud\formini.tn\var\cache\dev/vich_uploader</argument>
       <argument type="service" id="vich_uploader.metadata_reader"/>
     </service>
     <service id="vich_uploader.property_mapping_resolver" class="Vich\UploaderBundle\Mapping\PropertyMappingResolver">
@@ -6704,8 +6522,12 @@
     <service id=".abstract.instanceof.App\Controller\UsrEvtController" class="App\Controller\UsrEvtController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\EvenementType" class="App\Form\EvenementType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\EvenementType" class="App\Form\EvenementType" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\PhoneNumberFormType" class="App\Form\PhoneNumberFormType" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Form\PhoneNumberFormType" class="App\Form\PhoneNumberFormType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\UsrEvtType" class="App\Form\UsrEvtType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\UsrEvtType" class="App\Form\UsrEvtType" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\VerificationCodeFormType" class="App\Form\VerificationCodeFormType" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Form\VerificationCodeFormType" class="App\Form\VerificationCodeFormType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\EvenementRepository" class="App\Repository\EvenementRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\EvenementRepository" class="App\Repository\EvenementRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".service_locator.gSv9zYw" class="Symfony\Component\DependencyInjection\ServiceLocator">
@@ -7086,17 +6908,17 @@
         <argument key="entityManager" type="service_closure" id="doctrine.orm.default_entity_manager"/>
       </argument>
     </service>
-    <service id=".service_locator.yAvMNdP" class="Symfony\Component\DependencyInjection\ServiceLocator">
-      <tag name="container.service_locator"/>
-      <argument type="collection">
-        <argument key="evenement" type="service_closure" id=".errored..service_locator.yAvMNdP.App\Entity\Evenement"/>
-      </argument>
-    </service>
     <service id=".service_locator.wXSRjZL" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="entityManager" type="service_closure" id="doctrine.orm.default_entity_manager"/>
         <argument key="evenement" type="service_closure" id=".errored..service_locator.wXSRjZL.App\Entity\Evenement"/>
+      </argument>
+    </service>
+    <service id=".service_locator.OIshshk" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="twilioClient" type="service_closure" id="Twilio\Rest\Client"/>
       </argument>
     </service>
     <service id=".service_locator.TGnxDP3" class="Symfony\Component\DependencyInjection\ServiceLocator">
@@ -7112,20 +6934,21 @@
         <argument key="usrEvt" type="service_closure" id=".errored..service_locator.ndG5AvI.App\Entity\UsrEvt"/>
       </argument>
     </service>
-    <service id=".service_locator.kWgPKLQ" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.fmgmd65" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Controller\EvenementController::delete" type="service_closure" id=".service_locator.wXSRjZL"/>
-        <argument key="App\Controller\EvenementController::edit" type="service_closure" id=".service_locator.wXSRjZL"/>
+        <argument key="App\Controller\EvenementController::edit" type="service_closure" id=".service_locator.aKM6MDa"/>
         <argument key="App\Controller\EvenementController::index" type="service_closure" id=".service_locator.aKM6MDa"/>
         <argument key="App\Controller\EvenementController::new" type="service_closure" id=".service_locator.aKM6MDa"/>
         <argument key="App\Controller\EvenementController::search" type="service_closure" id=".service_locator.aKM6MDa"/>
-        <argument key="App\Controller\EvenementController::show" type="service_closure" id=".service_locator.yAvMNdP"/>
         <argument key="App\Controller\EvenementCsvController::exportEvenementsCsv" type="service_closure" id=".service_locator.aKM6MDa"/>
+        <argument key="App\Controller\TestController::applyEvent" type="service_closure" id=".service_locator.OIshshk"/>
         <argument key="App\Controller\TestController::events" type="service_closure" id=".service_locator.aKM6MDa"/>
         <argument key="App\Controller\TestController::eventsingle" type="service_closure" id=".service_locator.aKM6MDa"/>
+        <argument key="App\Controller\TestController::search" type="service_closure" id=".service_locator.aKM6MDa"/>
         <argument key="App\Controller\UsrEvtController::delete" type="service_closure" id=".service_locator.ndG5AvI"/>
-        <argument key="App\Controller\UsrEvtController::edit" type="service_closure" id=".service_locator.ndG5AvI"/>
+        <argument key="App\Controller\UsrEvtController::edit" type="service_closure" id=".service_locator.aKM6MDa"/>
         <argument key="App\Controller\UsrEvtController::index" type="service_closure" id=".service_locator.aKM6MDa"/>
         <argument key="App\Controller\UsrEvtController::new" type="service_closure" id=".service_locator.aKM6MDa"/>
         <argument key="App\Controller\UsrEvtController::show" type="service_closure" id=".service_locator.TGnxDP3"/>
@@ -7134,16 +6957,17 @@
         <argument key="kernel::loadRoutes" type="service_closure" id=".service_locator.xUrKPVU"/>
         <argument key="kernel::registerContainerConfiguration" type="service_closure" id=".service_locator.xUrKPVU"/>
         <argument key="App\Controller\EvenementController:delete" type="service_closure" id=".service_locator.wXSRjZL"/>
-        <argument key="App\Controller\EvenementController:edit" type="service_closure" id=".service_locator.wXSRjZL"/>
+        <argument key="App\Controller\EvenementController:edit" type="service_closure" id=".service_locator.aKM6MDa"/>
         <argument key="App\Controller\EvenementController:index" type="service_closure" id=".service_locator.aKM6MDa"/>
         <argument key="App\Controller\EvenementController:new" type="service_closure" id=".service_locator.aKM6MDa"/>
         <argument key="App\Controller\EvenementController:search" type="service_closure" id=".service_locator.aKM6MDa"/>
-        <argument key="App\Controller\EvenementController:show" type="service_closure" id=".service_locator.yAvMNdP"/>
         <argument key="App\Controller\EvenementCsvController:exportEvenementsCsv" type="service_closure" id=".service_locator.aKM6MDa"/>
+        <argument key="App\Controller\TestController:applyEvent" type="service_closure" id=".service_locator.OIshshk"/>
         <argument key="App\Controller\TestController:events" type="service_closure" id=".service_locator.aKM6MDa"/>
         <argument key="App\Controller\TestController:eventsingle" type="service_closure" id=".service_locator.aKM6MDa"/>
+        <argument key="App\Controller\TestController:search" type="service_closure" id=".service_locator.aKM6MDa"/>
         <argument key="App\Controller\UsrEvtController:delete" type="service_closure" id=".service_locator.ndG5AvI"/>
-        <argument key="App\Controller\UsrEvtController:edit" type="service_closure" id=".service_locator.ndG5AvI"/>
+        <argument key="App\Controller\UsrEvtController:edit" type="service_closure" id=".service_locator.aKM6MDa"/>
         <argument key="App\Controller\UsrEvtController:index" type="service_closure" id=".service_locator.aKM6MDa"/>
         <argument key="App\Controller\UsrEvtController:new" type="service_closure" id=".service_locator.aKM6MDa"/>
         <argument key="App\Controller\UsrEvtController:show" type="service_closure" id=".service_locator.TGnxDP3"/>
@@ -7210,11 +7034,13 @@
       <argument type="service" id="debug.argument_resolver.not_tagged_controller.inner"/>
       <argument type="service" id="debug.stopwatch"/>
     </service>
-    <service id=".service_locator.n4ZVwFa" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.sRpTR_x" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Form\EvenementType" type="service_closure" id="App\Form\EvenementType"/>
+        <argument key="App\Form\PhoneNumberFormType" type="service_closure" id="App\Form\PhoneNumberFormType"/>
         <argument key="App\Form\UsrEvtType" type="service_closure" id="App\Form\UsrEvtType"/>
+        <argument key="App\Form\VerificationCodeFormType" type="service_closure" id="App\Form\VerificationCodeFormType"/>
         <argument key="Symfony\Bridge\Doctrine\Form\Type\EntityType" type="service_closure" id="form.type.entity"/>
         <argument key="Symfony\Component\Form\Extension\Core\Type\ChoiceType" type="service_closure" id="form.type.choice"/>
         <argument key="Symfony\Component\Form\Extension\Core\Type\ColorType" type="service_closure" id="form.type.color"/>
@@ -7362,10 +7188,7 @@
         <argument type="service" id="debug.log_processor"/>
       </call>
       <call method="pushHandler">
-        <argument type="service" id="monolog.handler.console"/>
-      </call>
-      <call method="pushHandler">
-        <argument type="service" id="monolog.handler.main"/>
+        <argument type="service" id="monolog.handler.null_internal"/>
       </call>
       <configurator class="Symfony\Bundle\FrameworkBundle\DependencyInjection\Compiler\AddDebugLogProcessorPass" method="configureLogger"/>
     </service>
@@ -7375,7 +7198,7 @@
         <argument type="service" id="debug.log_processor"/>
       </call>
       <call method="pushHandler">
-        <argument type="service" id="monolog.handler.main"/>
+        <argument type="service" id="monolog.handler.null_internal"/>
       </call>
       <configurator class="Symfony\Bundle\FrameworkBundle\DependencyInjection\Compiler\AddDebugLogProcessorPass" method="configureLogger"/>
     </service>
@@ -7385,10 +7208,7 @@
         <argument type="service" id="debug.log_processor"/>
       </call>
       <call method="pushHandler">
-        <argument type="service" id="monolog.handler.console"/>
-      </call>
-      <call method="pushHandler">
-        <argument type="service" id="monolog.handler.main"/>
+        <argument type="service" id="monolog.handler.null_internal"/>
       </call>
       <configurator class="Symfony\Bundle\FrameworkBundle\DependencyInjection\Compiler\AddDebugLogProcessorPass" method="configureLogger"/>
     </service>
@@ -7398,10 +7218,7 @@
         <argument type="service" id="debug.log_processor"/>
       </call>
       <call method="pushHandler">
-        <argument type="service" id="monolog.handler.console"/>
-      </call>
-      <call method="pushHandler">
-        <argument type="service" id="monolog.handler.main"/>
+        <argument type="service" id="monolog.handler.null_internal"/>
       </call>
       <configurator class="Symfony\Bundle\FrameworkBundle\DependencyInjection\Compiler\AddDebugLogProcessorPass" method="configureLogger"/>
     </service>
@@ -7411,10 +7228,7 @@
         <argument type="service" id="debug.log_processor"/>
       </call>
       <call method="pushHandler">
-        <argument type="service" id="monolog.handler.console"/>
-      </call>
-      <call method="pushHandler">
-        <argument type="service" id="monolog.handler.main"/>
+        <argument type="service" id="monolog.handler.null_internal"/>
       </call>
       <configurator class="Symfony\Bundle\FrameworkBundle\DependencyInjection\Compiler\AddDebugLogProcessorPass" method="configureLogger"/>
     </service>
@@ -7424,10 +7238,7 @@
         <argument type="service" id="debug.log_processor"/>
       </call>
       <call method="pushHandler">
-        <argument type="service" id="monolog.handler.console"/>
-      </call>
-      <call method="pushHandler">
-        <argument type="service" id="monolog.handler.main"/>
+        <argument type="service" id="monolog.handler.null_internal"/>
       </call>
       <configurator class="Symfony\Bundle\FrameworkBundle\DependencyInjection\Compiler\AddDebugLogProcessorPass" method="configureLogger"/>
     </service>
@@ -7437,10 +7248,7 @@
         <argument type="service" id="debug.log_processor"/>
       </call>
       <call method="pushHandler">
-        <argument type="service" id="monolog.handler.console"/>
-      </call>
-      <call method="pushHandler">
-        <argument type="service" id="monolog.handler.main"/>
+        <argument type="service" id="monolog.handler.null_internal"/>
       </call>
       <configurator class="Symfony\Bundle\FrameworkBundle\DependencyInjection\Compiler\AddDebugLogProcessorPass" method="configureLogger"/>
     </service>
@@ -7450,10 +7258,7 @@
         <argument type="service" id="debug.log_processor"/>
       </call>
       <call method="pushHandler">
-        <argument type="service" id="monolog.handler.console"/>
-      </call>
-      <call method="pushHandler">
-        <argument type="service" id="monolog.handler.main"/>
+        <argument type="service" id="monolog.handler.null_internal"/>
       </call>
       <configurator class="Symfony\Bundle\FrameworkBundle\DependencyInjection\Compiler\AddDebugLogProcessorPass" method="configureLogger"/>
     </service>
@@ -7473,10 +7278,7 @@
         <argument type="service" id="debug.log_processor"/>
       </call>
       <call method="pushHandler">
-        <argument type="service" id="monolog.handler.console"/>
-      </call>
-      <call method="pushHandler">
-        <argument type="service" id="monolog.handler.main"/>
+        <argument type="service" id="monolog.handler.null_internal"/>
       </call>
       <configurator class="Symfony\Bundle\FrameworkBundle\DependencyInjection\Compiler\AddDebugLogProcessorPass" method="configureLogger"/>
     </service>
@@ -7486,10 +7288,7 @@
         <argument type="service" id="debug.log_processor"/>
       </call>
       <call method="pushHandler">
-        <argument type="service" id="monolog.handler.console"/>
-      </call>
-      <call method="pushHandler">
-        <argument type="service" id="monolog.handler.main"/>
+        <argument type="service" id="monolog.handler.null_internal"/>
       </call>
       <configurator class="Symfony\Bundle\FrameworkBundle\DependencyInjection\Compiler\AddDebugLogProcessorPass" method="configureLogger"/>
     </service>
@@ -7499,7 +7298,7 @@
         <argument type="service" id="debug.log_processor"/>
       </call>
       <call method="pushHandler">
-        <argument type="service" id="monolog.handler.main"/>
+        <argument type="service" id="monolog.handler.null_internal"/>
       </call>
       <configurator class="Symfony\Bundle\FrameworkBundle\DependencyInjection\Compiler\AddDebugLogProcessorPass" method="configureLogger"/>
     </service>
@@ -7509,10 +7308,7 @@
         <argument type="service" id="debug.log_processor"/>
       </call>
       <call method="pushHandler">
-        <argument type="service" id="monolog.handler.console"/>
-      </call>
-      <call method="pushHandler">
-        <argument type="service" id="monolog.handler.main"/>
+        <argument type="service" id="monolog.handler.null_internal"/>
       </call>
       <configurator class="Symfony\Bundle\FrameworkBundle\DependencyInjection\Compiler\AddDebugLogProcessorPass" method="configureLogger"/>
     </service>
@@ -7522,23 +7318,7 @@
         <argument type="service" id="debug.log_processor"/>
       </call>
       <call method="pushHandler">
-        <argument type="service" id="monolog.handler.console"/>
-      </call>
-      <call method="pushHandler">
-        <argument type="service" id="monolog.handler.main"/>
-      </call>
-      <configurator class="Symfony\Bundle\FrameworkBundle\DependencyInjection\Compiler\AddDebugLogProcessorPass" method="configureLogger"/>
-    </service>
-    <service id="monolog.logger.deprecation" class="Symfony\Bridge\Monolog\Logger" public="true">
-      <argument>deprecation</argument>
-      <call method="pushProcessor">
-        <argument type="service" id="debug.log_processor"/>
-      </call>
-      <call method="pushHandler">
-        <argument type="service" id="monolog.handler.console"/>
-      </call>
-      <call method="pushHandler">
-        <argument type="service" id="monolog.handler.main"/>
+        <argument type="service" id="monolog.handler.null_internal"/>
       </call>
       <configurator class="Symfony\Bundle\FrameworkBundle\DependencyInjection\Compiler\AddDebugLogProcessorPass" method="configureLogger"/>
     </service>
@@ -7655,18 +7435,6 @@
       <argument>twig.template_cache_warmer</argument>
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.v.Wwsjy" method="withContext"/>
-    </service>
-    <service id=".service_locator.aNklfos" class="Symfony\Component\DependencyInjection\ServiceLocator">
-      <tag name="container.service_locator"/>
-      <argument type="collection">
-        <argument key="twig" type="service_closure" id="twig" on-invalid="ignore"/>
-      </argument>
-    </service>
-    <service id=".service_locator.aNklfos.sensio_framework_extra.view.listener" class="Symfony\Component\DependencyInjection\ServiceLocator">
-      <tag name="container.service_locator_context" id="sensio_framework_extra.view.listener"/>
-      <argument>sensio_framework_extra.view.listener</argument>
-      <argument type="service" id="service_container"/>
-      <factory service=".service_locator.aNklfos" method="withContext"/>
     </service>
     <service id=".service_locator.XXv1IfR" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
@@ -7797,12 +7565,12 @@
       <argument type="service" id="security.token_storage"/>
     </service>
     <service id="debug.argument_resolver.service.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">
-      <argument type="service" id=".service_locator.kWgPKLQ"/>
+      <argument type="service" id=".service_locator.fmgmd65"/>
     </service>
     <service id="debug.argument_resolver.default.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver"/>
     <service id="debug.argument_resolver.variadic.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver"/>
     <service id="debug.argument_resolver.not_tagged_controller.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver">
-      <argument type="service" id=".service_locator.kWgPKLQ"/>
+      <argument type="service" id=".service_locator.fmgmd65"/>
     </service>
     <service id="debug.traced.messenger.bus.default.inner" class="Symfony\Component\Messenger\MessageBus">
       <argument type="iterator">
@@ -7826,7 +7594,6 @@
       </call>
     </service>
     <service id=".errored..service_locator.xUrKPVU.Symfony\Component\Config\Loader\LoaderInterface" class="Symfony\Component\Config\Loader\LoaderInterface"/>
-    <service id=".errored..service_locator.yAvMNdP.App\Entity\Evenement" class="App\Entity\Evenement"/>
     <service id=".errored..service_locator.wXSRjZL.App\Entity\Evenement" class="App\Entity\Evenement"/>
     <service id=".errored..service_locator.TGnxDP3.App\Entity\UsrEvt" class="App\Entity\UsrEvt"/>
     <service id=".errored..service_locator.ndG5AvI.App\Entity\UsrEvt" class="App\Entity\UsrEvt"/>
@@ -8634,7 +8401,7 @@
     <service id="cache.app.recorder_inner" class="Symfony\Component\Cache\Adapter\FilesystemAdapter">
       <argument>ShkVo6mv3O</argument>
       <argument>0</argument>
-      <argument>C:/Users/user/Desktop/formini crud/formini.tn/var/cache/dev/pools/app</argument>
+      <argument>C:\Users\user\Desktop\formini crud\formini.tn\var\cache\dev/pools/app</argument>
       <argument type="service" id="cache.default_marshaller" on-invalid="ignore"/>
       <call method="setLogger">
         <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
@@ -8644,7 +8411,7 @@
       <argument>Plt1jrEDAh</argument>
       <argument>0</argument>
       <argument>%container.build_id%</argument>
-      <argument>C:/Users/user/Desktop/formini crud/formini.tn/var/cache/dev/pools/system</argument>
+      <argument>C:\Users\user\Desktop\formini crud\formini.tn\var\cache\dev/pools/system</argument>
       <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
     </service>
@@ -8652,7 +8419,7 @@
       <argument>me+-IkcPhw</argument>
       <argument>0</argument>
       <argument>%container.build_id%</argument>
-      <argument>C:/Users/user/Desktop/formini crud/formini.tn/var/cache/dev/pools/system</argument>
+      <argument>C:\Users\user\Desktop\formini crud\formini.tn\var\cache\dev/pools/system</argument>
       <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
     </service>
@@ -8660,7 +8427,7 @@
       <argument>27nk6aQhQg</argument>
       <argument>0</argument>
       <argument>%container.build_id%</argument>
-      <argument>C:/Users/user/Desktop/formini crud/formini.tn/var/cache/dev/pools/system</argument>
+      <argument>C:\Users\user\Desktop\formini crud\formini.tn\var\cache\dev/pools/system</argument>
       <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
     </service>
@@ -8668,7 +8435,7 @@
       <argument>k33LVZ8P0Q</argument>
       <argument>0</argument>
       <argument>%container.build_id%</argument>
-      <argument>C:/Users/user/Desktop/formini crud/formini.tn/var/cache/dev/pools/system</argument>
+      <argument>C:\Users\user\Desktop\formini crud\formini.tn\var\cache\dev/pools/system</argument>
       <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
     </service>
@@ -8676,14 +8443,14 @@
       <argument>GWPHejfU1G</argument>
       <argument>0</argument>
       <argument>%container.build_id%</argument>
-      <argument>C:/Users/user/Desktop/formini crud/formini.tn/var/cache/dev/pools/system</argument>
+      <argument>C:\Users\user\Desktop\formini crud\formini.tn\var\cache\dev/pools/system</argument>
       <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
     </service>
     <service id="cache.messenger.restart_workers_signal.recorder_inner" class="Symfony\Component\Cache\Adapter\FilesystemAdapter">
       <argument>aEW3X61y5x</argument>
       <argument>0</argument>
-      <argument>C:/Users/user/Desktop/formini crud/formini.tn/var/cache/dev/pools/app</argument>
+      <argument>C:\Users\user\Desktop\formini crud\formini.tn\var\cache\dev/pools/app</argument>
       <argument type="service" id="cache.default_marshaller" on-invalid="ignore"/>
       <call method="setLogger">
         <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
@@ -8693,7 +8460,7 @@
       <argument>zLJ7kz3m2v</argument>
       <argument>0</argument>
       <argument>%container.build_id%</argument>
-      <argument>C:/Users/user/Desktop/formini crud/formini.tn/var/cache/dev/pools/system</argument>
+      <argument>C:\Users\user\Desktop\formini crud\formini.tn\var\cache\dev/pools/system</argument>
       <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
     </service>
@@ -8703,7 +8470,7 @@
       <argument>2NL1APMO7a</argument>
       <argument>0</argument>
       <argument>%container.build_id%</argument>
-      <argument>C:/Users/user/Desktop/formini crud/formini.tn/var/cache/dev/pools/system</argument>
+      <argument>C:\Users\user\Desktop\formini crud\formini.tn\var\cache\dev/pools/system</argument>
       <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
     </service>
@@ -8753,6 +8520,7 @@
     <service id="Symfony\Contracts\Translation\TranslatorInterface" alias="translator.data_collector"/>
     <service id="Symfony\Component\Asset\Packages" alias="assets.packages"/>
     <service id="Symfony\Contracts\HttpClient\HttpClientInterface" alias=".debug.http_client"/>
+    <service id="Psr\Http\Client\ClientInterface" alias="psr18.http_client"/>
     <service id="mailer" alias="mailer.mailer"/>
     <service id="Symfony\Component\Mailer\MailerInterface" alias="mailer.mailer"/>
     <service id="Symfony\Component\Mailer\Transport\TransportInterface" alias="mailer.default_transport"/>
@@ -8878,8 +8646,6 @@
     <service id="Symfony\Component\Security\Core\User\UserCheckerInterface" alias="security.user_checker"/>
     <service id="logger" alias="monolog.logger"/>
     <service id="Psr\Log\LoggerInterface" alias="monolog.logger"/>
-    <service id="sensio_framework_extra.converter.doctrine.orm.expression_language" alias="sensio_framework_extra.converter.doctrine.orm.expression_language.default"/>
-    <service id="sensio_framework_extra.security.expression_language" alias="sensio_framework_extra.security.expression_language.default"/>
     <service id="vich_uploader.storage" alias="vich_uploader.storage.file_system"/>
     <service id="Vich\UploaderBundle\Storage\StorageInterface" alias="vich_uploader.storage.file_system"/>
     <service id="Vich\UploaderBundle\Storage\FileSystemStorage" alias="vich_uploader.storage.file_system"/>
@@ -8902,7 +8668,7 @@
     <service id="Vich\UploaderBundle\Form\Type\VichImageType" alias="vich_uploader.form.type.image"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.gSv9zYw" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.kWgPKLQ"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.fmgmd65"/>
     <service id="session" alias=".session.do-not-use" public="true">
       <deprecated package="symfony/framework-bundle" version="5.3">The "%alias_id%" service and "SessionInterface" alias are deprecated, use "$requestStack-&gt;getSession()" instead.</deprecated>
     </service>
@@ -8922,15 +8688,14 @@
     <service id="Psr\Log\LoggerInterface $doctrineLogger" alias="monolog.logger.doctrine"/>
     <service id="Psr\Log\LoggerInterface $debugLogger" alias="monolog.logger.debug"/>
     <service id="Psr\Log\LoggerInterface $securityLogger" alias="monolog.logger.security"/>
-    <service id="Psr\Log\LoggerInterface $deprecationLogger" alias="monolog.logger.deprecation"/>
     <service id=".service_locator.80edgLI" alias="messenger.receiver_locator"/>
     <service id=".service_locator.h8Jkkd2" alias="messenger.retry_strategy_locator"/>
     <service id=".service_locator.0GV1BZZ" alias=".service_locator.gSv9zYw"/>
     <service id=".service_locator.lTnXb84" alias=".service_locator.wXSRjZL"/>
     <service id=".service_locator.sxiSx3z" alias=".service_locator.ndG5AvI"/>
-    <service id=".service_locator.cGeH6bo" alias=".service_locator.kWgPKLQ"/>
+    <service id=".service_locator.KQXAG.K" alias=".service_locator.fmgmd65"/>
     <service id=".service_locator.wKF4yn1" alias=".service_locator.19_mNxd"/>
-    <service id=".service_locator.j5unoKk" alias=".service_locator.n4ZVwFa"/>
+    <service id=".service_locator.fmwCqOO" alias=".service_locator.sRpTR_x"/>
     <service id=".service_locator.0A_sVJv" alias=".service_locator.eazvf4J"/>
     <service id=".service_locator.O24_MAy" alias=".service_locator.yY.p4P7"/>
     <service id=".service_locator.0ghLsew" alias=".service_locator.mx0UMmY"/>
@@ -8958,8 +8723,8 @@
     <service id="doctrine.orm.default_metadata_driver" alias=".doctrine.orm.default_metadata_driver"/>
     <service id=".service_locator.uo5c0SP" alias=".service_locator.xUrKPVU"/>
     <service id=".service_locator.bInR.ll" alias=".service_locator.aKM6MDa"/>
-    <service id=".service_locator.o1E9k33" alias=".service_locator.yAvMNdP"/>
     <service id=".service_locator.uxu15HO" alias=".service_locator.wXSRjZL"/>
+    <service id=".service_locator.OuRdjDB" alias=".service_locator.OIshshk"/>
     <service id=".service_locator.jLmX_Op" alias=".service_locator.TGnxDP3"/>
     <service id=".service_locator.ycRC34r" alias=".service_locator.ndG5AvI"/>
     <service id=".service_locator.A740LBW" alias=".service_locator.mx0UMmY"/>

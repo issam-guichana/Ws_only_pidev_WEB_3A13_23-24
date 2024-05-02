@@ -29,7 +29,6 @@ return [
         '/events.html.twig' => [[['_route' => 'app_events', '_controller' => 'App\\Controller\\TestController::events'], null, null, null, false, false, null]],
         '/notice-single.html.twig' => [[['_route' => 'app_notices', '_controller' => 'App\\Controller\\TestController::notices'], null, null, null, false, false, null]],
         '/notice.html.twig' => [[['_route' => 'app_notice', '_controller' => 'App\\Controller\\TestController::notice'], null, null, null, false, false, null]],
-        '/research.html.twig' => [[['_route' => 'app_search', '_controller' => 'App\\Controller\\TestController::search'], null, null, null, false, false, null]],
         '/teacher-single.html.twig' => [[['_route' => 'app_ts', '_controller' => 'App\\Controller\\TestController::ts'], null, null, null, false, false, null]],
         '/teacher.html.twig' => [[['_route' => 'app_teacher', '_controller' => 'App\\Controller\\TestController::teacher'], null, null, null, false, false, null]],
         '/admin' => [[['_route' => 'app_admin', '_controller' => 'App\\Controller\\TestController::aboutadmin'], null, null, null, false, false, null]],
@@ -46,6 +45,7 @@ return [
         '/ui-forms.html.twig' => [[['_route' => 'app_admin12', '_controller' => 'App\\Controller\\TestController::aboutadmin12'], null, null, null, false, false, null]],
         '/ui-typography.html.twig' => [[['_route' => 'app_admin13', '_controller' => 'App\\Controller\\TestController::aboutadmin13'], null, null, null, false, false, null]],
         '/upgrade-to-pro.html.twig' => [[['_route' => 'app_admin14', '_controller' => 'App\\Controller\\TestController::aboutadmin14'], null, null, null, false, false, null]],
+        '/search' => [[['_route' => 'app_search', '_controller' => 'App\\Controller\\TestController::search'], null, ['GET' => 0], null, false, false, null]],
         '/usr/evt' => [[['_route' => 'app_usr_evt_index', '_controller' => 'App\\Controller\\UsrEvtController::index'], null, ['GET' => 0], null, true, false, null]],
         '/usr/evt/new' => [[['_route' => 'app_usr_evt_new', '_controller' => 'App\\Controller\\UsrEvtController::new'], null, ['GET' => 0, 'POST' => 1], null, false, false, null]],
         '/_profiler' => [[['_route' => '_profiler_home', '_controller' => 'web_profiler.controller.profiler::homeAction'], null, null, null, true, false, null]],
@@ -62,45 +62,59 @@ return [
                         .'|edit/([^/]++)(*:57)'
                         .'|([^/]++)(*:72)'
                     .')'
-                    .'|t/([^/]++)(*:90)'
+                    .'|t/([^/]++)(?'
+                        .'|/(?'
+                            .'|generate\\-pdf(*:110)'
+                            .'|apply(*:123)'
+                            .'|verify(*:137)'
+                            .'|payment(*:152)'
+                            .'|success(*:167)'
+                        .')'
+                        .'|(*:176)'
+                    .')'
                 .')'
                 .'|/usr/evt/([^/]++)(?'
-                    .'|(*:118)'
-                    .'|/edit(*:131)'
-                    .'|(*:139)'
+                    .'|(*:206)'
+                    .'|/edit(*:219)'
+                    .'|(*:227)'
                 .')'
                 .'|/_(?'
-                    .'|error/(\\d+)(?:\\.([^/]++))?(*:179)'
-                    .'|wdt/([^/]++)(*:199)'
+                    .'|error/(\\d+)(?:\\.([^/]++))?(*:267)'
+                    .'|wdt/([^/]++)(*:287)'
                     .'|profiler/([^/]++)(?'
                         .'|/(?'
-                            .'|search/results(*:245)'
-                            .'|router(*:259)'
+                            .'|search/results(*:333)'
+                            .'|router(*:347)'
                             .'|exception(?'
-                                .'|(*:279)'
-                                .'|\\.css(*:292)'
+                                .'|(*:367)'
+                                .'|\\.css(*:380)'
                             .')'
                         .')'
-                        .'|(*:302)'
+                        .'|(*:390)'
                     .')'
                 .')'
             .')/?$}sDu',
     ],
     [ // $dynamicRoutes
         37 => [[['_route' => 'app_evenement_show', '_controller' => 'App\\Controller\\EvenementController::show'], ['idEvent'], null, null, false, true, null]],
-        57 => [[['_route' => 'app_evenement_edit', '_controller' => 'App\\Controller\\EvenementController::edit'], ['idEvent'], null, null, false, true, null]],
+        57 => [[['_route' => 'app_evenement_edit', '_controller' => 'App\\Controller\\EvenementController::edit'], ['idEvent'], ['GET' => 0, 'POST' => 1], null, false, true, null]],
         72 => [[['_route' => 'app_evenement_delete', '_controller' => 'App\\Controller\\EvenementController::delete'], ['idEvent'], ['POST' => 0], null, false, true, null]],
-        90 => [[['_route' => 'app_es', '_controller' => 'App\\Controller\\TestController::eventsingle'], ['idEvent'], null, null, false, true, null]],
-        118 => [[['_route' => 'app_usr_evt_show', '_controller' => 'App\\Controller\\UsrEvtController::show'], ['idUE'], ['GET' => 0], null, false, true, null]],
-        131 => [[['_route' => 'app_usr_evt_edit', '_controller' => 'App\\Controller\\UsrEvtController::edit'], ['idUE'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        139 => [[['_route' => 'app_usr_evt_delete', '_controller' => 'App\\Controller\\UsrEvtController::delete'], ['idUE'], ['POST' => 0], null, false, true, null]],
-        179 => [[['_route' => '_preview_error', '_controller' => 'error_controller::preview', '_format' => 'html'], ['code', '_format'], null, null, false, true, null]],
-        199 => [[['_route' => '_wdt', '_controller' => 'web_profiler.controller.profiler::toolbarAction'], ['token'], null, null, false, true, null]],
-        245 => [[['_route' => '_profiler_search_results', '_controller' => 'web_profiler.controller.profiler::searchResultsAction'], ['token'], null, null, false, false, null]],
-        259 => [[['_route' => '_profiler_router', '_controller' => 'web_profiler.controller.router::panelAction'], ['token'], null, null, false, false, null]],
-        279 => [[['_route' => '_profiler_exception', '_controller' => 'web_profiler.controller.exception_panel::body'], ['token'], null, null, false, false, null]],
-        292 => [[['_route' => '_profiler_exception_css', '_controller' => 'web_profiler.controller.exception_panel::stylesheet'], ['token'], null, null, false, false, null]],
-        302 => [
+        110 => [[['_route' => 'generate_event_pdf', '_controller' => 'App\\Controller\\PdfController::generateEventPdf'], ['id'], null, null, false, false, null]],
+        123 => [[['_route' => 'apply_event', '_controller' => 'App\\Controller\\TestController::applyEvent'], ['id'], null, null, false, false, null]],
+        137 => [[['_route' => 'verify_event_code', '_controller' => 'App\\Controller\\TestController::verifyEventCode'], ['id'], null, null, false, false, null]],
+        152 => [[['_route' => 'stripe_payment', '_controller' => 'App\\Controller\\TestController::processStripePayment'], ['id'], null, null, false, false, null]],
+        167 => [[['_route' => 'success_page', '_controller' => 'App\\Controller\\TestController::successPage'], ['id'], null, null, false, false, null]],
+        176 => [[['_route' => 'app_es', '_controller' => 'App\\Controller\\TestController::eventsingle'], ['idEvent'], null, null, false, true, null]],
+        206 => [[['_route' => 'app_usr_evt_show', '_controller' => 'App\\Controller\\UsrEvtController::show'], ['idUE'], ['GET' => 0], null, false, true, null]],
+        219 => [[['_route' => 'app_usr_evt_edit', '_controller' => 'App\\Controller\\UsrEvtController::edit'], ['idUE'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        227 => [[['_route' => 'app_usr_evt_delete', '_controller' => 'App\\Controller\\UsrEvtController::delete'], ['idUE'], ['POST' => 0], null, false, true, null]],
+        267 => [[['_route' => '_preview_error', '_controller' => 'error_controller::preview', '_format' => 'html'], ['code', '_format'], null, null, false, true, null]],
+        287 => [[['_route' => '_wdt', '_controller' => 'web_profiler.controller.profiler::toolbarAction'], ['token'], null, null, false, true, null]],
+        333 => [[['_route' => '_profiler_search_results', '_controller' => 'web_profiler.controller.profiler::searchResultsAction'], ['token'], null, null, false, false, null]],
+        347 => [[['_route' => '_profiler_router', '_controller' => 'web_profiler.controller.router::panelAction'], ['token'], null, null, false, false, null]],
+        367 => [[['_route' => '_profiler_exception', '_controller' => 'web_profiler.controller.exception_panel::body'], ['token'], null, null, false, false, null]],
+        380 => [[['_route' => '_profiler_exception_css', '_controller' => 'web_profiler.controller.exception_panel::stylesheet'], ['token'], null, null, false, false, null]],
+        390 => [
             [['_route' => '_profiler', '_controller' => 'web_profiler.controller.profiler::panelAction'], ['token'], null, null, false, true, null],
             [null, null, null, null, false, false, 0],
         ],

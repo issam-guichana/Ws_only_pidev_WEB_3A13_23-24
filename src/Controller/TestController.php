@@ -2,11 +2,22 @@
 
 namespace App\Controller;
 use App\Entity\Evenement;
+use App\Entity\UsrEvt;
+use App\Entity\User; 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
+use Twilio\Rest\Client;
+use App\Form\PhoneNumberFormType;
+use App\Form\VerificationCodeFormType;
+use Stripe\Stripe;
+use Stripe\PaymentIntent;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Mpdf\Mpdf;
+
+use Symfony\Component\Security\Core\Security;
 class TestController extends AbstractController
 {
 
@@ -139,7 +150,7 @@ public function eventsingle(Request $request, EntityManagerInterface $entityMana
         ]);
     }
     #[Route('/research.html.twig', name: 'app_search')]
-    public function search(): Response
+    public function research(): Response
     {
         return $this->render('Front/research.html.twig', [
             'controller_name' => 'TestController',
@@ -280,4 +291,214 @@ public function eventsingle(Request $request, EntityManagerInterface $entityMana
             'controller_name' => 'TestController',
         ]);
     }
+
+    #[Route('/search', name: 'app_search', methods: ['GET'])]
+    public function search(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $eventName = $request->query->get('eventName');
+        $startDate = $request->query->get('startDate');
+        $endDate = $request->query->get('endDate');
+
+        // Start building the DQL query
+        $qb = $entityManager->createQueryBuilder();
+        $qb->select('e')
+            ->from('App\Entity\Evenement', 'e');
+
+        // Apply filters based on user input
+        if ($eventName) {
+            $qb->andWhere('e.nomEvent LIKE :eventName')
+               ->setParameter('eventName', '%'.$eventName.'%');
+        }
+
+        if ($startDate) {
+            $qb->andWhere('e.dateEvent >= :startDate')
+               ->setParameter('startDate', new \DateTime($startDate));
+        }
+
+        if ($endDate) {
+            $qb->andWhere('e.dateEvent <= :endDate')
+               ->setParameter('endDate', new \DateTime($endDate));
+        }
+
+        // Execute the query
+        $query = $qb->getQuery();
+        $results = $query->getResult();
+
+        return $this->render('Front/events.html.twig', [
+            'evenements' => $results,
+            'controller_name' => 'TestController',
+        ]);
+    }
+/**
+ * @Route("/event/{id}/apply", name="apply_event")
+ */
+public function applyEvent(Request $request, int $id, Client $twilioClient): Response
+{
+    $entityManager = $this->getDoctrine()->getManager();
+    $event = $entityManager->getRepository(Evenement::class)->find($id);
+
+    if (!$event) {
+        throw $this->createNotFoundException('Event not found');
+    }
+
+    $phoneNumberForm = $this->createForm(PhoneNumberFormType::class);
+    $phoneNumberForm->handleRequest($request);
+
+    if ($phoneNumberForm->isSubmitted() && $phoneNumberForm->isValid()) {
+        $phoneNumber = $phoneNumberForm->get('phoneNumber')->getData();
+
+        // Ensure phone number starts with country code (+216)
+        $formattedPhoneNumber = $this->formatPhoneNumber($phoneNumber);
+
+        // Generate verification code
+        $verificationCode = mt_rand(1000, 9999);
+
+        // Store verification code in session
+        $this->get('session')->set('verification_code', $verificationCode);
+
+        try {
+            // Send SMS using Twilio
+            $twilioClient->messages->create(
+                $formattedPhoneNumber,
+                [
+                    'from' => $_ENV['TWILIO_PHONE_NUMBER'],
+                    'body' => "Your verification code for {$event->getNomEvent()} event is: $verificationCode"
+                ]
+            );
+
+            // Redirect to verify code page
+            return $this->redirectToRoute('verify_event_code', ['id' => $id]);
+        } catch (\Exception $e) {
+            // Handle Twilio API exception
+            $this->addFlash('error', 'Failed to send verification code. Please try again later.');
+        }
+    }
+
+    return $this->render('Front/apply.html.twig', [
+        'event' => $event,
+        'phoneNumberForm' => $phoneNumberForm->createView(),
+    ]);
+}
+
+/**
+ * Prefixes the given phone number with country code +216 if not already present.
+ *
+ * @param string $phoneNumber
+ * @return string
+ */
+private function formatPhoneNumber(string $phoneNumber): string
+{
+    // Remove any non-numeric characters from the phone number
+    $phoneNumber = preg_replace('/[^0-9]/', '', $phoneNumber);
+
+    // Check if the phone number already starts with +216
+    if (strpos($phoneNumber, '+216') !== 0) {
+        // Prepend +216 to the phone number
+        $phoneNumber = '+216' . ltrim($phoneNumber, '0');
+    }
+
+    return $phoneNumber;
+}
+
+
+   /**
+ * @Route("/event/{id}/verify", name="verify_event_code")
+ */
+public function verifyEventCode(Request $request, int $id): Response
+{
+    $entityManager = $this->getDoctrine()->getManager();
+    $event = $entityManager->getRepository(Evenement::class)->find($id);
+
+    if (!$event) {
+        throw $this->createNotFoundException('Event not found');
+    }
+
+    $verificationForm = $this->createForm(VerificationCodeFormType::class);
+    $verificationForm->handleRequest($request);
+
+    if ($verificationForm->isSubmitted() && $verificationForm->isValid()) {
+        $enteredCode = $verificationForm->get('verificationCode')->getData();
+        $storedCode = $this->get('session')->get('verification_code');
+
+        if ($enteredCode == $storedCode) {
+            // Code verified, proceed to payment
+            return $this->redirectToRoute('stripe_payment', ['id' => $id]);
+        } else {
+            $this->addFlash('error', 'Invalid verification code. Please try again.');
+        }
+    }
+
+    return $this->render('Front/verify_code.html.twig', [
+        'event' => $event,
+        'verificationForm' => $verificationForm->createView(),
+    ]);
+}
+   /**
+     * @Route("/event/{id}/payment", name="stripe_payment")
+     */
+    public function processStripePayment(int $id, Request $request): Response
+    {
+        // Hardcoded username (for testing purposes only)
+        $defaultUsername = 'issam';
+
+        // Get the repository for the User entity
+        $userRepository = $this->getDoctrine()->getRepository(User::class);
+
+        // Find the user by username
+        $defaultUser = $userRepository->findOneBy(['username' => $defaultUsername]);
+
+        if (!$defaultUser) {
+            throw $this->createNotFoundException('Default user not found');
+        }
+
+        // Get the event by ID
+        $event = $this->getDoctrine()->getRepository(Evenement::class)->find($id);
+
+        if (!$event) {
+            throw $this->createNotFoundException('Event not found');
+        }
+
+        // Set your Stripe secret key
+        \Stripe\Stripe::setApiKey($_ENV['STRIPE_SECRET_KEY']);
+
+        // Create a Stripe PaymentIntent (assuming you have a price or amount set for the event)
+        $paymentIntent = PaymentIntent::create([
+            'amount' => $event->getPrix() * 100, // Amount in cents
+            'currency' => 'usd', // Currency code
+            // Add more options as needed (e.g., metadata, description)
+        ]);
+
+        // Create and persist UsrEvt entity to associate the default user with the event
+        $usrEvt = new UsrEvt();
+        $usrEvt->setUser($defaultUser); // Set the default user
+        $usrEvt->setEvent($event);
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($usrEvt);
+        $entityManager->flush();
+
+        // Render the payment form template with necessary data
+        return $this->render('Front/payment.html.twig', [
+            'event' => $event,
+            'clientSecret' => $paymentIntent->client_secret,
+            'stripePublicKey' => $_ENV['STRIPE_PUBLIC_KEY'],
+        ]);
+    }
+
+/**
+ * @Route("/event/{id}/success", name="success_page")
+ */
+public function successPage(int $id): Response
+{
+    // Fetch event details based on the provided ID, if needed
+    $event = $this->getDoctrine()->getRepository(Evenement::class)->find($id);
+
+    if (!$event) {
+        throw $this->createNotFoundException('Event not found');
+    }
+
+    return $this->render('Front/success.html.twig', [
+        'event' => $event,
+    ]);
+}
 }

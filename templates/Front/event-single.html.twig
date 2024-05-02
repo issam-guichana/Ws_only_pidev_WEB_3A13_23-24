@@ -1,54 +1,9 @@
-<!DOCTYPE html>
-
-<!--
- // WEBSITE: https://themefisher.com
- // TWITTER: https://twitter.com/themefisher
- // FACEBOOK: https://www.facebook.com/themefisher
- // GITHUB: https://github.com/themefisher/
--->
-
-<html lang="en">
-<head>
-
-  <!-- Basic Page Needs
-	================================================== -->
-  <meta charset="utf-8">
-  <title>Educenter - Education HTML Template</title>
-
-  <!-- Mobile Specific Metas
-	================================================== -->
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="description" content="Construction Html5 Template">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <meta name="author" content="Themefisher">
-  <meta name="generator" content="Themefisher Educenter HTML Template v1.0">
-
-   <!-- Bootstrap -->
-  <link rel="stylesheet" href="{{asset('Front/plugins/bootstrap/bootstrap.min.css')}}">
-  <!-- slick slider -->
-  <link rel="stylesheet" href="{{asset('Front/plugins/slick/slick.css')}}">
-  <!-- themefy-icon -->
-  <link rel="stylesheet" href="{{asset('Front/plugins/themify-icons/themify-icons.css')}}">
-  <!-- animation css -->
-  <link rel="stylesheet" href="{{asset('Front/plugins/animate/animate.css')}}">
-  <!-- aos -->
-  <link rel="stylesheet" href="{{asset('Front/plugins/aos/aos.css')}}">
-  <!-- venobox popup -->
-  <link rel="stylesheet" href="{{asset('Front/plugins/venobox/venobox.css')}}">
-
-  <!-- Main Stylesheet -->
-  <link href="{{asset('Front/css/style.css')}}" rel="stylesheet">
-
-  <!--Favicon-->
-  <link rel="shortcut icon" href="{{asset('favicon.png')}}" type="image/x-icon">
-  <link rel="icon" href="{{asset('favicon.png')}}" type="image/x-icon">
-
-</head>
-
+{% extends 'Front/index.html.twig' %}
+{%block body1 %}
 <body>
   <!-- preloader start -->
   <div class="preloader">
-    <img src="uploads/preloader.gif" alt="preloader">
+    <img src="/uploads/preloader.gif" alt="preloader">
   </div>
   <!-- preloader end -->
 
@@ -79,11 +34,11 @@
       </div>
     </div>
   </div>
-  <!-- navbar -->
+ <!-- navbar -->
   <div class="navigation w-100">
     <div class="container">
       <nav class="navbar navbar-expand-lg navbar-dark p-0">
-        <a class="navbar-brand" href="index.html.twig"><img src="uploads/logo.png" alt="logo"></a>
+        <a class="navbar-brand" href="index.html.twig"><img src="/uploads/logo.png" alt="logo"></a>
         <button class="navbar-toggler rounded-0" type="button" data-toggle="collapse" data-target="#navigation"
           aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -91,7 +46,7 @@
 
         <div class="collapse navbar-collapse" id="navigation">
           <ul class="navbar-nav ml-auto text-center">
-            <li class="nav-item @@home">
+            <li class="nav-item active">
               <a class="nav-link" href="index.html.twig">Home</a>
             </li>
             <li class="nav-item @@about">
@@ -101,7 +56,7 @@
               <a class="nav-link" href="courses.html.twig">COURSES</a>
             </li>
             <li class="nav-item @@events">
-              <a class="nav-link" href="events.html.twig">EVENTS</a>
+              <a class="nav-link" href="{{ path('app_events') }}">EVENTS</a>
             </li>
             <li class="nav-item @@blog">
               <a class="nav-link" href="blog.html.twig">BLOG</a>
@@ -141,88 +96,21 @@
       </nav>
     </div>
   </div>
-</header>
-<!-- /header -->
-<!-- Modal -->
-<div class="modal fade" id="signupModal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content rounded-0 border-0 p-4">
-            <div class="modal-header border-0">
-                <h3>Register</h3>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="login">
-                    <form action="#" class="row">
-                        <div class="col-12">
-                            <input type="text" class="form-control mb-3" id="signupPhone" name="signupPhone" placeholder="Phone">
-                        </div>
-                        <div class="col-12">
-                            <input type="text" class="form-control mb-3" id="signupName" name="signupName" placeholder="Name">
-                        </div>
-                        <div class="col-12">
-                            <input type="email" class="form-control mb-3" id="signupEmail" name="signupEmail" placeholder="Email">
-                        </div>
-                        <div class="col-12">
-                            <input type="password" class="form-control mb-3" id="signupPassword" name="signupPassword" placeholder="Password">
-                        </div>
-                        <div class="col-12">
-                            <button type="submit" class="btn btn-primary">SIGN UP</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Modal -->
-<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content rounded-0 border-0 p-4">
-            <div class="modal-header border-0">
-                <h3>Login</h3>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form action="#" class="row">
-                    <div class="col-12">
-                        <input type="text" class="form-control mb-3" id="loginPhone" name="loginPhone" placeholder="Phone">
-                    </div>
-                    <div class="col-12">
-                        <input type="text" class="form-control mb-3" id="loginName" name="loginName" placeholder="Name">
-                    </div>
-                    <div class="col-12">
-                        <input type="password" class="form-control mb-3" id="loginPassword" name="loginPassword" placeholder="Password">
-                    </div>
-                    <div class="col-12">
-                        <button type="submit" class="btn btn-primary">LOGIN</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
+  </header>
 <!-- page title -->
-<section class="page-title-section overlay" data-background="images/backgrounds/page-title.jpg">
+<section class="page-title-section overlay" data-background="uploads/backgrounds/page-title.jpg">
   <div class="container">
     <div class="row">
       <div class="col-md-8">
         <ul class="list-inline custom-breadcrumb mb-2">
-          <li class="list-inline-item"><a class="h2 text-primary font-secondary" href="events.html.twig">Upcoming Events</a></li>
-          <li class="list-inline-item text-white h3 font-secondary nasted">Event Details</li>
+          <li class="list-inline-item"><a class="h2 text-primary font-secondary" href="index.html.twig">Home</a></li>
+          <li class="list-inline-item text-white h3 font-secondary nasted">Event details</li>
         </ul>
-        <p class="text-lighten mb-0">Our courses offer a good compromise between the continuous assessment favoured by some universities and the emphasis placed on final exams by others.</p>
+        <p class="text-lighten mb-0">Voici les details de l'evenement.</p>
       </div>
     </div>
   </div>
 </section>
-<!-- /page title -->
-
 <!-- event single -->
 <section class="section-sm">
   <div class="container">
@@ -232,7 +120,7 @@
       </div>
       <!-- event image -->
       <div class="col-12 mb-4">
-        <img src="{{ asset('uploads/events/' ~ event.imageEvent) }}" alt="event thumb" class="img-fluid w-100">
+        <img src="{{ asset('/uploads/' ~ event.imageEvent) }}" alt="event thumb" class="img-fluid w-100">
       </div>
     </div>
     <!-- event info -->
@@ -277,9 +165,19 @@
           </li>
         </ul>
       </div>
-      <div class="col-lg-3 text-lg-right text-left">
-        <a href="{{ path('app_es', {'idEvent': event.idEvent}) }}" class="btn btn-primary">Apply now</a>
-      </div>
+     <!-- SMS verification form -->
+        <section class="section-sm">
+    <div class="container">
+        <div class="row">
+            
+            <div class="col-12 mb-4">
+                <form action="{{ path('apply_event', { 'id': event.idEvent }) }}" method="post">
+                    <button type="submit" class="btn btn-primary">Apply for Event</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
       <!-- border -->
       <div class="col-12 mt-4 order-4">
         <div class="border-bottom border-primary"></div>
@@ -295,27 +193,4 @@
   </div>
 </section>
 <!-- /event single -->
-</footer>
-<!-- /footer -->
-
-<!-- jQuery -->
-<script src="{{asset('Front/plugins/jQuery/jquery.min.js')}}"></script>
-<!-- Bootstrap JS -->
-<script src="{{asset('Front/plugins/bootstrap/bootstrap.min.js')}}"></script>
-<!-- slick slider -->
-<script src="{{asset('Front/plugins/slick/slick.min.js')}}"></script>
-<!-- aos -->
-<script src="{{asset('Front/plugins/aos/aos.js')}}"></script>
-<!-- venobox popup -->
-<script src="{{asset('Front/plugins/venobox/venobox.min.js')}}"></script>
-<!-- filter -->
-<script src="{{asset('Front/plugins/filterizr/jquery.filterizr.min.js')}}"></script>
-<!-- google map -->
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcABaamniA6OL5YvYSpB3pFMNrXwXnLwU"></script>
-<script src="{{asset('Front/plugins/google-map/gmap.js')}}"></script>
-
-<!-- Main Script -->
-<script src="{{asset('Front/js/script.js')}}"></script>
-
-</body>
-</html>
+{% endblock %}

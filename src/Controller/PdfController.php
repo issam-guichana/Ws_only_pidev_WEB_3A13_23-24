@@ -8,7 +8,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use TCPDF;
-
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 class PdfController extends AbstractController
 {
     private $entityManager;
@@ -126,4 +127,75 @@ class PdfController extends AbstractController
         // Return a Symfony response
         return new Response();
     }
+    /**
+ * @Route("/event/{id}/generate-pdf", name="generate_event_pdf")
+ */
+public function generateEventPdf(int $id): Response
+{
+    // Fetch event details based on the provided ID
+    $event = $this->getDoctrine()->getRepository(Evenement::class)->find($id);
+
+    if (!$event) {
+        throw $this->createNotFoundException('Event not found');
+    }
+
+    // Create a new TCPDF instance with A4 page format
+    $pdf = new TCPDF('P', 'mm', 'A4', true, 'UTF-8', false);
+
+    // Set PDF metadata
+    $pdf->SetCreator('Your Name');
+    $pdf->SetAuthor('Your Name');
+    $pdf->SetTitle('Event Ticket: ' . $event->getNomEvent());
+    $pdf->SetSubject('Event Ticket');
+    $pdf->SetKeywords('PDF, event, ticket, Symfony');
+
+    // Add a page
+    $pdf->AddPage();
+
+    // Set font
+    $pdf->SetFont('helvetica', '', 12);
+
+  
+
+    // Add event details to PDF
+    $pdf->Cell(0, 10, 'Event Ticket: ' . $event->getNomEvent(), 0, 1, 'C');
+    $pdf->Ln(10);
+
+    // Add user information (assuming you want to display the current user's name)
+    
+    $pdf->SetFont('helvetica', 'B', 10);
+    $pdf->Cell(0, 10, 'Name : issam ' , 0, 1);
+    $pdf->Ln(5);
+
+    // Add event details
+    $pdf->SetFont('helvetica', '', 10);
+    $pdf->Cell(0, 10, 'Event: ' . $event->getNomEvent(), 0, 1);
+    $pdf->Cell(0, 10, 'Date: ' . $event->getDateEvent()->format('Y-m-d'), 0, 1);
+    $pdf->Cell(0, 10, 'Time: ' . $event->getHeureDeb()->format('H:i'), 0, 1);
+    $pdf->Cell(0, 10, 'Location: ' . $event->getLieu(), 0, 1);
+
+    // Add image of the event (assuming 'imageEvent' is the property containing the image filename)
+    if ($event->getImageEvent()) {
+        $imagePath = $this->getParameter('app.path.product_images') . '/' . $event->getImageEvent();
+        if (file_exists($imagePath)) {
+            $pdf->Image($imagePath, 70, 100, 70, 0, '', '', '', false, 300);
+        }
+    }
+
+    // Set custom styles/colors
+    $pdf->SetFillColor(255, 191, 0); // Yellow close to orange
+    $pdf->SetDrawColor(0, 0, 255); // Blue
+
+    // Output PDF content as a response for download
+    $pdfContent = $pdf->Output('event_ticket.pdf', 'S'); // Get PDF content as string
+    $response = new Response($pdfContent);
+
+    // Set headers to force download
+    $disposition = $response->headers->makeDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT, 'event_ticket.pdf');
+    $response->headers->set('Content-Type', 'application/pdf');
+    $response->headers->set('Content-Disposition', $disposition);
+
+    return $response;
+}
+
 }

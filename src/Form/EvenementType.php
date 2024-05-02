@@ -39,7 +39,7 @@ class EvenementType extends AbstractType
                 'attr' => ['class' => 'form-control', 'placeholder' => 'YYYY-MM-DD'],
                 'required' => false, // Allow null values
                 'constraints' => [
-                    new Assert\NotBlank(['message' => 'L\'heure de début ne peut pas être vide']),
+                    
                     new NotNull(['message' => 'La date de l\'événement ne peut pas être vide']),
                     new Assert\GreaterThanOrEqual(['value' => 'today', 'message' => 'La date de l\'événement doit être dans le futur.']),
                 ],

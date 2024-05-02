@@ -292,31 +292,78 @@
 				</div>
 			</nav>
 
-			 <main class="content">
+		<main class="content">
     <div class="container-fluid p-0">
-        <h1>Liste des participants</h1>
+        <div class="participants-section text-center mb-5">
+            <h1>Liste des participants</h1>
 
-        {% if usr_evts is not empty %}
-            {% for usr_evt in usr_evts %}
-                <div class="mb-3">
-                    <p>User: {{ usr_evt.user.getUsername() }}</p>
-                    <p>Event: {{ usr_evt.event.nomEvent }}</p>
-                    
-                    {% if usr_evt.event.imageEvent %}
-                        <img src="{{ asset('uploads/' ~ usr_evt.event.imageEvent) }}" alt="Event Image" style="max-width: 100px; max-height: 100px;">
-                    {% else %}
-                        <p>No Image Available</p>
-                    {% endif %}
-                    
-                    <a href="{{ path('app_usr_evt_edit', {'idUE': usr_evt.idUE}) }}">Edit</a>
+            {% if usrEvts is not empty %}
+                <div class="participants-list d-flex justify-content-center flex-wrap">
+                    {% for usrEvt in usrEvts %}
+                        <div class="participant-card">
+                            <div class="participant-info">
+                                <h2>{{ usrEvt.user.username }}</h2>
+                            </div>
+                            <div class="participant-actions mt-3">
+                                <a href="{{ path('app_usr_evt_edit', {'idUE': usrEvt.idUE}) }}" class="btn btn-sm btn-primary btn-bigger">Modifier</a>
+                                <!-- Added custom class 'btn-bigger' for slightly larger size -->
+                            </div>
+                        </div>
+                    {% endfor %}
                 </div>
-            {% endfor %}
-        {% else %}
-            <p>No records found</p>
-        {% endif %}
+            {% else %}
+                <p>Aucun participant trouvé pour cet événement.</p>
+            {% endif %}
+        </div>
+
+        <div class="event-details-section text-center">
+            <h1>Détails de l'événement</h1>
+            <div class="event-details">
+                <h2>{{ evenement.nomEvent }}</h2>
+
+                {% if evenement.imageEvent %}
+                    <img src="{{ asset('uploads/' ~ evenement.imageEvent) }}" alt="{{ evenement.nomEvent }}" class="event-image mt-3" style="max-width: 300px;">
+                {% else %}
+                    <p class="no-image mt-3">Image non disponible</p>
+                {% endif %}
+
+                <div class="event-info mt-3">
+                    <p>Date: {{ evenement.dateEvent ? evenement.dateEvent|date('d/m/Y') : 'Inconnue' }}</p>
+                    <p>Heure de début: {{ evenement.heureDeb ? evenement.heureDeb|date('H:i') : 'Inconnue' }}</p>
+                    <p>Lieu: {{ evenement.lieu }}</p>
+                </div>
+            </div>
+        </div>
     </div>
 </main>
-					
+
+<style>
+    /* Custom CSS for spacing between sections */
+    .participants-section {
+        margin-bottom: 30px; /* Add bottom margin to separate from the next section */
+    }
+
+    .event-details-section {
+        margin-top: 30px; /* Add top margin to separate from the previous section */
+    }
+
+    /* Custom CSS for participant card */
+    .participant-card {
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 15px; /* Adjust padding for left and right spacing */
+        margin: 10px; /* Add margin to separate participant cards */
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        background-color: #fff;
+    }
+
+    /* Custom CSS to slightly increase button size */
+    .btn-bigger {
+        padding: 0.5rem 1rem; /* Increase padding for larger button */
+        font-size: 0.9rem; /* Increase font size for larger button */
+    }
+</style>
+
 
 			
 

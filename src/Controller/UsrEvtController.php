@@ -54,22 +54,29 @@ class UsrEvtController extends AbstractController
     }
 
     #[Route('/{idUE}/edit', name: 'app_usr_evt_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, UsrEvt $usrEvt, EntityManagerInterface $entityManager): Response
-    {
-        $form = $this->createForm(UsrEvtType::class, $usrEvt);
-        $form->handleRequest($request);
+public function edit(Request $request, int $idUE, EntityManagerInterface $entityManager): Response
+{
+    // Retrieve the UsrEvt entity by idUE
+    $usrEvt = $entityManager->getRepository(UsrEvt::class)->find($idUE);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
-
-            return $this->redirectToRoute('app_usr_evt_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->renderForm('usr_evt/edit.html.twig', [
-            'usr_evt' => $usrEvt,
-            'form' => $form,
-        ]);
+    if (!$usrEvt) {
+        throw $this->createNotFoundException('UsrEvt not found');
     }
+
+    $form = $this->createForm(UsrEvtType::class, $usrEvt);
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_usr_evt_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    return $this->renderForm('usr_evt/edit.html.twig', [
+        'usr_evt' => $usrEvt,
+        'form' => $form,
+    ]);
+}
 
     #[Route('/{idUE}', name: 'app_usr_evt_delete', methods: ['POST'])]
     public function delete(Request $request, UsrEvt $usrEvt, EntityManagerInterface $entityManager): Response

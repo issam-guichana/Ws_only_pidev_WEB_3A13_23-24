@@ -23,51 +23,42 @@ class Evenement
 
     /**
      * @ORM\Column(name="description", type="string", length=2500)
-     * @Assert\NotBlank(message="Description cannot be blank")
+
      */
     private $description;
 
  /**
      * @ORM\Column(name="date_event", type="date")
-     * @Assert\NotBlank(message="La date de l'événement ne peut pas être vide.")
-     * @Assert\Type("\DateTimeInterface", message="La date de l'événement doit être une date valide.")
-     * 
-     * @Assert\GreaterThanOrEqual("today", message="La date de l'événement doit être dans le futur.")
+
      */
 private $dateEvent;
 
      /**
      * @ORM\Column(name="heure_deb", type="time", nullable=true)
-     * @Assert\NotBlank(message="L'heure de début ne peut pas être vide.")
-     * @Assert\Type("\DateTimeInterface", message="L'heure de début doit être une heure valide.")
      */
     private $heureDeb;
 
     /**
      * @ORM\Column(name="prix", type="integer")
-     * @Assert\NotBlank(message="Prix cannot be blank")
-     * @Assert\PositiveOrZero(message="Prix should be a positive number or zero")
      */
     private $prix;
 
      /**
      * @ORM\Column(name="nom_event", type="string", length=255)
-     * @Assert\NotBlank(message="Le nom de l'événement ne peut pas être vide.")
-     * @Assert\Length(max=255, maxMessage="Le nom de l'événement ne doit pas dépasser {{ limit }} caractères.")
-     * @Assert\Regex("/^[a-zA-Z]+$/", message="Le nom de l'événement ne peut contenir que des lettres.")
+    
+     
      */
     private $nomEvent;
 
     /**
      * @ORM\Column(name="nbrP", type="integer")
-     * @Assert\NotBlank(message="NbrP cannot be blank")
-     * @Assert\PositiveOrZero(message="NbrP should be a positive number or zero")
+     
      */
     private $nbrP;
 
     /**
      * @ORM\Column(name="lieu", type="string", length=100)
-     * @Assert\NotBlank(message="Lieu cannot be blank")
+     
      */
     private $lieu;
 
