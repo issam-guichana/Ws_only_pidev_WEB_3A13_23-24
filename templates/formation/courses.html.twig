@@ -47,7 +47,7 @@
                 <div class="mt-4 col-lg-10">
                     <div class="mt-1 input-group">
                         <input type="text" id="searchInput" class="form-control" name="search" placeholder="Search..." value="{{ app.request.query.get('search') }}">
-<script src="{{ asset('js/search.js') }}"></script>
+
 
                         <button type="submit" class="btn btn-primary ml-4">Search</button>
                     </div>
@@ -56,7 +56,11 @@
                 
         </form>
         <!-- /Formulaire de recherche et de tri -->
-
+   <!-- Affichage des résultats de la recherche AJAX -->
+        <div id="searchResults">
+            <!-- Les résultats de la recherche AJAX seront affichés ici -->
+        </div>
+        <!-- /Affichage des résultats de la recherche AJAX -->
         <!-- Liste des formations -->
         <h2 class="section-title mb-4">Nos Formations:</h2>
         <div class="row justify-content-center">
@@ -71,6 +75,8 @@
                             </li>
                         </ul>
                         <h4 class="card-title">{{ formation.nomForm }}</h4>
+                          <p class="card-text mb-1">Date de début : {{ formation.getDateDebut()|date('d/m/Y') }}</p>
+                                <p class="card-text mb-1">Date de fin : {{ formation.getDateFin()|date('d/m/Y') }}</p>
                         <p class="card-text mb-4">{{ formation.description }}</p>
                         <a href="#" class="btn btn-primary btn-sm" onclick="event.preventDefault(); document.getElementById('inscription-form-{{ formation.idForm }}').submit();">Apply now</a>
 
@@ -125,9 +131,29 @@
         <!-- /Pagination pour la liste principale -->
         {% endif %}
         <!-- /Recommandations -->
+        <script>
+$('#searchInput').on('input', function() {
+    var searchQuery = $(this).val();
+    $.ajax({
+        url: '{{ path('app_formation_search') }}',
+        type: 'GET',
+        data: { search: searchQuery },
+        success: function(response) {
+            // Mettez à jour l'affichage des résultats de la recherche ici
+            console.log(response.formations);
+        },
+        error: function(xhr) {
+            // Gérez les erreurs ici
+            console.error(xhr);
+        }
+    });
+});
+
+</script>
     </div>
     
 </section>
+
 
 {% endblock %}
 

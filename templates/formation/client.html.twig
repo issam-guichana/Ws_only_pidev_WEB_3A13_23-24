@@ -127,13 +127,13 @@
 						<div class="collapse navbar-collapse" id="navigation">
 							<ul class="navbar-nav ml-auto text-center">
 								<li class="nav-item @@home">
-									<a class="nav-link" href="index.html.twig">ACCUEIL</a>
+									<a class="nav-link" href="{{ path('courses')}}">ACCUEIL</a>
 								</li>
 								<li class="nav-item @@about">
 									<a class="nav-link" href="about.html.twig">About</a>
 								</li>
 								<li class="nav-item active">
-									<a class="nav-link" href="courses.html.twig">FORMATIONS</a>
+									<a class="nav-link" href="{{ path('app_client_formations')}}">FORMATIONS</a>
 								</li>
 								<li class="nav-item @@events">
 									<a class="nav-link" href="events.html.twig">EVENEMENTS</a>
@@ -252,6 +252,8 @@
                                     </li>
                                 </ul>
                                 <h4 class="card-title">{{ formation.getNomForm() }}</h4>
+								  <p class="card-text mb-1">Date de début : {{ formation.getDateDebut()|date('d/m/Y') }}</p>
+                                <p class="card-text mb-1">Date de fin : {{ formation.getDateFin()|date('d/m/Y') }}</p>
                                 <p class="card-text mb-4">{{ formation.getDescription() }}</p>
                                  <a href="{{ path('app_formation_details1', {'id': formation.getIdForm()}) }}" class="btn btn-primary btn-sm">Details</a>
 

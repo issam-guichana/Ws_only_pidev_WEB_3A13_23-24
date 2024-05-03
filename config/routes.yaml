@@ -50,3 +50,6 @@ app_course_upload:
     path: /upload
     controller: App\Controller\FormationController::uploadCourse
     methods: ['GET', 'POST']
+app_formation_search:
+    path: /search
+    controller: 'App\Controller\FormationController::search'    

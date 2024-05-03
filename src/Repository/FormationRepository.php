@@ -33,16 +33,13 @@ class FormationRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
-    public function findBySearchAndSort($searchBy, $searchQuery)
-    {
-        $qb = $this->createQueryBuilder('c');
-    
-        if ($searchQuery && $searchBy) {
-            $qb->andWhere('c.'.$searchBy.' LIKE :searchQuery')
-                ->setParameter('searchQuery', '%'.$searchQuery.'%');
-        }
-    
-        return $qb->getQuery()->getResult();
-    }
-    
+   
+    public function findBySearchQuery(string $searchQuery)
+{
+    return $this->createQueryBuilder('f')
+        ->andWhere('f.nomForm LIKE :searchQuery')
+        ->setParameter('searchQuery', '%'.$searchQuery.'%')
+        ->getQuery()
+        ->getResult();
+}
 }

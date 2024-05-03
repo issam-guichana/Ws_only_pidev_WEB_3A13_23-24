@@ -93,17 +93,7 @@ public function new(RoomRepository $roomRepository, Request $request, EntityMana
         $user = $userRepository->find($selectedUserId);
       
         
-      $errors = $this->validateEntities($formation, $room);
-      if (count($errors) > 0) {
-        return $this->render('formation/new.html.twig', [
-            'formation' => $formation,
-            'users' => $users,
-            'categories' => $categories,
-            'room' => $room,
-            'certificats' => $certificats,
-            'errors' => $errors,
-        ]);
-    }
+      
 
         $userFormRoom = new UserFormRoom();
         $userFormRoom->setUser($user );
@@ -142,6 +132,17 @@ public function new(RoomRepository $roomRepository, Request $request, EntityMana
         'certificats' => $certificats,
         
     ]);
+    $errors = $this->validateEntities($formation, $room);
+      if (count($errors) > 0) {
+        return $this->render('formation/new.html.twig', [
+            'formation' => $formation,
+            'users' => $users,
+            'categories' => $categories,
+            'room' => $room,
+            'certificats' => $certificats,
+            'errors' => $errors,
+        ]);
+    }
 }
 
 
@@ -210,12 +211,17 @@ public function courses(
 ): Response {
     $userId = 7; // ID de l'utilisateur statique
     
-    $searchBy = 'nomForm'; // Specify the attribute to search by
-$searchQuery = $request->query->get('search'); // Retrieve the search query from the request
+    // Récupérer le terme de recherche
+    $searchQuery = $request->query->get('search');
 
-// Call the findBySearchAndSort method with the specified parameters
-$formations = $formationRepository->findBySearchAndSort($searchBy, $searchQuery);
-
+    // Récupérer les formations en fonction de la recherche
+    if ($searchQuery) {
+        // Appeler la méthode de recherche
+        $formations = $formationRepository->findBySearchQuery($searchQuery);
+    } else {
+        // Sinon, récupérer toutes les formations
+        $formations = $formationRepository->findAll();
+    }
 
     // Paginer les formations
     $formations = $paginator->paginate(
@@ -498,6 +504,14 @@ public function viewPdf($id, EntityManagerInterface $entityManager): Response
     $response->headers->set('Content-Disposition', 'inline; filename="formation.pdf"');
 
     return $response;
+}
+public function search(FormationRepository $formationRepository, Request $request): JsonResponse
+{
+    $searchQuery = $request->query->get('search');
+    $formations = $formationRepository->findBySearchQuery($searchQuery); // Vous devez implémenter cette méthode dans votre FormationRepository
+
+    // Vous pouvez également adapter le format de sortie JSON selon vos besoins
+    return new JsonResponse(['formations' => $formations]);
 }
 
 }
