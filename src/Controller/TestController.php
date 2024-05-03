@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Controller;
-
+use Knp\Component\Pager\PaginatorInterface;
 use App\Entity\Question;
 use App\Entity\Quiz;
 use App\Repository\QuizRepository;
@@ -123,18 +123,26 @@ class TestController extends AbstractController
         ]);
     }
     #[Route('/quiz.html.twig', name: 'app_notice')]
-    public function quiz(): Response
+    public function quiz(Request $request, PaginatorInterface $paginator): Response
     {
-         // Get the Doctrine EntityManager
-         $entityManager = $this->getDoctrine()->getManager();
+        
+    // Get the Doctrine EntityManager
+    $entityManager = $this->getDoctrine()->getManager();
 
-         // Get all quizzes from the database
-         $quizzes = $entityManager->getRepository(Quiz::class)->findAll();
- 
-         // Render the template and pass the quizzes variable
-         return $this->render('Front/quiz.html.twig', [
-             'quizzes' => $quizzes,
-         ]);
+    // Get all quizzes from the database
+    $query = $entityManager->getRepository(Quiz::class)->createQueryBuilder('q')->getQuery();
+
+    // Paginate the query
+    $pagination = $paginator->paginate(
+        $query,
+        $request->query->getInt('page', 1), // Get the current page number from the request
+        4 // Number of items per page
+    );
+
+    // Render the template and pass the pagination object
+    return $this->render('Front/quiz.html.twig', [
+        'pagination' => $pagination,
+    ]);
     }
     #[Route('/questions.html.twig/{id}', name: 'app_questions')]
     public function questions(int $id): Response

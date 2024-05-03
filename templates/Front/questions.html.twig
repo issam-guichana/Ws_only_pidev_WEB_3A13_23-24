@@ -139,7 +139,7 @@
         {% endfor %}
         <div class="text-center">
             <button type="button" class="btn btn-primary mr-2" onclick="prevQuestion()">Go Back</button>
-            <a href="{{ path('app_notice') }}"id="returnToQuizListBtn" class="btn btn-primary">Confirm and Return to Quiz List</a>
+            <a id="returnToQuizListBtn" class="btn btn-primary">Confirm and Return to Quiz List</a>
         </div>
         
     </div>
@@ -154,6 +154,7 @@
         </div>
         <div class="modal-body">
           <p id="scoreMessage">Your score will be displayed here</p>
+          <a href="{{ path('app_notice') }}" id="returnToQuizListBtn" class="btn btn-primary">Confirm and Return to Quiz List</a>
         </div>
       </div>
     </div>
@@ -208,7 +209,7 @@
         showQuestion(0);
 
     // Set the duration of the countdown in seconds (e.g., 30 minutes = 30 * 60 = 1800 seconds)
-    var countdownDuration = 1800; // 30 minutes
+    var countdownDuration = 100; // 30 minutes
 
     // Start the countdown
     var countdown = setInterval(function() {

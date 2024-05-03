@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Controller;
-
+use Symfony\Component\Mailer\MailerInterface;
 use App\Entity\Quiz;
 use App\Form\QuizType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -11,6 +11,9 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Mime\Email;
+use Symfony\Component\Mime\Part\AbstractPart;
+use Symfony\Component\Mime\Part\DataPart;
 
 #[Route('/quiz')]
 class QuizController extends AbstractController
@@ -122,5 +125,26 @@ class QuizController extends AbstractController
         }
 
         return $this->redirectToRoute('app_quiz_index', [], Response::HTTP_SEE_OTHER);
+    }
+    #[Route('/send-email', name: 'send_email', methods: ['POST'])]
+public function sendEmail(MailerInterface $mailer, EntityManagerInterface $entityManager): Response
+{
+    // Retrieve the list of quizzes
+    $quizzes = $entityManager->getRepository(Quiz::class)->findAll();
+
+    // Compose the email
+    $email = (new Email())
+        ->from('sadok.mestiri@gmail.com')
+        ->to('sadok.mestiri@gmail.com')
+        ->subject('List of Quizzes')
+        ->html('<p>Here is the list of quizzes:</p><ul>' . 
+            implode('', array_map(fn($quiz) => '<li>' . $quiz->getNomQuiz() . '</li>', $quizzes)) . 
+            '</ul>');
+
+    // Send the email
+    $mailer->send($email);
+
+    // Optionally, redirect back to a specific page after sending the email
+    return $this->redirectToRoute('app_quiz_index', [], Response::HTTP_SEE_OTHER);
     }
 }
