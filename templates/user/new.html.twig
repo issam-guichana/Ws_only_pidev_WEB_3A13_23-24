@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5">
+		<meta name="author" content="AdminKit">
+		<meta name="keywords" content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
+
+		<link rel="preconnect" href="https://fonts.gstatic.com">
+		<link rel="shortcut icon" href="{{asset('Back/img/icons/icon-48x48.png')}}"/>
+
+		<link rel="canonical" href="https://demo-basic.adminkit.io/pages-sign-up.html"/>
+
+		<title>Ajouter un utilisateur</title>
+
+		<link href="{{asset('Back/css/app.css')}}" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+	</head>
+
+	<body>
+		<main class="d-flex w-100">
+			<div class="container d-flex flex-column">
+				<div class="row vh-100">
+					<div class="col-sm-10 col-md-8 col-lg-6 col-xl-5 mx-auto d-table h-100">
+						<div class="d-table-cell align-middle">
+
+							<div class="text-center mt-4">
+								<h1 class="h2">Ajouter un utilisateur</h1>
+								<p class="lead">
+									Remplir les champs nécessaire de l'utilisateur
+								</p>
+							</div>
+
+							<div class="card">
+								<div class="card-body">
+									<div class="m-sm-3">
+										<form method="post" enctype="multipart/form-data">
+
+
+											{{ form_start(form) }}
+											<div class="mb-3">
+												{{ form_label(form.username, 'Nom du user') }}
+												{{ form_widget(form.username, {'attr': {'class': 'form-control'}}) }}
+											</div>
+											<div class="mb-3">
+												{{ form_label(form.email, 'Email') }}
+												{{ form_widget(form.email, {'attr': {'class': 'form-control form-control-lg'}}) }}
+											</div>
+
+											<div class="mb-3">
+												{{ form_label(form.mdp.first, 'Mot de passe') }}
+												{{ form_widget(form.mdp.first, {'attr': {'class': 'form-control'}}) }}
+											</div>
+											<div class="mb-3">
+												{{ form_label(form.mdp.second, 'Confirmer mot de passe') }}
+												{{ form_widget(form.mdp.second, {'attr': {'class': 'form-control'}}) }}
+											</div>
+
+											<div class="mb-3">
+												{{ form_label(form.age, 'Age') }}
+												{{ form_widget(form.age, {'attr': {'class': 'form-control'}}) }}
+											</div>
+											<div class="mb-3">
+												{{ form_label(form.role, 'Role') }}
+												{{ form_widget(form.role, {'attr': {'class': 'form-control'}}) }}
+											</div>
+											<div class="mb-3">
+												{{ form_label(form.gender, 'Gender') }}
+												{{ form_widget(form.gender, {'attr': {'class': 'form-control'}}) }}
+											</div>
+											<div class="mb-3">
+												{{ form_label(form.image, 'Sélectionner une image') }}
+												{{ form_widget(form.image, {'attr': {'class': 'form-control'}}) }}
+											</div>
+											<div class="d-grid gap-2 mt-3">
+												<button type="submit" class="btn btn-primary">Ajouter</button>
+											</div>
+											{% if form_errors(form) %}
+												<div class="alert alert-danger">
+													{{ form_errors(form) }}
+												</div>
+											{% endif %}
+
+											{{ form_end(form) }}
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</main>
+
+		<script src="{{asset('Back/js/app.js')}}"></script>
+
+	</body>
+
+</html>
+
+
+{# <div class="input-group">
+													<input type="text" class="form-control" id="image" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
+													<input type="file" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload" class="form-control" style="display: none;" accept="image/*" name="image" onchange="document.getElementById('image').value = this.value;">
+													<button class="btn btn-outline-secondary" type="button" onclick="document.getElementById('inputGroupFile04').click()">Choisir un fichier</button>
+												</div> #}

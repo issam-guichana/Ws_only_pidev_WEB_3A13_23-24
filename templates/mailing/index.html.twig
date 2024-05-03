@@ -1,0 +1,52 @@
+{# {% extends 'base.html.twig' %}
+
+{% block title %}Hello MailingController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    <h1>Hello {{ controller_name }}! ✅</h1>
+
+    This friendly message is coming from:
+    <ul>
+        <li>Your controller at <code><a href="{{ 'C:/Users/issam/Desktop/backup/23.04.2024/src/Controller/MailingController.php'|file_link(0) }}">src/Controller/MailingController.php</a></code></li>
+        <li>Your template at <code><a href="{{ 'C:/Users/issam/Desktop/backup/23.04.2024/templates/mailing/index.html.twig'|file_link(0) }}">templates/mailing/index.html.twig</a></code></li>
+    </ul>
+</div>
+{% endblock %} #}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forgot Password</title>
+</head>
+<body>
+    <h2>Forgot Password</h2>
+    <form id="reset-password-form" action="{{ path('validate_email') }}" method="POST">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+        <button type="submit" class="next-button">Next</button>
+    </form>
+
+    <h2>Confirmation Code</h2>
+    <form id="confirm-code-form">
+        <label for="confirmation-code">Confirmation Code:</label>
+        <input type="text" id="confirmation-code" name="confirmation-code" required>
+        <button id="confirm-button" class="confirm-button">Confirm</button>
+    </form>
+
+    <h2>Reset Password</h2>
+    <form id="reset-password-form" action="{{ path('reset_password') }}" method="POST">
+        <label for="new-password">New Password:</label>
+        <input type="password" id="new-password" name="new-password" required>
+        <label for="confirm-new-password">Confirm New Password:</label>
+        <input type="password" id="confirm-new-password" name="confirm-new-password" required>
+        <button type="submit" class="reset-password-button">Reset Password</button>
+    </form>
+</body>
+</html>
