@@ -15,8 +15,8 @@
             <tr>
                 <th scope="col">Nom Room</th>
                 <th scope="col">Description</th>
-                <th scope="col">Date creation</th>
-                 <th scope="col">Formation</th>
+                <th scope="col">Date création</th>
+                 <th scope="col">Etat</th>
                 <th scope="col">Actions</th>
             </tr>
         </thead>
@@ -26,53 +26,61 @@
                     <td>{{ room.nomRoom }}</td>
                     <td>{{ room.description }}</td>
                     <td>{{ room.dateCRoom|date('Y-m-d') }}</td>
-                      <td>{{ room.dateCRoom|date('Y-m-d') }}</td>
+                    <td>{{ room.status }}</td>
                     <td>
-                        <a href="{{ path('app_room_d', {'id': room.IdRoom }) }}" class="btn btn-primary consulter-btn" data-room-id="{{ room.IdRoom }}" data-toggle="modal" data-target="#messagesModal">Messages</a>
+                        <button class="btn btn-primary consulter-btn" data-room-id="{{ room.IdRoom }}">Messages</button>
                         <a href="{{ path('updateroom', {'id': room.IdRoom }) }}" class="btn btn-primary editer-btn" data-room-id="{{ room.IdRoom }}" data-toggle="modal" data-target="#updateModal">Editer</a>
                         <a href="{{ path('deleteroom', {'id': room.IdRoom }) }}" class="btn btn-primary delete-btn" data-room-id="{{ room.IdRoom }}" onclick="confirmDelete('{{ room.IdRoom }}')">Supprimer</a>
-                        <a href="{{ path('suspend_room', {'id': room.IdRoom }) }}" class="btn btn-primary delete-btn" data-room-id="{{ room.IdRoom }}" id="suspendRoomBtn">Suspendre</a>
+                        <a href="{{ path('suspend_room', {'id': room.IdRoom }) }}" class="btn btn-primary suspend-btn" data-room-id="{{ room.IdRoom }}">Suspendre</a>
                     </td>
                 </tr>
             {% endfor %}
         </tbody>
     </table>
 </div>
+{% endblock %}
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const suspendBtn = document.getElementById('suspendRoomBtn');
-        suspendBtn.addEventListener('click', function(event) {
-            event.preventDefault();
-            const roomId = suspendBtn.getAttribute('data-room-id');
-            suspendRoom(roomId);
-        });
 
-        function suspendRoom(roomId) {
-            // Send AJAX request to suspend the room
-            const url = '/suspend/room/' + roomId;
-            fetch(url, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-Requested-With': 'XMLHttpRequest'
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
-                // Update the modal or UI based on the response
-                // For example, close the modal or update a status message
-                console.log(data.message); // Log the response message
-            })
-            .catch(error => {
-                console.error('Error:', error);
+{% block javascripts %}
+    {{ parent() }}
+    <!-- Ensure jQuery is loaded before your custom JavaScript code -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+    $(document).ready(function() {
+        // Event listener for Consulter button
+        $('.consulter-btn').click(function(event) {
+            event.preventDefault(); // Prevent default anchor behavior
+
+            // Assuming you have a variable containing the room ID
+            var roomId = $(this).data('room-id');
+
+            // Fetch messages data for the room
+            $.get('{{ path('app_room_d', {'id': '__roomId__'}) }}'.replace('__roomId__', roomId), function(response) {
+                // Update modal content with messages
+                var messages = response.messages;
+                var messagesList = $('#messagesList');
+                messagesList.empty(); // Clear previous messages
+
+                messages.forEach(function(message) {
+                    // Create list item for the message
+                    var listItem = $('<li>').text(message.contenu); // Assuming the content property of the message entity
+
+                    // Append the list item to the messages list
+                    messagesList.append(listItem);
+                });
+
+                // Show the modal
+                $('#messagesModal').modal('show');
+            }).fail(function(jqXHR, textStatus, errorThrown) {
+                // Handle errors here
+                console.error("Error:", textStatus, errorThrown);
             });
-        }
+        });
     });
-</script>
+    </script>
 
 
-<!-- Modal for displaying messages -->
 <!-- Modal for displaying messages -->
 <div class="modal fade" id="messagesModal" tabindex="-1" role="dialog" aria-labelledby="messagesModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -94,6 +102,7 @@
         </div>
     </div>
 </div>
+
 
 
 <!-- Modal for updating room details -->
@@ -128,46 +137,8 @@
 </div>
 
 
-{% endblock %}
 
-{% block javascripts %}
-    {{ parent() }}
-    <!-- Ensure jQuery is loaded before your custom JavaScript code -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script>
-    $(document).ready(function(){
-        $('.update-btn').click(function(){
-            var roomId = $(this).data('room-id');
-            var roomName = $(this).data('room-name');
-            var description = $(this).data('description');
-            
-            // Update form action attribute with the correct route and room ID
-            var formAction = "{{ path('updateroom', {'id': '__roomId__'}) }}".replace('__roomId__', roomId);
-            $('#updateForm').attr('action', formAction);
-            
-            // Populate form fields with room details
-            $('#roomName').val(roomName);
-            $('#description').val(description);
-            
-            // Show the modal
-            $('#updateModal').modal('show');
-        });
-    });
-</script>
-<script>
-    function confirmDelete(roomId) {
-        // Display a confirmation dialog
-        if (confirm("Attention! La suppression de cette discussion invoquera la suppression de tous les messages")) {
-            // If user confirms, redirect to the delete route
-            window.location.href = "{{ path('deleteroom', {'id': 'ROOM_ID'}) }}".replace('ROOM_ID', roomId);
-        } else {
-            window.location.reload();
-        }
-    }
-</script>
-   <script>
+ <script>
     $(document).ready(function() {
         // Event listener for Consulter button
         $('.consulter-btn').click(function(event) {
@@ -237,7 +208,7 @@
         });
     });
 
-
+</script>
 
     <style>
     .chat-container {

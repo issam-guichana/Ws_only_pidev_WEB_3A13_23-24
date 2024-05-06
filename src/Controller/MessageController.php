@@ -11,6 +11,7 @@ use App\Repository\RoomRepository;
 use App\Repository\UserFormRoomRepository;
 
 use App\Entity\UserFormRoom;
+use MercurySeries\FlashyBundle\FlashyNotifier;
 
 use App\Entity\Room;
 
@@ -131,7 +132,7 @@ class MessageController extends AbstractController
 
 
     #[Route('/addmsg/{id}', name: 'addmsg')]
-    public function addmsg(UserFormRoomRepository $UserFormRoomRepository,$id,Request $request, ManagerRegistry $mr,
+    public function addmsg(FlashyNotifier $flashy,UserFormRoomRepository $UserFormRoomRepository,$id,Request $request, ManagerRegistry $mr,
      RoomRepository $roomRepository, UserRepository $userRepository, MessageRepository $messageRepository,  OffensiveLanguageFilter $offensiveLanguageFilter): Response
    {
     $msg = $this->getDoctrine()->getRepository(Message::class)->findAll();
@@ -215,6 +216,7 @@ class MessageController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($message);
             $entityManager->flush();
+           // $this->addFlash('success', 'Message added successfully.');
 
             // Send email notification
           //  $receiver = $message->getIdUser()->getEmail();
@@ -223,7 +225,10 @@ class MessageController extends AbstractController
           //  $this->customEmailNotification->sendEmailNotification("firasdhmaid@gmail.com", '[Nouvelle réclamation]', 'Une nouvelle réclamation a été ajoutée'.$message);
 
             // Add a flash message to indicate success
-            $this->addFlash('success', 'Message added successfully.');
+            //$this->addFlash('success', 'Message added successfully.');
+            $flashy->success('Message added successfully.');
+                        return $this->redirectToRoute('addmsg', ['id' => $id]); // Replace 'your_route_name' with the actual name of the route
+
         }
     }
 

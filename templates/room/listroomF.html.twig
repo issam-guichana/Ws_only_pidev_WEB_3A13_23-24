@@ -314,6 +314,14 @@
     <!-- Use a div for the Slick Slider -->
     <div id="room-slider" class="slick-slider">
         {% for room in rooms %}
+    {% if room.status == 'suspend' %}
+        <div class="suspension-card  room-card">
+            <div class="card-body">
+                <h5 class="card-title">{{ room.nomRoom }}</h5>
+                <p class="card-text">Discussion suspendu.</p>
+            </div>
+        </div>
+    {% else %}
         <div class="room-card">
             <div class="card-body">
                 <h5 class="card-title">{{ room.nomRoom }}</h5>
@@ -321,7 +329,9 @@
                 <a href="{{ path('addmsg', {'id': room.idRoom}) }}" class="btn btn-primary btn-sm">View Details</a>
             </div>
         </div>
-        {% endfor %}
+    {% endif %}
+{% endfor %}
+
     </div>
 </div>
 
@@ -463,7 +473,13 @@ document.write(CurrentYear)
 		
 	
  
-
+<style>
+ .dangerous {
+    background-color: #ffdddd; /* Light red background */
+    border: 1px solid #ff9999; /* Red border */
+    color: #990000; /* Dark red text */
+}
+</style>
 
     <!-- Include jQuery, Bootstrap JS, and Slick Slider JS -->
     <!-- jQuery -->

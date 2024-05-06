@@ -42,11 +42,15 @@
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/emoji-mart/css/emoji-mart.css">
-   
+                 <link rel="stylesheet" href="{{ asset('bundles/mercuryseriesflashy/css/flashy.css') }}">
+
   <script src="https://cdn.jsdelivr.net/npm/libsignal-protocol/dist/libsignal-protocol.min.js"></script>
 
+<link rel="stylesheet" href="{{ asset('bundles/mercuryseriesflashy/css/flashy.css') }}">
 
-
+<script src="{{ asset('bundles/mercuryseriesflashy/js/flashy.js') }}"></script>
+<link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700' rel='stylesheet'>
 /* CSS for the chat messages */
 
 <style>
@@ -64,7 +68,7 @@
 }
 
 .other {
-    background-color: #f0f0f0;
+    background-color: #d8d1bd;
     color: black;
     align-self: flex-start;
 }
@@ -315,9 +319,9 @@
         <div class="row">
             <!-- First card (Membres) -->
             <div class="col-md-3 mb-4">
-                <div class="card">
+                <div class="card h-100">
                     <div class="card-header">
-                        <h5 class="card-title">Membres</h5>
+                        <h5 class="card-title"> <i class="fas fa-users"></i>Membres</h5>
                     </div>
                     <div class="card-body">
                         {% for participant in participants %}
@@ -330,77 +334,70 @@
                     </div>
                 </div>
             </div>
-			
-            <!-- Second card (Chat room) 
-			 <form id="search-form">
-        <input type="text" id="search-input" name="query" placeholder="Search">
-        <button type="submit">Search</button>
-    </form>
-<div id="search-results"></div>
-<ul>
-       
-    </ul>-->
+
+            <!-- Second card (Chat room) -->
             <div class="col-md-6 mb-4">
-                <div class="card">
+                <div class="card h-100">
                     <div class="card-header">
-                        <h5 class="card-title">{{roomname}}</h5>
+                        <h5 class="card-title"> <i class="fas fa-comments"></i>{{roomname}}</h5>
                     </div>
                     <div class="card-body">
-                        <div class="chat-container">
-                            <div class="messages" id="message-container">
-                                {% for message in messages %}
-                                <div class="message {% if message.senderMsg == 'me' %}me{% else %}other{% endif %}">
-                                    <span class="message-body">{{ message.contenu }}</span>
+                        <form id="search-form" class="form-inline justify-content-center mb-3">
+                            <div class="input-group" style="max-width: 500px; border-radius: 20px;">
+                                <input type="text" id="search-input" name="query" class="form-control" placeholder="Rechercher un message ..." aria-label="Search">
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary" type="submit" style="border-radius: 0 20px 20px 0;">
+                                        <i class="fas fa-search"></i> Rechercher
+                                    </button>
                                 </div>
-                                {% endfor %}
                             </div>
+                        </form>
+
+                        <div id="search-results"></div>
+                        <div class="messages" id="message-container">
+                            {% for message in messages %}
+                            <div class="message {% if message.senderMsg == 'me' %}me{% else %}other{% endif %}">
+                                <span class="message-body">{{ message.contenu }}</span>
+                            </div>
+                            {% endfor %}
                         </div>
                     </div>
-                    <div class="chat-footer">
-                        <div id="chat-form">
-                            <input type="text" id="chat-input">
-                            <div class="form-group chat-input">
-                                <textarea class="form-control" name="contenu" id="contenu" placeholder="Type a message..."></textarea>
-                                <div class="alert alert-danger">
-                                    {% if errors is defined and errors is not empty and errors['contenu'] is defined %}
-                                    <div class="text-danger">{{ errors['contenu'] }}</div>
-                                    {% endif %}
-                                </div>
-
-                                <input type="text" id="messageInput">
-                                <!-- Button to trigger emoji picker -->
-                                <button id="emojiButton">😀</button>
-                                <div class="chat-submit">
-                                    <button type="submit" class="btn btn-primary">Send</button>
-                                </div>
-                            </div>
+                    <div class="card-footer">
+                        <div id="chat-form" style="position: relative;">
+                            <textarea class="form-control" name="contenu" id="contenu" placeholder="Taper un message..." style="padding-right: 60px;"></textarea>
+                            <button type="submit" class="btn btn-primary" style="position: absolute; right: 10px; bottom: 10px;">Send</button>
+                        </div>
+                        <div class="alert alert-danger">
+                            {% if errors is defined and errors is not empty and errors['contenu'] is defined %}
+                            <div class="text-danger">{{ errors['contenu'] }}</div>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
             </div>
-			<!-- Search form -->
 
             <!-- Third card (Charte utilisation du room) -->
             <div class="col-md-3 mb-4">
-                <div class="card">
+                <div class="card h-100">
                     <div class="card-header">
-                        <h5 class="card-title">Charte utilisation du room</h5>
+                        <h5 class="card-title"> <i class="fas fa-info-circle"></i>Charte utilisation </h5>
                     </div>
                     <div class="card-body">
                         <!-- Content of the charte utilisation du room card -->
                         <!-- You can add your content here -->
-                    </div>
+					 	<p><i class="fas fa-exclamation-triangle text-warning"></i>Tous messages contenant des mots inappropriés sera masqué automatiquement</p>
+                        <p><i class="fas fa-exclamation-triangle text-warning"></i>Pour synchroniser le contact avec votre formateur, nous vous conseillons de mentionner son nom</p>
+                         <p><i class="fas fa-exclamation-triangle text-warning"></i>Tout comportement innaprroprié peuvent conduire à la suspension de la discussion par l'admin</p>
+
+					</div>
                 </div>
             </div>
-			<form id="search-form">
-    <input type="text" id="search-input" name="query" placeholder="Search">
-    <button type="submit">Search</button>
-</form>
-<div id="search-results"></div>
+
         </div>
     </div>
     {% endblock %}
 </form>
+
 
 
     </div>
@@ -587,8 +584,18 @@ document.write(CurrentYear)
 });
 
 </script>
+<script>
+        // Display FlashyNotifier success message
+        Flashy.success("Votre message a été bien reçu!");
+    </script>
+
     
-	
+	 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Include Flashy default JavaScript -->
+    <script src="{{ asset('bundles/mercuryseriesflashy/js/flashy.js') }}"></script>
+    <!-- Include Flashy default partial -->
+    {{ include('@MercurySeriesFlashy/flashy.html.twig') }}
 <script>
     $(document).ready(function(){
         $('#chat-form').submit(function(event){
@@ -633,4 +640,27 @@ document.write(CurrentYear)
     });
 
    
+</script>
+<script src="{{ asset('bundles/mercuryseriesflashy/js/flashy.js') }}"></script>
+
+<script>
+    // Initialize Flashy
+    const flashy = new Flashy();
+
+    $(document).ready(function(){
+        $('#chat-form').submit(function(event){
+            event.preventDefault();
+            var message = $('#contenu').val();
+            $('#contenu').val('');
+            $('#message-container').append('<div class="message me"><span class="message-body">' + message + '</span></div>');
+            // Here you would typically send the message to the server and receive a response
+            // For the sake of simplicity, I'm simulating the response after a short delay
+            setTimeout(function(){
+                $('#message-container').append('<div class="message other"><span class="message-body">This is a response from the server</span></div>');
+                $('.messages').scrollTop($('.messages')[0].scrollHeight); // Auto scroll to bottom
+                // Trigger Flashy success message
+                flashy.success("Votre message a été bien reçu!");
+            }, 1000);
+        });
+    });
 </script>
