@@ -365,19 +365,19 @@
         <argument type="service" id=".service_locator.mx0UMmY.App\Controller\EvenementCsvController"/>
       </call>
     </service>
-    <service id="App\Controller\PdfController" class="App\Controller\PdfController" public="true" autowire="true" autoconfigure="true">
+    <service id="App\Controller\PdfControlleraziz" class="App\Controller\PdfControlleraziz" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
       <tag name="container.service_subscriber"/>
       <argument type="service" id="doctrine.orm.default_entity_manager"/>
       <call method="setContainer">
-        <argument type="service" id=".service_locator.mx0UMmY.App\Controller\PdfController"/>
+        <argument type="service" id=".service_locator.mx0UMmY.App\Controller\PdfControlleraziz"/>
       </call>
     </service>
-    <service id="App\Controller\TestController" class="App\Controller\TestController" public="true" autowire="true" autoconfigure="true">
+    <service id="App\Controller\TestControlleraziz" class="App\Controller\TestControlleraziz" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
       <tag name="container.service_subscriber"/>
       <call method="setContainer">
-        <argument type="service" id=".service_locator.mx0UMmY.App\Controller\TestController"/>
+        <argument type="service" id=".service_locator.mx0UMmY.App\Controller\TestControlleraziz"/>
       </call>
     </service>
     <service id="App\Controller\UsrEvtController" class="App\Controller\UsrEvtController" public="true" autowire="true" autoconfigure="true">
@@ -6511,12 +6511,12 @@
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\EvenementCsvController" class="App\Controller\EvenementCsvController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\EvenementCsvController" class="App\Controller\EvenementCsvController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\EvenementCsvController" class="App\Controller\EvenementCsvController" autowire="true" autoconfigure="true" abstract="true"/>
-    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\PdfController" class="App\Controller\PdfController" autowire="true" abstract="true"/>
-    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\PdfController" class="App\Controller\PdfController" autowire="true" abstract="true"/>
-    <service id=".abstract.instanceof.App\Controller\PdfController" class="App\Controller\PdfController" autowire="true" autoconfigure="true" abstract="true"/>
-    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\TestController" class="App\Controller\TestController" autowire="true" abstract="true"/>
-    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\TestController" class="App\Controller\TestController" autowire="true" abstract="true"/>
-    <service id=".abstract.instanceof.App\Controller\TestController" class="App\Controller\TestController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\PdfControlleraziz" class="App\Controller\PdfControlleraziz" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\PdfControlleraziz" class="App\Controller\PdfControlleraziz" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\PdfControlleraziz" class="App\Controller\PdfControlleraziz" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\TestControlleraziz" class="App\Controller\TestControlleraziz" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\TestControlleraziz" class="App\Controller\TestControlleraziz" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\TestControlleraziz" class="App\Controller\TestControlleraziz" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\UsrEvtController" class="App\Controller\UsrEvtController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\UsrEvtController" class="App\Controller\UsrEvtController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\UsrEvtController" class="App\Controller\UsrEvtController" autowire="true" autoconfigure="true" abstract="true"/>
@@ -6934,7 +6934,7 @@
         <argument key="usrEvt" type="service_closure" id=".errored..service_locator.ndG5AvI.App\Entity\UsrEvt"/>
       </argument>
     </service>
-    <service id=".service_locator.fmgmd65" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.KHyEJWE" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Controller\EvenementController::delete" type="service_closure" id=".service_locator.wXSRjZL"/>
@@ -6943,10 +6943,10 @@
         <argument key="App\Controller\EvenementController::new" type="service_closure" id=".service_locator.aKM6MDa"/>
         <argument key="App\Controller\EvenementController::search" type="service_closure" id=".service_locator.aKM6MDa"/>
         <argument key="App\Controller\EvenementCsvController::exportEvenementsCsv" type="service_closure" id=".service_locator.aKM6MDa"/>
-        <argument key="App\Controller\TestController::applyEvent" type="service_closure" id=".service_locator.OIshshk"/>
-        <argument key="App\Controller\TestController::events" type="service_closure" id=".service_locator.aKM6MDa"/>
-        <argument key="App\Controller\TestController::eventsingle" type="service_closure" id=".service_locator.aKM6MDa"/>
-        <argument key="App\Controller\TestController::search" type="service_closure" id=".service_locator.aKM6MDa"/>
+        <argument key="App\Controller\TestControlleraziz::applyEvent" type="service_closure" id=".service_locator.OIshshk"/>
+        <argument key="App\Controller\TestControlleraziz::events" type="service_closure" id=".service_locator.aKM6MDa"/>
+        <argument key="App\Controller\TestControlleraziz::eventsingle" type="service_closure" id=".service_locator.aKM6MDa"/>
+        <argument key="App\Controller\TestControlleraziz::search" type="service_closure" id=".service_locator.aKM6MDa"/>
         <argument key="App\Controller\UsrEvtController::delete" type="service_closure" id=".service_locator.ndG5AvI"/>
         <argument key="App\Controller\UsrEvtController::edit" type="service_closure" id=".service_locator.aKM6MDa"/>
         <argument key="App\Controller\UsrEvtController::index" type="service_closure" id=".service_locator.aKM6MDa"/>
@@ -6962,10 +6962,10 @@
         <argument key="App\Controller\EvenementController:new" type="service_closure" id=".service_locator.aKM6MDa"/>
         <argument key="App\Controller\EvenementController:search" type="service_closure" id=".service_locator.aKM6MDa"/>
         <argument key="App\Controller\EvenementCsvController:exportEvenementsCsv" type="service_closure" id=".service_locator.aKM6MDa"/>
-        <argument key="App\Controller\TestController:applyEvent" type="service_closure" id=".service_locator.OIshshk"/>
-        <argument key="App\Controller\TestController:events" type="service_closure" id=".service_locator.aKM6MDa"/>
-        <argument key="App\Controller\TestController:eventsingle" type="service_closure" id=".service_locator.aKM6MDa"/>
-        <argument key="App\Controller\TestController:search" type="service_closure" id=".service_locator.aKM6MDa"/>
+        <argument key="App\Controller\TestControlleraziz:applyEvent" type="service_closure" id=".service_locator.OIshshk"/>
+        <argument key="App\Controller\TestControlleraziz:events" type="service_closure" id=".service_locator.aKM6MDa"/>
+        <argument key="App\Controller\TestControlleraziz:eventsingle" type="service_closure" id=".service_locator.aKM6MDa"/>
+        <argument key="App\Controller\TestControlleraziz:search" type="service_closure" id=".service_locator.aKM6MDa"/>
         <argument key="App\Controller\UsrEvtController:delete" type="service_closure" id=".service_locator.ndG5AvI"/>
         <argument key="App\Controller\UsrEvtController:edit" type="service_closure" id=".service_locator.aKM6MDa"/>
         <argument key="App\Controller\UsrEvtController:index" type="service_closure" id=".service_locator.aKM6MDa"/>
@@ -7370,15 +7370,15 @@
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.mx0UMmY" method="withContext"/>
     </service>
-    <service id=".service_locator.mx0UMmY.App\Controller\PdfController" class="Symfony\Component\DependencyInjection\ServiceLocator">
-      <tag name="container.service_locator_context" id="App\Controller\PdfController"/>
-      <argument>App\Controller\PdfController</argument>
+    <service id=".service_locator.mx0UMmY.App\Controller\PdfControlleraziz" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\PdfControlleraziz"/>
+      <argument>App\Controller\PdfControlleraziz</argument>
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.mx0UMmY" method="withContext"/>
     </service>
-    <service id=".service_locator.mx0UMmY.App\Controller\TestController" class="Symfony\Component\DependencyInjection\ServiceLocator">
-      <tag name="container.service_locator_context" id="App\Controller\TestController"/>
-      <argument>App\Controller\TestController</argument>
+    <service id=".service_locator.mx0UMmY.App\Controller\TestControlleraziz" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\TestControlleraziz"/>
+      <argument>App\Controller\TestControlleraziz</argument>
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.mx0UMmY" method="withContext"/>
     </service>
@@ -7565,12 +7565,12 @@
       <argument type="service" id="security.token_storage"/>
     </service>
     <service id="debug.argument_resolver.service.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">
-      <argument type="service" id=".service_locator.fmgmd65"/>
+      <argument type="service" id=".service_locator.KHyEJWE"/>
     </service>
     <service id="debug.argument_resolver.default.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver"/>
     <service id="debug.argument_resolver.variadic.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver"/>
     <service id="debug.argument_resolver.not_tagged_controller.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver">
-      <argument type="service" id=".service_locator.fmgmd65"/>
+      <argument type="service" id=".service_locator.KHyEJWE"/>
     </service>
     <service id="debug.traced.messenger.bus.default.inner" class="Symfony\Component\Messenger\MessageBus">
       <argument type="iterator">
@@ -8668,7 +8668,7 @@
     <service id="Vich\UploaderBundle\Form\Type\VichImageType" alias="vich_uploader.form.type.image"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.gSv9zYw" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.fmgmd65"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.KHyEJWE"/>
     <service id="session" alias=".session.do-not-use" public="true">
       <deprecated package="symfony/framework-bundle" version="5.3">The "%alias_id%" service and "SessionInterface" alias are deprecated, use "$requestStack-&gt;getSession()" instead.</deprecated>
     </service>
@@ -8693,7 +8693,7 @@
     <service id=".service_locator.0GV1BZZ" alias=".service_locator.gSv9zYw"/>
     <service id=".service_locator.lTnXb84" alias=".service_locator.wXSRjZL"/>
     <service id=".service_locator.sxiSx3z" alias=".service_locator.ndG5AvI"/>
-    <service id=".service_locator.KQXAG.K" alias=".service_locator.fmgmd65"/>
+    <service id=".service_locator.z3gA12b" alias=".service_locator.KHyEJWE"/>
     <service id=".service_locator.wKF4yn1" alias=".service_locator.19_mNxd"/>
     <service id=".service_locator.fmwCqOO" alias=".service_locator.sRpTR_x"/>
     <service id=".service_locator.0A_sVJv" alias=".service_locator.eazvf4J"/>

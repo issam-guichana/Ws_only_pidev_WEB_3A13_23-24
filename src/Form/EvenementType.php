@@ -20,10 +20,8 @@ class EvenementType extends AbstractType
                 'attr' => ['maxlength' => 255, 'class' => 'form-control'],
                 'constraints' => [
                     new Assert\NotBlank(['message' => 'Le nom de l\'événement ne peut pas être vide']),
-                    new Assert\Regex([
-                        'pattern' => '/^[a-zA-Z]+$/',
-                        'message' => 'Le nom de l\'événement ne peut contenir que des lettres.',
-                    ]),
+                    
+                    
                 ],
             ])
             ->add('description', Type\TextareaType::class, [

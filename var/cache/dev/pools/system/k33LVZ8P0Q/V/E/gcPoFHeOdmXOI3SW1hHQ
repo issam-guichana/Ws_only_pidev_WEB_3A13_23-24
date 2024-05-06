@@ -2,9 +2,7 @@
 
 return [PHP_INT_MAX, static function () { return \Symfony\Component\VarExporter\Internal\Hydrator::hydrate(
     $o = [
-        clone (($p = &\Symfony\Component\VarExporter\Internal\Registry::$prototypes)['Doctrine\\ORM\\Mapping\\Column'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('Doctrine\\ORM\\Mapping\\Column')),
-        clone ($p['Symfony\\Component\\Validator\\Constraints\\NotBlank'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('Symfony\\Component\\Validator\\Constraints\\NotBlank')),
-        clone ($p['Symfony\\Component\\Validator\\Constraints\\Type'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('Symfony\\Component\\Validator\\Constraints\\Type')),
+        clone (\Symfony\Component\VarExporter\Internal\Registry::$prototypes['Doctrine\\ORM\\Mapping\\Column'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('Doctrine\\ORM\\Mapping\\Column')),
     ],
     null,
     [
@@ -14,7 +12,6 @@ return [PHP_INT_MAX, static function () { return \Symfony\Component\VarExporter\
             ],
             'type' => [
                 'time',
-                2 => '\\DateTimeInterface',
             ],
             'precision' => [
                 null,
@@ -25,24 +22,10 @@ return [PHP_INT_MAX, static function () { return \Symfony\Component\VarExporter\
             'nullable' => [
                 true,
             ],
-            'groups' => [
-                1 => [
-                    'Default',
-                ],
-                [
-                    'Default',
-                ],
-            ],
-            'message' => [
-                1 => 'L\'heure de début ne peut pas être vide.',
-                'L\'heure de début doit être une heure valide.',
-            ],
         ],
     ],
     [
         $o[0],
-        $o[1],
-        $o[2],
     ],
     []
 ); }];

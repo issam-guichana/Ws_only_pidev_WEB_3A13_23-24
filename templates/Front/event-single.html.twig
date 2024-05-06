@@ -7,6 +7,7 @@
   </div>
   <!-- preloader end -->
 
+
 <!-- header -->
 <header class="fixed-top header">
   <!-- top header -->
@@ -38,7 +39,7 @@
   <div class="navigation w-100">
     <div class="container">
       <nav class="navbar navbar-expand-lg navbar-dark p-0">
-        <a class="navbar-brand" href="index.html.twig"><img src="/uploads/logo.png" alt="logo"></a>
+        <a class="navbar-brand" href="index.html.twig"><img src="/uploads/forminiii.png" alt="logo"></a>
         <button class="navbar-toggler rounded-0" type="button" data-toggle="collapse" data-target="#navigation"
           aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -111,86 +112,131 @@
     </div>
   </div>
 </section>
-<!-- event single -->
-<section class="section-sm">
-  <div class="container">
-    <div class="row">
-      <div class="col-12">
-        <h2 class="section-title">{{ event.nomEvent }}</h2>
-      </div>
-      <!-- event image -->
-      <div class="col-12 mb-4">
-        <img src="{{ asset('/uploads/' ~ event.imageEvent) }}" alt="event thumb" class="img-fluid w-100">
-      </div>
-    </div>
-    <!-- event info -->
-    <div class="row align-items-center mb-5">
-      <div class="col-lg-9">
-        <ul class="list-inline">
-          <li class="list-inline-item mr-xl-5 mr-4 mb-3 mb-lg-0">
-            <div class="d-flex align-items-center">
-              <i class="ti-location-pin text-primary icon-md mr-2"></i>
-              <div class="text-left">
-                <h6 class="mb-0">LOCATION</h6>
-                <p class="mb-0">{{ event.lieu }}</p>
-              </div>
-            </div>
-          </li>
-          <li class="list-inline-item mr-xl-5 mr-4 mb-3 mb-lg-0">
-            <div class="d-flex align-items-center">
-              <i class="ti-calendar text-primary icon-md mr-2"></i>
-              <div class="text-left">
-                <h6 class="mb-0">DATE</h6>
-                <p class="mb-0">{{ event.dateEvent|date('F d, Y') }}</p>
-              </div>
-            </div>
-          </li>
-          <li class="list-inline-item mr-xl-5 mr-4 mb-3 mb-lg-0">
-            <div class="d-flex align-items-center">
-              <i class="ti-time text-primary icon-md mr-2"></i>
-              <div class="text-left">
-                <h6 class="mb-0">TIME</h6>
-                <p class="mb-0">{{ event.heureDeb|date('h:i a') }}</p>
-              </div>
-            </div>
-          </li>
-          <li class="list-inline-item mr-xl-5 mr-4 mb-3 mb-lg-0">
-            <div class="d-flex align-items-center">
-              <i class="ti-wallet text-primary icon-md mr-2"></i>
-              <div class="text-left">
-                <h6 class="mb-0">ENTRY FEE</h6>
-                <p class="mb-0">${{ event.prix }}</p>
-              </div>
-            </div>
-          </li>
-        </ul>
-      </div>
-     <!-- SMS verification form -->
-        <section class="section-sm">
+  <!-- event details -->
+  <section class="section-sm">
     <div class="container">
-        <div class="row">
-            
-            <div class="col-12 mb-4">
-                <form action="{{ path('apply_event', { 'id': event.idEvent }) }}" method="post">
-                    <button type="submit" class="btn btn-primary">Apply for Event</button>
-                </form>
-            </div>
+      <div class="row">
+        <div class="col-12">
+          <h2 class="section-title">{{ event.nomEvent }}</h2>
         </div>
-    </div>
-</section>
-      <!-- border -->
-      <div class="col-12 mt-4 order-4">
-        <div class="border-bottom border-primary"></div>
+        <!-- event image -->
+        <div class="col-12 mb-4">
+          <img src="{{ asset('/uploads/' ~ event.imageEvent) }}" alt="event thumb" class="img-fluid w-100">
+        </div>
+      </div>
+      <!-- event info -->
+      <div class="row align-items-center mb-5">
+        <div class="col-lg-9">
+          <!-- Display event information (location, date, time, entry fee) -->
+          <ul class="list-inline">
+            <li class="list-inline-item mr-xl-5 mr-4 mb-3 mb-lg-0">
+              <!-- Location -->
+              <div class="d-flex align-items-center">
+                <i class="ti-location-pin text-primary icon-md mr-2"></i>
+                <div class="text-left">
+                  <h6 class="mb-0">LOCATION</h6>
+                  <p class="mb-0">{{ event.lieu }}</p>
+                </div>
+              </div>
+            </li>
+            <!-- Display other event details (date, time, entry fee) -->
+            <li class="list-inline-item mr-xl-5 mr-4 mb-3 mb-lg-0">
+              <div class="d-flex align-items-center">
+                <i class="ti-calendar text-primary icon-md mr-2"></i>
+                <div class="text-left">
+                  <h6 class="mb-0">DATE</h6>
+                  <p class="mb-0">{{ event.dateEvent|date('F d, Y') }}</p>
+                </div>
+              </div>
+            </li>
+            <li class="list-inline-item mr-xl-5 mr-4 mb-3 mb-lg-0">
+              <div class="d-flex align-items-center">
+                <i class="ti-time text-primary icon-md mr-2"></i>
+                <div class="text-left">
+                  <h6 class="mb-0">TIME</h6>
+                  <p class="mb-0">{{ event.heureDeb|date('h:i a') }}</p>
+                </div>
+              </div>
+            </li>
+            <li class="list-inline-item mr-xl-5 mr-4 mb-3 mb-lg-0">
+              <div class="d-flex align-items-center">
+                <i class="ti-wallet text-primary icon-md mr-2"></i>
+                <div class="text-left">
+                  <h6 class="mb-0">ENTRY FEE</h6>
+                  <p class="mb-0">${{ event.prix }}</p>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Apply for Event Form -->
+      <div class="row">
+        <div class="col-12 mb-4">
+          <form action="{{ path('apply_event', { 'id': event.idEvent }) }}" method="post">
+            <button type="submit" class="btn btn-primary">Apply for Event</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Event description -->
+      <div class="row">
+        <div class="col-12 mb-50">
+          <h3>About Event</h3>
+          <p>{{ event.description }}</p>
+        </div>
       </div>
     </div>
-    <!-- event details -->
-    <div class="row">
-      <div class="col-12 mb-50">
-        <h3>About Event</h3>
-        <p>{{ event.description }}</p>
-      </div>
-    </div>
-  </div>
-</section>
-<!-- /event single -->
+  </section>
+
+  <!-- Map container with reduced width -->
+  <div id="mapContainer" style="height: 400px; width: 100%; max-width: 600px; margin: 0 auto;"></div>
+
+  <!-- Include Leaflet JS and CSS -->
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+
+  <!-- Script for Map Initialization -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var lieu = "{{ event.lieu }}"; // Get the location from Twig variable
+
+      // Create a map container with Leaflet
+      var map = L.map('mapContainer').setView([0, 0], 13); // Default view (latitude, longitude, zoom)
+
+      // Add OpenStreetMap tiles to the map
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
+      }).addTo(map);
+
+      // Use a geocoding service to convert the location string to coordinates
+      fetch('https://nominatim.openstreetmap.org/search?format=json&q=' + encodeURIComponent(lieu))
+        .then(function(response) {
+          return response.json();
+        })
+        .then(function(data) {
+          if (data.length > 0) {
+            var location = data[0];
+            var lat = location.lat;
+            var lon = location.lon;
+
+            // Center the map on the coordinates of the location
+            map.setView([lat, lon], 13);
+
+            // Add a marker for the location
+            L.marker([lat, lon]).addTo(map)
+              .bindPopup('<b>{{ event.nomEvent }}</b><br>{{ event.lieu }}').openPopup();
+          } else {
+            console.error('Location not found:', lieu);
+          }
+        })
+        .catch(function(error) {
+          console.error('Error fetching location:', error);
+        });
+    });
+  </script>
+
+</body>
 {% endblock %}
