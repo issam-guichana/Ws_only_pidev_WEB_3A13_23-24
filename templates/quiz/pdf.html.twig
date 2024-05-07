@@ -42,11 +42,7 @@
                 <tr>
                     <td>{{ quiz.nomQuiz }}</td>
                     <td>
-                        {% if quiz.image %}
-                           <img src="{{ app.request.schemeAndHttpHost ~ '/' ~ quiz.image }}" alt="Quiz Image" style="width: 100px; height: auto;"/>
-                        {% else %}
-                            No image available
-                        {% endif %}
+                           <img src="{{ asset(quiz.image) }}" alt="Quiz Image" style="width: 100px; height: auto;"/>
                     </td>
                 </tr>
             {% endfor %}
