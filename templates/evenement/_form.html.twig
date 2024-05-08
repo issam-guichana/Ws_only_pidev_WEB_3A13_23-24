@@ -1,0 +1,85 @@
+{{ form_start(form, {'attr': {'class': 'needs-validation', 'novalidate': 'novalidate', 'enctype': 'multipart/form-data'}}) }}
+
+<div class="mb-3">
+    {{ form_label(form.nomEvent, 'Nom de l\'événement', {'label_attr': {'class': 'form-label'}}) }}
+    {{ form_widget(form.nomEvent, {'attr': {'class': 'form-control' ~ (form_errors(form.nomEvent)|length > 0 ? ' is-invalid' : '')}}) }}
+    {% if form_errors(form.nomEvent) %}
+        <div class="invalid-feedback">
+            {{ form_errors(form.nomEvent)|join(', ') }}
+        </div>
+    {% endif %}
+</div>
+
+<div class="mb-3">
+    {{ form_label(form.description, 'Description', {'label_attr': {'class': 'form-label'}}) }}
+    {{ form_widget(form.description, {'attr': {'class': 'form-control' ~ (form_errors(form.description)|length > 0 ? ' is-invalid' : '')}}) }}
+    {% if form_errors(form.description) %}
+        <div class="invalid-feedback">
+            {{ form_errors(form.description)|join(', ') }}
+        </div>
+    {% endif %}
+</div>
+
+<div class="mb-3">
+    {{ form_label(form.dateEvent, 'Date de l\'événement', {'label_attr': {'class': 'form-label'}}) }}
+    {{ form_widget(form.dateEvent, {'attr': {'class': 'form-control' ~ (form_errors(form.dateEvent)|length > 0 ? ' is-invalid' : '')}}) }}
+    {% if form_errors(form.dateEvent) %}
+        <div class="invalid-feedback">
+            {{ form_errors(form.dateEvent)|join(', ') }}
+        </div>
+    {% endif %}
+</div>
+
+<div class="mb-3">
+    {{ form_label(form.heureDeb, 'Heure de début', {'label_attr': {'class': 'form-label'}}) }}
+    {{ form_widget(form.heureDeb, {'attr': {'class': 'form-control' ~ (form_errors(form.heureDeb)|length > 0 ? ' is-invalid' : '')}}) }}
+    {% if form_errors(form.heureDeb) %}
+        <div class="invalid-feedback">
+            {{ form_errors(form.heureDeb)|join(', ') }}
+        </div>
+    {% endif %}
+</div>
+
+<div class="mb-3">
+    {{ form_label(form.prix, 'Prix', {'label_attr': {'class': 'form-label'}}) }}
+    {{ form_widget(form.prix, {'attr': {'class': 'form-control' ~ (form_errors(form.prix)|length > 0 ? ' is-invalid' : '')}}) }}
+    {% if form_errors(form.prix) %}
+        <div class="invalid-feedback">
+            {{ form_errors(form.prix)|join(', ') }}
+        </div>
+    {% endif %}
+</div>
+
+<div class="mb-3">
+    {{ form_label(form.nbrP, 'Nombre de participants', {'label_attr': {'class': 'form-label'}}) }}
+    {{ form_widget(form.nbrP, {'attr': {'class': 'form-control' ~ (form_errors(form.nbrP)|length > 0 ? ' is-invalid' : '')}}) }}
+    {% if form_errors(form.nbrP) %}
+        <div class="invalid-feedback">
+            {{ form_errors(form.nbrP)|join(', ') }}
+        </div>
+    {% endif %}
+</div>
+
+<div class="mb-3">
+    {{ form_label(form.lieu, 'Lieu', {'label_attr': {'class': 'form-label'}}) }}
+    {{ form_widget(form.lieu, {'attr': {'class': 'form-control' ~ (form_errors(form.lieu)|length > 0 ? ' is-invalid' : '')}}) }}
+    {% if form_errors(form.lieu) %}
+        <div class="invalid-feedback">
+            {{ form_errors(form.lieu)|join(', ') }}
+        </div>
+    {% endif %}
+</div>
+
+<div class="mb-3">
+    {{ form_label(form.imageEvent, 'Image de l\'événement', {'label_attr': {'class': 'form-label'}}) }}
+    {{ form_widget(form.imageEvent, {'attr': {'class': 'form-control-file' ~ (form_errors(form.imageEvent)|length > 0 ? ' is-invalid' : '')}}) }}
+    {% if form_errors(form.imageEvent) %}
+        <div class="invalid-feedback">
+            {{ form_errors(form.imageEvent)|join(', ') }}
+        </div>
+    {% endif %}
+</div>
+
+<button type="submit" class="btn btn-primary">Save</button>
+
+{{ form_end(form) }}
